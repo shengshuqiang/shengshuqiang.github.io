@@ -2,8 +2,8 @@
 permalink:           pretty
 
 # Setup
-title:               Home
-tagline:             移动技术
+title:               Android事件分发-来龙去脉
+tagline:             盛书强
 url:                 https://shengshuqiang.github.io
 paginate:            1
 baseurl:             ""
