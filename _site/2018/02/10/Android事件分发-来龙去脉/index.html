@@ -846,12 +846,13 @@ $(document).ready(function() {
 
 <h4 id="part-3786c68461ca49f">事件流</h4>
 
+<p><strong>Demo</strong>（<a href="https://github.com/shengshuqiang/viewdispatchtouchevent">git仓库</a>）ParentInterceptTouchEventActivity页面</p>
+
 <p>使用<a href="https://www.jianshu.com/p/d968645067d7"><strong>MECE</strong></a>（Mutually Exclusive Collectively Exhaustive，相互独立，完全穷尽）法则</p>
 
 <p><img src="http://localhost:4000/assets/%E4%BA%8B%E4%BB%B6%E6%B5%81MEMC%E5%9B%BE.png" alt="事件流MEMC图"></p>
 
-<p><strong>Demo</strong>（<a href="https://github.com/shengshuqiang/viewdispatchtouchevent">git仓库</a>）ParentInterceptTouchEventActivity页面
-<img src="http://localhost:4000/assets/ParentInterceptTouchEventActivity.png" alt="ParentInterceptTouchEventActivity"></p>
+<p><img src="http://localhost:4000/assets/ParentInterceptTouchEventActivity.png" alt="ParentInterceptTouchEventActivity"></p>
 
 <p>1.父控件ACTION_DOWN拦截<br>
 2.父控件消费事件<br><img src="http://localhost:4000/assets/%E8%A7%92%E8%89%B2%E4%BA%8B%E4%BB%B6%E6%B6%88%E8%B4%B9%E7%8A%B6%E6%80%81-1.png" alt="角色事件消费状态-1">
@@ -967,7 +968,7 @@ $(document).ready(function() {
 <ol>
 <li>ACTION_DOWN会触发查找目标消费View，优先子View尝试消费，如果子View仍然没有消费，则依次回溯到父控件尝试消费（直至DecorView，然后Activity尝试消费），如果找到了，则回溯返回true。</li>
 <li>ACTION_DOWN后续事件执行的前提是事件分发路径的终点就是目标消费View，目标消费View的父控件均会调用到事件拦截（让父控件有机会拦截下来，改变事件流），如果目标消费View的父控件拦截，拦截时的事件会转换为ACTION_CANCEL继续按原路径分发，后续的事件则不再分发给目标消费View，而是拦截的父控件自己消费。</li>
-<li>非ACTION_DOWN返回的消费状态对事件流没有影响。</li>
+<li>非ACTION_DOWN返回的消费状态对事件流没有影响，如果未消费，会回调给Activity处理。</li>
 </ol>
 
 <h2 id="part-6542bfebd44">标准</h2>
@@ -1022,8 +1023,8 @@ $(document).ready(function() {
 <li>个人主页
 
 <ol>
-<li><a href="https://www.jekyll.com.cn/">将纯文本转化为静态网站和博客</a>
-12.</li>
+<li><a href="https://www.jekyll.com.cn/">将纯文本转化为静态网站和博客</a></li>
+<li><a href="https://www.zhihu.com/question/20409634">怎样引导新手使用 Markdown？</a></li>
 </ol></li>
 </ol>
 
@@ -1085,5 +1086,5 @@ $(document).ready(function() {
 
 <ul>
 <li>作者： 盛书强，美团点评酒旅前端高级工程师，“九域之广,岂一人之强化,必伫才能,共成羽翼”，我们期待你的加入，简历发送至shengshuqiang@gmail.com。 </li>
-<li>声明： 本文为原创文章，未经许可，请勿转载，如需转载，请留言。</li>
+<li>声明： 本文为原创文章，转载请注明来源，共建和谐。</li>
 </ul>
