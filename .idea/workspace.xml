@@ -2,34 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e63add7-ca09-458a-be90-fc4fd19ca137" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/ParentInterceptTouchEventActivity.png" afterPath="$PROJECT_DIR$/_site/assets/ParentInterceptTouchEventActivity.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-1.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-10.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-10.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-11.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-11.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-2.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-3.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-3.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-4.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-4.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-5.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-5.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-6.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-6.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-7.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-7.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-8.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-8.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/角色事件消费状态-9.png" afterPath="$PROJECT_DIR$/_site/assets/角色事件消费状态-9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/ParentInterceptTouchEventActivity.png" afterPath="$PROJECT_DIR$/assets/ParentInterceptTouchEventActivity.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-1.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-10.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-10.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-11.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-11.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-2.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-3.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-3.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-4.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-4.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-5.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-5.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-6.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-6.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-7.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-7.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-8.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-8.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/角色事件消费状态-9.png" afterPath="$PROJECT_DIR$/assets/角色事件消费状态-9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" afterPath="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉/index.html" afterPath="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
     </list>
     <ignored path="shengshuqiang.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,8 +26,8 @@
         <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="512">
-                <caret line="1003" column="26" selection-start-line="1003" selection-start-column="26" selection-end-line="1003" selection-end-column="26" />
+              <first_editor relative-caret-position="92">
+                <caret line="897" column="0" selection-start-line="897" selection-start-column="0" selection-end-line="897" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -125,38 +98,7 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="Scratches" />
       <pane id="Scope" />
@@ -743,8 +685,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="512">
-            <caret line="1003" column="26" selection-start-line="1003" selection-start-column="26" selection-end-line="1003" selection-end-column="26" />
+          <first_editor relative-caret-position="92">
+            <caret line="897" column="0" selection-start-line="897" selection-start-column="0" selection-end-line="897" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor>
