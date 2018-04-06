@@ -1,37 +1,130 @@
-# Permalinks
-permalink:           pretty
-
-# Setup
-title:               Android事件分发-来龙去脉
-tagline:             盛书强
-url:                 https://shengshuqiang.github.io
-paginate:            1
-baseurl:             ""
-
-# Assets
+# Welcome to Jekyll!
 #
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir:          _sass
-  style:            :compressed
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+#
+# ,--------.      ,--.   ,--. ,--.
+# '--.  .--',---.  \  `.'  /,-'  '-.
+#    |  |  | .-. :  .'    \ '-.  .-'
+#    |  |  \   --. /  .'.  \  |  |
+#    `--'   `----''--'   '--' `--'
 
-# About/contact
+text_color_theme: default #eg: default | dark | forest | ocean | chocolate | orange
+## Base settings ##
+# url:  #the base hostname & protocol for your site e.g. https://www.someone.com
+baseurl: /
+title: 盛书强の博客
+description: > #this means to ignore newlines until "nav_lists:"
+  Someone's Blog
+
+nav_lists:
+  - titles:
+      en: About
+      zh: 关于
+      zh-Hans: 关于
+      zh-Hant: 關於
+    url: /about.html
+
+# paths:
+#   base: /
+#   home: /
+#   all:  /all.html
+#   rss:  /feed.xml
+
+## GitHub repository (if the site is hosted by GitHub) ##
+# repository:  #e.g. someone/someone.github.io
+# repository_tree:  #e.g. master
+
+## Language & timezone ##
+lang: zh #the language of your site, eg: en(English), zh(简体中文), zh-Hans(简体中文), zh-Hant(繁體中文)
+timezone: Asia/Beijing #see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
+
+## Author & social ##
 author:
-  name:              盛书强
-  url:               https://github.com/shengshuqiang
-  email:             shengshuqiang@gmail.com
+  name: 盛书强
+  email: shengshuqiang@gmail.com
+  # facebook:  #your Facebook username
+  # twitter:  #your Twitter username
+  github: https://github.com/shengshuqiang
+  # googleplus:  #your Google+ username
+  # weibo:  #your Weibo username
+  # douban:  #your Douban username
+  # linkedin:  #your Linkedin username
 
-# Custom vars
-version:             2.0.0
-github:
-  repo:              https://github.com/poole/poole
+## TOC
+toc:
+  # selectors: 'h1,h2,h3'
 
-# Gems
-gems:
+## Comment system (Disqus) ##
+disqus:
+  # shortname:  #the Disqus shortname for the site
+
+## Comment system (gitalk) ##
+# please refer to https://github.com/gitalk/gitalk for more info.
+gitalk:
+   clientID: 8f97e24b1eaf470accac #Github Application Client ID
+   clientSecret: c4f93393336be654eb62bb4c1f1694b9b1dc9664 #Github Application Client Secret
+   repository: shengshuqiang.github.io #Github repo
+   owner: shengshuqiang #Github repo owner
+   admin: shengshuqiang #Github repo owner and collaborators, only these guys can initialize github issues, IT IS A LIST.
+    # - owner
+
+## Google Analytics ##
+# ga_tracking_id:  #Google analytics id for the site
+
+## Reading quantity (LeanCloud) ##
+leancloud:
+  # app_id:  #LeanCloud App id
+  # app_key:  #LeanCloud App key
+  # app_class:  #LeanCloud App class
+
+# mathjax: true
+# mathjax_autoNumber: true
+# mermaid: true
+# chart: true
+
+## Paginate ##
+paginate: 7
+paginate_path: /blog/page:num
+
+## Post excerpts ##
+excerpt_separator: <!--more-->
+excerpt_type: html # text | html
+
+## Sources ##
+# sources: bootcss #eg: bootcss | unpkg
+
+## Build ##
+markdown: kramdown
+highlighter: rouge
+permalink: date
+
+exclude:
+  - CHANGELOG.md
+  - CHECKLIST.md
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README-*.md
+  - README.md
+  - gulpfile.js
+  - jekyll-text-theme.gemspec
+  - package-lock.json
+  - package.json
+  - /docs
+  - /node_modules
+  - /screenshots
+  - /test
+  - /vendor
+
+## Plugins ##
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
   - jekyll-paginate
-  - jekyll-gist
+  - jemoji
 
-# 目录
-markdown: redcarpet
-redcarpet:
-    extensions: [with_toc_data]
+## Server ##
+server_url: "0.0.0.0"
