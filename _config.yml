@@ -44,7 +44,7 @@ timezone: Asia/Beijing #see https://en.wikipedia.org/wiki/List_of_tz_database_ti
 ## Author & social ##
 author:
   name: 盛书强
-  email: shengshuqiang@gmail.com
+  email: 674329414@qq.com
   # facebook:  #your Facebook username
   # twitter:  #your Twitter username
   github: https://github.com/shengshuqiang
@@ -76,9 +76,9 @@ gitalk:
 
 ## Reading quantity (LeanCloud) ##
 leancloud:
-  # app_id:  #LeanCloud App id
-  # app_key:  #LeanCloud App key
-  # app_class:  #LeanCloud App class
+   app_id: XNxg7j5txa1vlQa9QsV5WeRM-gzGzoHsz #LeanCloud App id
+   app_key: vjctDaJE963GwdUv2goXfpCb #LeanCloud App key
+   app_class: shengshuqiang_blog_pv #LeanCloud App class
 
 # mathjax: true
 # mathjax_autoNumber: true
