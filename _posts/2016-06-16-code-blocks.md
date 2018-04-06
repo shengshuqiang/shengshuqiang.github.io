@@ -98,6 +98,34 @@ var space = ' ';
 (() => console.log(hello + space + world + space + hello + space + world + space + hello + space + world + space + hello + space + world))();
 {% endhighlight %}
 
+
+{% highlight java linenos %}
+/**
+  * Decor的意思是：装饰，布置。
+  * View树的根节点。
+  * 事件分发的启点，ViewRootImpl最先调用dispatchPointerEvent（实现在父类View里面）。
+  * 事件调用在DecorView里面形成了一个环。（先通过Window交由Activity分发，Activity再调用DecorView中的真正事件分发方法）
+  */
+public class DecorView extends FrameLayout  {
+    private PhoneWindow mWindow;
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        // DecorView直接覆盖ViewGroup的事件分发实现，其实这只是饶了个圈，
+        // 正真的事件分发会由Activity回调到superDispatchTouchEvent（ViewGroup的事件分发处理）。
+        // 调用Window的WindowCallbackWrapper对象继续分发。
+        final Window.Callback cb = mWindow.getCallback();
+        return cb != null && !mWindow.isDestroyed() && mFeatureId < 0
+                ? cb.dispatchTouchEvent(ev) : super.dispatchTouchEvent(ev);
+    }
+
+    public boolean superDispatchTouchEvent(MotionEvent event) {
+        // 调用父类ViewGroup进行事件分发处理。
+        return super.dispatchTouchEvent(event);
+    }
+}
+{% endhighlight %}
+
 **markdown:**
 
 ```

@@ -308,6 +308,55 @@ This text belongs to the same code block.
 <span class="kd">var</span> <span class="nx">space</span> <span class="o">=</span> <span class="s1">' '</span><span class="p">;</span>
 <span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hello</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">world</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">hello</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">world</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">hello</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">world</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">hello</span> <span class="o">+</span> <span class="nx">space</span> <span class="o">+</span> <span class="nx">world</span><span class="p">))();</span></pre></td></tr></tbody></table></code></pre></figure>
 
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="code"><pre><span class="cm">/**
+  * Decor的意思是：装饰，布置。
+  * View树的根节点。
+  * 事件分发的启点，ViewRootImpl最先调用dispatchPointerEvent（实现在父类View里面）。
+  * 事件调用在DecorView里面形成了一个环。（先通过Window交由Activity分发，Activity再调用DecorView中的真正事件分发方法）
+  */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DecorView</span> <span class="kd">extends</span> <span class="n">FrameLayout</span>  <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">PhoneWindow</span> <span class="n">mWindow</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// DecorView直接覆盖ViewGroup的事件分发实现，其实这只是饶了个圈，</span>
+        <span class="c1">// 正真的事件分发会由Activity回调到superDispatchTouchEvent（ViewGroup的事件分发处理）。</span>
+        <span class="c1">// 调用Window的WindowCallbackWrapper对象继续分发。</span>
+        <span class="kd">final</span> <span class="n">Window</span><span class="o">.</span><span class="na">Callback</span> <span class="n">cb</span> <span class="o">=</span> <span class="n">mWindow</span><span class="o">.</span><span class="na">getCallback</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">cb</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mWindow</span><span class="o">.</span><span class="na">isDestroyed</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">mFeatureId</span> <span class="o">&lt;</span> <span class="mi">0</span>
+                <span class="o">?</span> <span class="n">cb</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">)</span> <span class="o">:</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">superDispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 调用父类ViewGroup进行事件分发处理。</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
 <p><strong>markdown:</strong></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% highlight javascript linenos %}
