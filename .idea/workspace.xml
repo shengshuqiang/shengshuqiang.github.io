@@ -2,47 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e63add7-ca09-458a-be90-fc4fd19ca137" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/fa38a5d9550da9489b6bffa15e45b68a4778c287/_default.scssc" afterPath="$PROJECT_DIR$/.sass-cache/fa38a5d9550da9489b6bffa15e45b68a4778c287/_default.scssc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_includes/logo/logo.svg" afterPath="$PROJECT_DIR$/_includes/logo/logo.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/colors/_default.scss" afterPath="$PROJECT_DIR$/_sass/colors/_default.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/components/_header.scss" afterPath="$PROJECT_DIR$/_sass/components/_header.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2015/01/01/article-with-long-toc.html" afterPath="$PROJECT_DIR$/_site/2015/01/01/article-with-long-toc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2015/01/06/punctuation-characters.html" afterPath="$PROJECT_DIR$/_site/2015/01/06/punctuation-characters.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2015/02/02/very-long-title.html" afterPath="$PROJECT_DIR$/_site/2015/02/02/very-long-title.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2015/03/03/article-with-modify-date.html" afterPath="$PROJECT_DIR$/_site/2015/03/03/article-with-modify-date.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/05/02/horizontal-rules.html" afterPath="$PROJECT_DIR$/_site/2016/05/02/horizontal-rules.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/05/04/footnote.html" afterPath="$PROJECT_DIR$/_site/2016/05/04/footnote.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/05/05/definition.html" afterPath="$PROJECT_DIR$/_site/2016/05/05/definition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/05/08/blockquotes.html" afterPath="$PROJECT_DIR$/_site/2016/05/08/blockquotes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/06/06/lists.html" afterPath="$PROJECT_DIR$/_site/2016/06/06/lists.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/06/10/tables.html" afterPath="$PROJECT_DIR$/_site/2016/06/10/tables.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/06/16/code-blocks.html" afterPath="$PROJECT_DIR$/_site/2016/06/16/code-blocks.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/07/07/images.html" afterPath="$PROJECT_DIR$/_site/2016/07/07/images.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/09/01/links.html" afterPath="$PROJECT_DIR$/_site/2016/09/01/links.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/09/09/emphasis.html" afterPath="$PROJECT_DIR$/_site/2016/09/09/emphasis.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/09/19/headers.html" afterPath="$PROJECT_DIR$/_site/2016/09/19/headers.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2016/10/10/paragraphs.html" afterPath="$PROJECT_DIR$/_site/2016/10/10/paragraphs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/04/03/english.html" afterPath="$PROJECT_DIR$/_site/2017/04/03/english.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/04/12/traditional-chinese.html" afterPath="$PROJECT_DIR$/_site/2017/04/12/traditional-chinese.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/04/13/simplified-chinese.html" afterPath="$PROJECT_DIR$/_site/2017/04/13/simplified-chinese.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/05/05/chart.html" afterPath="$PROJECT_DIR$/_site/2017/05/05/chart.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/06/06/mermaid.html" afterPath="$PROJECT_DIR$/_site/2017/06/06/mermaid.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/07/07/mathjax.html" afterPath="$PROJECT_DIR$/_site/2017/07/07/mathjax.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/08/08/additional-styles.html" afterPath="$PROJECT_DIR$/_site/2017/08/08/additional-styles.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" afterPath="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉.html" afterPath="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/404.html" afterPath="$PROJECT_DIR$/_site/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/about.html" afterPath="$PROJECT_DIR$/_site/about.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/all.html" afterPath="$PROJECT_DIR$/_site/all.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/css/blog.css" afterPath="$PROJECT_DIR$/_site/assets/css/blog.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/images/logo/logo.svg" afterPath="$PROJECT_DIR$/_site/assets/images/logo/logo.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/blog/page2/index.html" afterPath="$PROJECT_DIR$/_site/blog/page2/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/blog/page3/index.html" afterPath="$PROJECT_DIR$/_site/blog/page3/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/blog/page4/index.html" afterPath="$PROJECT_DIR$/_site/blog/page4/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/feed.xml" afterPath="$PROJECT_DIR$/_site/feed.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/images/logo/logo.svg" afterPath="$PROJECT_DIR$/assets/images/logo/logo.svg" />
     </list>
     <ignored path="shengshuqiang.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,17 +27,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_default.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_sass/colors/_default.scss">
+      <file leaf-file-name="2018-02-10-Android事件分发-来龙去脉.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="36" column="3" lean-forward="false" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+            <state relative-caret-position="453">
+              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_header.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2017-08-08-additional-styles.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/2017-08-08-additional-styles.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2016-07-07-images.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/2016-07-07-images.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_header.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_sass/components/_header.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
@@ -82,41 +67,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/ajv/README.md">
+      <file leaf-file-name="2015-01-06-punctuation-characters.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-01-06-punctuation-characters.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="28" lean-forward="false" selection-start-line="0" selection-start-column="28" selection-end-line="0" selection-end-column="28" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="travis-gh-pages" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/ajv/scripts/travis-gh-pages">
+      <file leaf-file-name="2015-01-01-article-with-long-toc.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-01-01-article-with-long-toc.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logo.svg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_includes/logo/logo.svg">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-80533">
-              <caret line="0" column="682476" lean-forward="false" selection-start-line="0" selection-start-column="682476" selection-end-line="0" selection-end-column="682476" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_shape.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_sass/common/classes/_shape.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+            <state relative-caret-position="135">
+              <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -174,6 +139,7 @@
       <find>lo</find>
       <find>logo</find>
       <find>FC4D4F</find>
+      <find>Mixture</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,12 +165,12 @@
         <option value="$PROJECT_DIR$/_layouts/page.html" />
         <option value="$PROJECT_DIR$/_layouts/post.html" />
         <option value="$PROJECT_DIR$/_posts/2016-06-16-code-blocks.md" />
-        <option value="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" />
         <option value="$PROJECT_DIR$/_sass/colors/_default.scss" />
         <option value="$PROJECT_DIR$/_config.yml" />
         <option value="$PROJECT_DIR$/assets/images/logo/logo.svg" />
         <option value="$PROJECT_DIR$/_includes/logo/logo.svg" />
         <option value="$PROJECT_DIR$/_sass/components/_header.scss" />
+        <option value="$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md" />
       </list>
     </option>
   </component>
@@ -257,57 +223,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="_sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_includes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shengshuqiang.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="_includes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="logo" />
+              <option name="myItemId" value="_posts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -413,7 +329,7 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523078959239" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523099804491" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -460,7 +376,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523078959239" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523099804491" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -647,7 +563,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21634954" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -680,13 +596,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_includes/head.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_layouts/page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -778,21 +687,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-01-01-article-with-long-toc.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-10-10-paragraphs.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-01-06-punctuation-characters.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -838,22 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="605">
           <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12030">
-          <caret line="802" column="18" lean-forward="false" selection-start-line="802" selection-start-column="18" selection-end-line="802" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2017-08-08-additional-styles.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="20" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -920,32 +799,32 @@
         <state relative-caret-position="152">
           <caret line="195" column="16" lean-forward="false" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
           <folding>
-            <marker date="1523078884325" expanded="true" signature="689692:689716" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689692:689931" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689692:689941" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689692:690065" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689692:690076" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689692:692800" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689726:689922" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689737:689911" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689967:690052" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="689992:690046" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690013:690039" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690118:691940" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690139:691933" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690151:691596" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690174:691587" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690224:691464" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690348:691459" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690406:691447" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690513:691432" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690544:691417" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="690664:691410" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="691481:691581" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="691627:691924" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="691661:691910" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="691782:691905" ph="..." />
-            <marker date="1523078884325" expanded="true" signature="691948:692793" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:689716" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:689931" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:689941" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:690065" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:690076" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689692:692800" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689726:689922" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689737:689911" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689967:690052" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="689992:690046" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690013:690039" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690118:691940" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690139:691933" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690151:691596" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690174:691587" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690224:691464" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690348:691459" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690406:691447" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690513:691432" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690544:691417" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="690664:691410" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="691481:691581" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="691627:691924" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="691661:691910" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="691782:691905" ph="..." />
+            <marker date="1523099717051" expanded="true" signature="691948:692793" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1050,6 +929,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-01-06-punctuation-characters.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-01-01-article-with-long-toc.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2016-07-07-images.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2017-08-08-additional-styles.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding />
         </state>
       </provider>

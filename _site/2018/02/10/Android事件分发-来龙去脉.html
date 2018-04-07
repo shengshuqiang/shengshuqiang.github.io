@@ -2,7 +2,7 @@
   <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Android事件分发-来龙去脉 - 盛书强</title>
-<meta name="description" content="情境(Situation)  专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。  View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。冲突(Complication)  网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），看完后...">
+<meta name="description" content="情境(Situation)1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。冲突(Complication)1. 网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），...">
 <link rel="canonical" href="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html"><link rel="alternate" type="application/rss+xml" title="盛书强" href="http://localhost:4000/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
@@ -212,6 +212,8 @@
           <a class="pill-button" href="/all.html?tag=Android">Android</a>
         </li><li>
           <a class="pill-button" href="/all.html?tag=%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91">事件分发</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90">源码剖析</a>
         </li></ul><div class="other-wrapper"><div class="view-wrapper">
         <span class="article-view" id="post-key-20180210">0
         </span> 阅读
@@ -223,30 +225,28 @@
 </header>
 				<div class="m-article-content js-article-content" itemprop="articleBody"><h1 id="情境situation">情境(Situation)</h1>
 
-<ol>
-  <li>专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。</li>
-  <li>View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。</li>
-</ol>
+<p class="info">1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。
+<br />2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。</p>
 
 <h1 id="冲突complication">冲突(Complication)</h1>
 
-<ol>
-  <li>网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），看完后不明觉厉。</li>
-  <li>事件分发主要用于解决自定义炫酷控件以及滑动嵌套引发的冲突问题（程序傻傻分不清是横滑还是竖滑），发现同行各种写法都有，雷无处不在【人在家中坐，锅从天上来】。</li>
-</ol>
+<p class="warning">1. 网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），看完后不明觉厉。
+<br />2. 事件分发主要用于解决自定义炫酷控件以及滑动嵌套引发的冲突问题（程序傻傻分不清是横滑还是竖滑），发现同行各种写法都有，雷无处不在【人在家中坐，锅从天上来】。</p>
 
 <!--more-->
 
-<p><strong>我的机会来了</strong><img src="http://www.linglingfa.net/new/face/233.gif" alt="大笑" /></p>
+<hr />
+
+<p><strong><center>我的机会来了<img src="http://www.linglingfa.net/new/face/233.gif" /></center></strong></p>
+
+<hr />
 
 <h1 id="疑问question">疑问(Question)</h1>
 
-<ol>
-  <li>有没有体系化剖析套路？</li>
-  <li>指出常见错误，给出最佳实践？</li>
-  <li>清晰明了的给出一张图，便于查阅？</li>
-  <li>“鱼”和“渔”可以兼得？</li>
-</ol>
+<p class="success">1. 有没有体系化剖析套路？
+<br />2. 指出常见错误，给出最佳实践？
+<br />3. 清晰明了的给出一张图，便于查阅？
+<br />4. “鱼”和“渔”可以兼得？</p>
 
 <h1 id="答案answer">答案(Answer)</h1>
 
@@ -256,7 +256,7 @@
 
 <h4 id="约法三章">约法三章</h4>
 
-<ol>
+<ol class="warning">
   <li>限于个人水平，本文只包含单点触控事件（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）。</li>
   <li>Window类相关的我不会，肤浅的认为和事件分发关系不大（求大牛点拨），直接跳过。</li>
   <li>一家之言，姑妄言之，姑妄听之。</li>
@@ -287,7 +287,7 @@
 
 <h3 id="论据">论据</h3>
 
-<p>基于<strong>Android 8.0 （API Level 28）</strong>源码解析</p>
+<p class="info">基于<strong>Android 8.0 （API Level 28）</strong>源码解析</p>
 
 <h4 id="人机交互">人机交互</h4>
 
@@ -297,7 +297,7 @@
 
 <p><strong>赏析</strong></p>
 
-<ol>
+<ol class="info">
   <li>用户的按键行为-&gt;手机传感器-&gt;ViewRootImpl-&gt;DecorView-&gt;WindowCallbackWrapper-&gt;Activity-&gt;PhoneWindow-&gt;DecorView-&gt;ViewGroup*-&gt;View-&gt;程序员的代码逻辑-&gt;硬件（显示器、扬声器等）响应输出-&gt;用户感知</li>
 </ol>
 
@@ -307,7 +307,7 @@
 
 <p><strong>赏析</strong></p>
 
-<ol>
+<ol class="info">
   <li>View是由树形结构组织，节点为ViewGroup或者View。ViewGroup可以包含多个子节点，View没有子节点。</li>
   <li>Android中View树的根节点为DecorView（父View为FrameLayout，属于ViewGroup）。</li>
   <li>Android中用户可自定义的View子树根节点id为“android:id/content”。</li>
@@ -319,7 +319,7 @@
 
 <p><strong>赏析</strong></p>
 
-<ol>
+<ol class="info">
   <li>ViewRootImpl是Android层逻辑起始点，用于接收来自系统底层的事件消息。相当于View管理类，本身不是View。（BTW：View绘制流程的三部曲（measure、layout、draw）也由该类触发的。）</li>
   <li>DecorView是Android View树的根节点，持有window对象。本身能够直接进行真正事件分发能力（继承了父类ViewGroup和View的事件分发处理功能），但是事件分发会直接调用window，间接传递到Activity的事件分发，后续会由Activity回调DecorView的真正事件分发能力。对应图中的环形依赖。</li>
   <li>Activity是Android中的页面，真正的事件分发由该类的dispatchTouchEvent触发。（Easter Eggs：如果你想让用户操作不了你的界面，蒙一层透明的View是不是有点low，直接重写该方法就可以控制。）</li>
