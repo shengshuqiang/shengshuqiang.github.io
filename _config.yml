@@ -17,7 +17,7 @@ text_color_theme: default #eg: default | dark | forest | ocean | chocolate | ora
 baseurl: /
 title: 盛书强
 description: > #this means to ignore newlines until "nav_lists:"
-  Someone's Blog
+  盛之羽翼
 
 nav_lists:
   - titles:

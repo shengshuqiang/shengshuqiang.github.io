@@ -170,11 +170,11 @@ body {
   color: #333;
   background-color: #fff; }
   body ::-moz-selection {
-    background: rgba(252, 77, 80, 0.5); }
+    background: rgba(60, 120, 216, 0.5); }
   body ::-webkit-selection {
-    background: rgba(252, 77, 80, 0.5); }
+    background: rgba(60, 120, 216, 0.5); }
   body ::selection {
-    background: rgba(252, 77, 80, 0.5); }
+    background: rgba(60, 120, 216, 0.5); }
 
 input, textarea, select, button {
   font: 400 1rem/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -236,17 +236,17 @@ a {
   a.active, a:active {
     text-decoration: underline; }
   a, a:link, a:visited {
-    color: #fc4d50; }
+    color: #3c78d8; }
     a svg path, a:link svg path, a:visited svg path {
-      fill: #fc4d50; }
+      fill: #3c78d8; }
   .not-touch a.hover, .not-touch a:hover {
-    color: #fc4d50; }
+    color: #3c78d8; }
     .not-touch a.hover svg path, .not-touch a:hover svg path {
-      fill: #fc4d50; }
+      fill: #3c78d8; }
   a.active, a:active {
-    color: #fc4d50; }
+    color: #3c78d8; }
     a.active svg path, a:active svg path {
-      fill: #fc4d50; }
+      fill: #3c78d8; }
 
 pre, code {
   font-family: Menlo, Monaco, Consolas, Andale Mono, lucida console, Courier New, monospace; }
@@ -303,12 +303,12 @@ input:focus {
       fill: #333; }
   .not-touch .hover.round-button, .not-touch .hover.floating-action-round-button, .not-touch .hover.pill-button, .not-touch .m-all > .main > .m-search-box > .hover.icon-clear, .not-touch .round-button:hover, .not-touch .floating-action-round-button:hover, .not-touch .pill-button:hover, .not-touch .m-all > .main > .m-search-box > .icon-clear:hover {
     color: #fff;
-    background-color: #fc4d50; }
+    background-color: #3c78d8; }
     .not-touch .hover.round-button svg path, .not-touch .hover.floating-action-round-button svg path, .not-touch .hover.pill-button svg path, .not-touch .m-all > .main > .m-search-box > .hover.icon-clear svg path, .not-touch .round-button:hover svg path, .not-touch .floating-action-round-button:hover svg path, .not-touch .pill-button:hover svg path, .not-touch .m-all > .main > .m-search-box > .icon-clear:hover svg path {
       fill: #fff; }
   .active.round-button, .active.floating-action-round-button, .active.pill-button, .m-all > .main > .m-search-box > .active.icon-clear, .round-button:active, .floating-action-round-button:active, .pill-button:active, .m-all > .main > .m-search-box > .icon-clear:active {
     color: #fff;
-    background-color: #fc4d50; }
+    background-color: #3c78d8; }
     .active.round-button svg path, .active.floating-action-round-button svg path, .active.pill-button svg path, .m-all > .main > .m-search-box > .active.icon-clear svg path, .round-button:active svg path, .floating-action-round-button:active svg path, .pill-button:active svg path, .m-all > .main > .m-search-box > .icon-clear:active svg path {
       fill: #fff; }
   .round-button svg, .floating-action-round-button svg, .pill-button svg, .m-all > .main > .m-search-box > .icon-clear svg {
@@ -407,13 +407,13 @@ input:focus {
       .m-page-header a svg path, .m-page-header a:link svg path, .m-page-header a:visited svg path {
         fill: #333; }
     .not-touch .m-page-header a.hover, .not-touch .m-page-header a:hover {
-      color: #fc4d50; }
+      color: #3c78d8; }
       .not-touch .m-page-header a.hover svg path, .not-touch .m-page-header a:hover svg path {
-        fill: #fc4d50; }
+        fill: #3c78d8; }
     .m-page-header a.active, .m-page-header a:active {
-      color: #fc4d50; }
+      color: #3c78d8; }
       .m-page-header a.active svg path, .m-page-header a:active svg path {
-        fill: #fc4d50; }
+        fill: #3c78d8; }
   .m-page-header > .main > .site-logo {
     float: left;
     display: -webkit-box;
@@ -441,8 +441,8 @@ input:focus {
     .m-page-header > .main > .site-logo > svg {
       margin-right: .8rem;
       vertical-align: middle;
-      width: 1.92rem;
-      height: 1.92rem; }
+      width: 3.6rem;
+      height: 3.6rem; }
       @media screen and (max-width: 500px) {
         .m-page-header > .main > .site-logo > svg {
           margin-right: .5rem;
@@ -573,13 +573,13 @@ input:focus {
         .m-article-content h1 > .anchor svg path, .m-article-content h1 > .anchor:link svg path, .m-article-content h1 > .anchor:visited svg path, .m-article-content h2 > .anchor svg path, .m-article-content h2 > .anchor:link svg path, .m-article-content h2 > .anchor:visited svg path, .m-article-content h3 > .anchor svg path, .m-article-content h3 > .anchor:link svg path, .m-article-content h3 > .anchor:visited svg path, .m-article-content h4 > .anchor svg path, .m-article-content h4 > .anchor:link svg path, .m-article-content h4 > .anchor:visited svg path, .m-article-content h5 > .anchor svg path, .m-article-content h5 > .anchor:link svg path, .m-article-content h5 > .anchor:visited svg path, .m-article-content h6 > .anchor svg path, .m-article-content h6 > .anchor:link svg path, .m-article-content h6 > .anchor:visited svg path {
           fill: #cccccc; }
       .not-touch .m-article-content h1 > .anchor.hover, .not-touch .m-article-content h1 > .anchor:hover, .not-touch .m-article-content h2 > .anchor.hover, .not-touch .m-article-content h2 > .anchor:hover, .not-touch .m-article-content h3 > .anchor.hover, .not-touch .m-article-content h3 > .anchor:hover, .not-touch .m-article-content h4 > .anchor.hover, .not-touch .m-article-content h4 > .anchor:hover, .not-touch .m-article-content h5 > .anchor.hover, .not-touch .m-article-content h5 > .anchor:hover, .not-touch .m-article-content h6 > .anchor.hover, .not-touch .m-article-content h6 > .anchor:hover {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .not-touch .m-article-content h1 > .anchor.hover svg path, .not-touch .m-article-content h1 > .anchor:hover svg path, .not-touch .m-article-content h2 > .anchor.hover svg path, .not-touch .m-article-content h2 > .anchor:hover svg path, .not-touch .m-article-content h3 > .anchor.hover svg path, .not-touch .m-article-content h3 > .anchor:hover svg path, .not-touch .m-article-content h4 > .anchor.hover svg path, .not-touch .m-article-content h4 > .anchor:hover svg path, .not-touch .m-article-content h5 > .anchor.hover svg path, .not-touch .m-article-content h5 > .anchor:hover svg path, .not-touch .m-article-content h6 > .anchor.hover svg path, .not-touch .m-article-content h6 > .anchor:hover svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
       .m-article-content h1 > .anchor.active, .m-article-content h1 > .anchor:active, .m-article-content h2 > .anchor.active, .m-article-content h2 > .anchor:active, .m-article-content h3 > .anchor.active, .m-article-content h3 > .anchor:active, .m-article-content h4 > .anchor.active, .m-article-content h4 > .anchor:active, .m-article-content h5 > .anchor.active, .m-article-content h5 > .anchor:active, .m-article-content h6 > .anchor.active, .m-article-content h6 > .anchor:active {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .m-article-content h1 > .anchor.active svg path, .m-article-content h1 > .anchor:active svg path, .m-article-content h2 > .anchor.active svg path, .m-article-content h2 > .anchor:active svg path, .m-article-content h3 > .anchor.active svg path, .m-article-content h3 > .anchor:active svg path, .m-article-content h4 > .anchor.active svg path, .m-article-content h4 > .anchor:active svg path, .m-article-content h5 > .anchor.active svg path, .m-article-content h5 > .anchor:active svg path, .m-article-content h6 > .anchor.active svg path, .m-article-content h6 > .anchor:active svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
       .m-article-content h1 > .anchor > svg, .m-article-content h2 > .anchor > svg, .m-article-content h3 > .anchor > svg, .m-article-content h4 > .anchor > svg, .m-article-content h5 > .anchor > svg, .m-article-content h6 > .anchor > svg {
         width: 1rem;
         height: 1rem;
@@ -784,8 +784,8 @@ input:focus {
     .m-pagination > ul > *:last-child {
       margin-right: 0; }
 .m-pagination .round-button.cur, .m-pagination .cur.floating-action-round-button {
-  background-color: #fc4d50;
-  border-color: #fc4d50;
+  background-color: #3c78d8;
+  border-color: #3c78d8;
   color: #fff; }
 .m-pagination .omit {
   display: -webkit-box;
@@ -819,7 +819,7 @@ input:focus {
     box-sizing: border-box; }
     .m-tags > ul > li > button, .m-tags > ul > li > button:link, .m-tags > ul > li > button:visited {
       color: #fff;
-      background-color: #fc4d50; }
+      background-color: #3c78d8; }
       .m-tags > ul > li > button svg path, .m-tags > ul > li > button:link svg path, .m-tags > ul > li > button:visited svg path {
         fill: #fff; }
     .not-touch .m-tags > ul > li > button.hover, .not-touch .m-tags > ul > li > button:hover {
@@ -866,13 +866,13 @@ input:focus {
       margin-left: .2rem;
       vertical-align: top; }
 .m-tags .tag-1, .m-tags .tag-1:link, .m-tags .tag-1:visited {
-  background-color: rgba(252, 77, 80, 0.4); }
+  background-color: rgba(60, 120, 216, 0.4); }
 .m-tags .tag-2, .m-tags .tag-2:link, .m-tags .tag-2:visited {
-  background-color: rgba(252, 77, 80, 0.55); }
+  background-color: rgba(60, 120, 216, 0.55); }
 .m-tags .tag-3, .m-tags .tag-3:link, .m-tags .tag-3:visited {
-  background-color: rgba(252, 77, 80, 0.7); }
+  background-color: rgba(60, 120, 216, 0.7); }
 .m-tags .tag-4, .m-tags .tag-4:link, .m-tags .tag-4:visited {
-  background-color: rgba(252, 77, 80, 0.9); }
+  background-color: rgba(60, 120, 216, 0.9); }
 
 .m-toc ul {
   display: block;
@@ -931,7 +931,7 @@ input:focus {
   padding-left: 3rem; }
 .m-toc .toc-active a {
   background-color: rgba(0, 0, 0, 0.05);
-  color: #fc4d50; }
+  color: #3c78d8; }
 
 .follow-me {
   text-align: center; }
@@ -1121,13 +1121,13 @@ input:focus {
     .m-page-footer a svg path, .m-page-footer a:link svg path, .m-page-footer a:visited svg path {
       fill: #333; }
   .not-touch .m-page-footer a.hover, .not-touch .m-page-footer a:hover {
-    color: #fc4d50; }
+    color: #3c78d8; }
     .not-touch .m-page-footer a.hover svg path, .not-touch .m-page-footer a:hover svg path {
-      fill: #fc4d50; }
+      fill: #3c78d8; }
   .m-page-footer a.active, .m-page-footer a:active {
-    color: #fc4d50; }
+    color: #3c78d8; }
     .m-page-footer a.active svg path, .m-page-footer a:active svg path {
-      fill: #fc4d50; }
+      fill: #3c78d8; }
   .m-page-footer .site-info {
     text-align: center;
     font-size: 0.8rem;
@@ -1161,13 +1161,13 @@ input:focus {
       .m-post-list > article > h1 > a svg path, .m-post-list > article > h1 > a:link svg path, .m-post-list > article > h1 > a:visited svg path {
         fill: #111; }
     .not-touch .m-post-list > article > h1 > a.hover, .not-touch .m-post-list > article > h1 > a:hover {
-      color: #fc4d50; }
+      color: #3c78d8; }
       .not-touch .m-post-list > article > h1 > a.hover svg path, .not-touch .m-post-list > article > h1 > a:hover svg path {
-        fill: #fc4d50; }
+        fill: #3c78d8; }
     .m-post-list > article > h1 > a.active, .m-post-list > article > h1 > a:active {
-      color: #fc4d50; }
+      color: #3c78d8; }
       .m-post-list > article > h1 > a.active svg path, .m-post-list > article > h1 > a:active svg path {
-        fill: #fc4d50; }
+        fill: #3c78d8; }
   .m-post-list > article > a {
     font-size: 0.9rem; }
   .m-post-list > article:not(:last-child) {
@@ -1288,13 +1288,13 @@ input:focus {
         .m-all > .main > .m-result section ul > li .link svg path, .m-all > .main > .m-result section ul > li .link:link svg path, .m-all > .main > .m-result section ul > li .link:visited svg path {
           fill: #111; }
       .not-touch .m-all > .main > .m-result section ul > li .link.hover, .not-touch .m-all > .main > .m-result section ul > li .link:hover {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .not-touch .m-all > .main > .m-result section ul > li .link.hover svg path, .not-touch .m-all > .main > .m-result section ul > li .link:hover svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
       .m-all > .main > .m-result section ul > li .link.active, .m-all > .main > .m-result section ul > li .link:active {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .m-all > .main > .m-result section ul > li .link.active svg path, .m-all > .main > .m-result section ul > li .link:active svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
 
 .m-post .col-2 {
   display: none;
@@ -1334,13 +1334,13 @@ input:focus {
         .m-post .article-previous-next > .article-previous > a svg path, .m-post .article-previous-next > .article-previous > a:link svg path, .m-post .article-previous-next > .article-previous > a:visited svg path, .m-post .article-previous-next > .article-next > a svg path, .m-post .article-previous-next > .article-next > a:link svg path, .m-post .article-previous-next > .article-next > a:visited svg path {
           fill: #333; }
       .not-touch .m-post .article-previous-next > .article-previous > a.hover, .not-touch .m-post .article-previous-next > .article-previous > a:hover, .not-touch .m-post .article-previous-next > .article-next > a.hover, .not-touch .m-post .article-previous-next > .article-next > a:hover {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .not-touch .m-post .article-previous-next > .article-previous > a.hover svg path, .not-touch .m-post .article-previous-next > .article-previous > a:hover svg path, .not-touch .m-post .article-previous-next > .article-next > a.hover svg path, .not-touch .m-post .article-previous-next > .article-next > a:hover svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
       .m-post .article-previous-next > .article-previous > a.active, .m-post .article-previous-next > .article-previous > a:active, .m-post .article-previous-next > .article-next > a.active, .m-post .article-previous-next > .article-next > a:active {
-        color: #fc4d50; }
+        color: #3c78d8; }
         .m-post .article-previous-next > .article-previous > a.active svg path, .m-post .article-previous-next > .article-previous > a:active svg path, .m-post .article-previous-next > .article-next > a.active svg path, .m-post .article-previous-next > .article-next > a:active svg path {
-          fill: #fc4d50; }
+          fill: #3c78d8; }
   .m-post .article-previous-next > .article-previous {
     float: left;
     padding-right: .5rem; }
