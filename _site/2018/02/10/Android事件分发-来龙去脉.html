@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Android事件分发-来龙去脉 - 盛书强</title>
 <meta name="description" content="情境(Situation)1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。冲突(Complication)1. 网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），...">
-<link rel="canonical" href="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html"><link rel="alternate" type="application/rss+xml" title="盛书强" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html"><link rel="alternate" type="application/rss+xml" title="盛书强" href="/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -223,7 +223,19 @@
   </div>
 </div>
 </header>
-				<div class="m-article-content js-article-content" itemprop="articleBody"><h1 id="情境situation">情境(Situation)</h1>
+				<div class="m-article-content js-article-content" itemprop="articleBody"><!-- 添加目录 http://blog.csdn.net/hengwei_vc/article/details/47122103 -->
+<script src="/javascripts/jquery-2.1.4.min.js" type="text/javascript"></script>
+
+<script src="/javascripts/toc.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#toc').toc();
+}); </script>
+
+<div id="toc"></div>
+
+<h1 id="情境situation">情境(Situation)</h1>
 
 <p class="info">1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。
 <br />2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。</p>
@@ -256,34 +268,24 @@
 
 <h4 id="约法三章">约法三章</h4>
 
-<ol class="warning">
-  <li>限于个人水平，本文只包含单点触控事件（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）。</li>
-  <li>Window类相关的我不会，肤浅的认为和事件分发关系不大（求大牛点拨），直接跳过。</li>
-  <li>一家之言，姑妄言之，姑妄听之。</li>
-</ol>
+<p class="warning">1. 限于个人水平，本文只包含单点触控事件（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）。
+<br />2. Window类相关的我不会，肤浅的认为和事件分发关系不大（求大牛点拨），直接跳过。
+<br />3. 一家之言，姑妄言之，姑妄听之。</p>
 
 <h4 id="点">点</h4>
 
-<ol>
-  <li><a href="https://developer.android.com/reference/android/view/MotionEvent.html">事件流一致性保证(Consistency Guarantees)</a>：按下开始，中间可能伴随着移动，松开或者取消结束。ACTION_DOWN -&gt; ACTION_MOVE(*) -&gt; ACTION_UP/ACTION_CANCEL。</li>
-  <li>View类的dispatchTouchEvent方法完成事件的消费处理，ViewGroup的dispatchTouchEvent方法完成事件的分发处理。正常情况下不建议重写该方法改变系统事件分发机制。</li>
-  <li>ViewGroup类的onInterceptTouchEvent方法完成事件的拦截处理。事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。</li>
-  <li>View类的onTouchEvent方法完成具体处理事件消费，即触发点击监听（OnClickListener）和长时间点击监听(OnLongClickListener)以及按键状态、焦点相关处理。
-    <ol>
-      <li>如果设置了OnTouchListener，会先调用OnTouchListener，如果该监听onTouch返回true，则不会调用onTouchEvent，直接返回已消费；</li>
-      <li>如果设置了TouchDelegate ，onTouchEvent中会先调用TouchDelegate，如果该类onTouchEvent返回true，则直接返回已消费；</li>
-      <li>如果View 可点击，执行onTouchEvent中事件处理，并返回true；
-        <ol>
-          <li>ACTION_DOWN：置按键标志位为按下状态，并触发延时（500ms）执行长按点击事件。</li>
-          <li>ACTION_MOVE：如果按键坐标超出该控件区域，则置按键标志位为非按下状态，并且移除ACTION_DOWN触发的延时执行长按点击事件。</li>
-          <li>ACTION_UP：如果按键标志位为按下状态，并且ACTION_DOWN触发的长按点击事件还未执行，则移除长按点击事件，执行点击事件。</li>
-          <li>ACTION_CANCEL：置按键标志位为非按下状态，移除ACTION_DOWN触发的延时执行长按点击事件。</li>
-        </ol>
-      </li>
-      <li>否则不可点击，返回false；</li>
-    </ol>
-  </li>
-</ol>
+<p class="info">1. <a href="https://developer.android.com/reference/android/view/MotionEvent.html">事件流一致性保证(Consistency Guarantees)</a>：按下开始，中间可能伴随着移动，松开或者取消结束。ACTION_DOWN -&gt; ACTION_MOVE(*) -&gt; ACTION_UP/ACTION_CANCEL。
+<br />2. View类的dispatchTouchEvent方法完成事件的消费处理，ViewGroup的dispatchTouchEvent方法完成事件的分发处理。正常情况下不建议重写该方法改变系统事件分发机制。
+<br />3. ViewGroup类的onInterceptTouchEvent方法完成事件的拦截处理。事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。
+<br />4. View类的onTouchEvent方法完成具体处理事件消费，即触发点击监听（OnClickListener）和长时间点击监听(OnLongClickListener)以及按键状态、焦点相关处理。
+<br />  1. 如果设置了OnTouchListener，会先调用OnTouchListener，如果该监听onTouch返回true，则不会调用onTouchEvent，直接返回已消费；
+<br />  2. 如果设置了TouchDelegate ，onTouchEvent中会先调用TouchDelegate，如果该类onTouchEvent返回true，则直接返回已消费；
+<br />  3. 如果View 可点击，执行onTouchEvent中事件处理，并返回true；
+<br />    1. ACTION_DOWN：置按键标志位为按下状态，并触发延时（500ms）执行长按点击事件。
+<br />    2. ACTION_MOVE：如果按键坐标超出该控件区域，则置按键标志位为非按下状态，并且移除ACTION_DOWN触发的延时执行长按点击事件。
+<br />    3. ACTION_UP：如果按键标志位为按下状态，并且ACTION_DOWN触发的长按点击事件还未执行，则移除长按点击事件，执行点击事件。
+<br />    4. ACTION_CANCEL：置按键标志位为非按下状态，移除ACTION_DOWN触发的延时执行长按点击事件。
+<br />  4. 否则不可点击，返回false；</p>
 
 <h3 id="论据">论据</h3>
 
@@ -291,96 +293,57 @@
 
 <h4 id="人机交互">人机交互</h4>
 
-<p><img src="http://localhost:4000/assets/人机交互流程图.png" alt="人机交互流程图" /></p>
+<p><img src="/assets/人机交互流程图-tiny.png" alt="人机交互流程图" /></p>
 
-<p><img src="http://localhost:4000/assets/事件分发Java栈.png" alt="事件分发Java栈" /></p>
+<p><img src="/assets/事件分发Java栈-tiny.png" alt="事件分发Java栈" /></p>
 
 <p><strong>赏析</strong></p>
 
-<ol class="info">
-  <li>用户的按键行为-&gt;手机传感器-&gt;ViewRootImpl-&gt;DecorView-&gt;WindowCallbackWrapper-&gt;Activity-&gt;PhoneWindow-&gt;DecorView-&gt;ViewGroup*-&gt;View-&gt;程序员的代码逻辑-&gt;硬件（显示器、扬声器等）响应输出-&gt;用户感知</li>
-</ol>
+<p class="info">用户的按键行为-&gt;手机传感器-&gt;ViewRootImpl-&gt;DecorView-&gt;WindowCallbackWrapper-&gt;Activity-&gt;PhoneWindow-&gt;DecorView-&gt;ViewGroup*-&gt;View-&gt;程序员的代码逻辑-&gt;硬件（显示器、扬声器等）响应输出-&gt;用户感知</p>
 
 <h4 id="view树">View树</h4>
 
-<p><img src="http://localhost:4000/assets/AndroidView树布局结构.png" alt="AndroidView树布局结构" /></p>
+<p><img src="/assets/AndroidView树布局结构-tiny.png" alt="AndroidView树布局结构" /></p>
 
 <p><strong>赏析</strong></p>
 
-<ol class="info">
-  <li>View是由树形结构组织，节点为ViewGroup或者View。ViewGroup可以包含多个子节点，View没有子节点。</li>
-  <li>Android中View树的根节点为DecorView（父View为FrameLayout，属于ViewGroup）。</li>
-  <li>Android中用户可自定义的View子树根节点id为“android:id/content”。</li>
-</ol>
+<p class="info">1. View是由树形结构组织，节点为ViewGroup或者View。ViewGroup可以包含多个子节点，View没有子节点。
+<br />2. Android中View树的根节点为DecorView（父View为FrameLayout，属于ViewGroup）。
+<br />3. Android中用户可自定义的View子树根节点id为“android:id/content”。</p>
 
 <h4 id="类图">类图</h4>
 
-<p><img src="http://localhost:4000/assets/View和ViewGroup类图.png" alt="View和ViewGroup类图" /></p>
+<p><img src="/assets/View和ViewGroup类图-tiny.png" alt="View和ViewGroup类图" /></p>
 
 <p><strong>赏析</strong></p>
 
-<ol class="info">
-  <li>ViewRootImpl是Android层逻辑起始点，用于接收来自系统底层的事件消息。相当于View管理类，本身不是View。（BTW：View绘制流程的三部曲（measure、layout、draw）也由该类触发的。）</li>
-  <li>DecorView是Android View树的根节点，持有window对象。本身能够直接进行真正事件分发能力（继承了父类ViewGroup和View的事件分发处理功能），但是事件分发会直接调用window，间接传递到Activity的事件分发，后续会由Activity回调DecorView的真正事件分发能力。对应图中的环形依赖。</li>
-  <li>Activity是Android中的页面，真正的事件分发由该类的dispatchTouchEvent触发。（Easter Eggs：如果你想让用户操作不了你的界面，蒙一层透明的View是不是有点low，直接重写该方法就可以控制。）</li>
-  <li>ViewGroup负责事件分发和拦截处理。按下事件和后续事件（移动、释放或者取消）处理不相同。
-    <ol>
-      <li>按下事件，先判断是否拦截。
-        <ol>
-          <li>如果不拦截的话，分发事件寻找目标消费子View（逆序遍历子View，递归调用子View的事件分发，判断是否有子View消费。mFirstTouchTarget存储目标消费子View对象）。
-            <ol>
-              <li>如果有子View消费，则目标子View消费事件。</li>
-              <li>否则自己尝试消费事件。</li>
-            </ol>
-          </li>
-          <li>否则直接自己尝试消费事件。</li>
-        </ol>
-      </li>
-      <li>后续事件
-        <ol>
-          <li>如果按下事件找到了目标消费子View，则判断是否拦截，否则不拦截。</li>
-          <li>如果有目标消费子View，则根据是否拦截。
-            <ol>
-              <li>如果没有拦截，正常传送后续事件；</li>
-              <li>如果有拦截，则当前事件转换为取消事件发送给目标消费子View，并且重置目标消费子View为空，接下来的后续事件直接自己尝试消费事件（不管是否消费，后续事件都会接收到&amp;尝试处理事件分发）；</li>
-            </ol>
-          </li>
-          <li>否则自己尝试消费事件。（不会调用是否拦截，其实拦截或者不拦截，都是自己消费事件。）</li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>View负责事件消费事件处理。
-    <ol>
-      <li>调用mOnTouchListener的onTouch。
-        <ol>
-          <li>如果消费，直接返回true；</li>
-          <li>否则，继续调用onTouchEvent方法；
-            <ol>
-              <li>如果为启用的（enable），返回可点击（clickable）。</li>
-              <li>否则，调用mTouchDelegate的onTouchEvent。
-                <ol>
-                  <li>如果消费，直接返回true；</li>
-                  <li>否则，
-                    <ol>
-                      <li>如果可点击（clickable）
-                        <ol>
-                          <li>进行事件流（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）处理（包含焦点、按键状态、按键和长时间按键）；</li>
-                          <li>返回true。</li>
-                        </ol>
-                      </li>
-                      <li>否则返回false；</li>
-                    </ol>
-                  </li>
-                </ol>
-              </li>
-            </ol>
-          </li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-</ol>
+<p class="info">1. ViewRootImpl是Android层逻辑起始点，用于接收来自系统底层的事件消息。相当于View管理类，本身不是View。（BTW：View绘制流程的三部曲（measure、layout、draw）也由该类触发的。）
+<br />2. DecorView是Android View树的根节点，持有window对象。本身能够直接进行真正事件分发能力（继承了父类ViewGroup和View的事件分发处理功能），但是事件分发会直接调用window，间接传递到Activity的事件分发，后续会由Activity回调DecorView的真正事件分发能力。对应图中的环形依赖。
+<br />3. Activity是Android中的页面，真正的事件分发由该类的dispatchTouchEvent触发。（Easter Eggs：如果你想让用户操作不了你的界面，蒙一层透明的View是不是有点low，直接重写该方法就可以控制。）
+<br />4. ViewGroup负责事件分发和拦截处理。按下事件和后续事件（移动、释放或者取消）处理不相同。
+<br />  1. 按下事件，先判断是否拦截。
+<br />    1. 如果不拦截的话，分发事件寻找目标消费子View（逆序遍历子View，递归调用子View的事件分发，判断是否有子View消费。mFirstTouchTarget存储目标消费子View对象）。
+<br />      1. 如果有子View消费，则目标子View消费事件。
+<br />      2. 否则自己尝试消费事件。
+<br />    2. 否则直接自己尝试消费事件。
+<br />  2. 后续事件
+<br />    1. 如果按下事件找到了目标消费子View，则判断是否拦截，否则不拦截。
+<br />    2. 如果有目标消费子View，则根据是否拦截。
+<br />      1. 如果没有拦截，正常传送后续事件；
+<br />      2. 如果有拦截，则当前事件转换为取消事件发送给目标消费子View，并且重置目标消费子View为空，接下来的后续事件直接自己尝试消费事件（不管是否消费，后续事件都会接收到&amp;尝试处理事件分发）；
+<br />    3. 否则自己尝试消费事件。（不会调用是否拦截，其实拦截或者不拦截，都是自己消费事件。）
+<br />5. View负责事件消费事件处理。
+<br />  1. 调用mOnTouchListener的onTouch。
+<br />    1. 如果消费，直接返回true；
+<br />    2. 否则，继续调用onTouchEvent方法；
+<br />      1. 如果为启用的（enable），返回可点击（clickable）。
+<br />      2. 否则，调用mTouchDelegate的onTouchEvent。
+<br />        1. 如果消费，直接返回true；
+<br />        2. 否则，
+<br />          1. 如果可点击（clickable）
+<br />            1. 进行事件流（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）处理（包含焦点、按键状态、按键和长时间按键）；
+<br />            2. 返回true。
+<br />          2. 否则返回false；</p>
 
 <h4 id="注释">注释</h4>
 
@@ -1217,7 +1180,7 @@
     <span class="o">}</span>
 <span class="o">}</span></pre></td></tr></tbody></table></code></pre></figure>
 
-<p><img src="http://localhost:4000/assets/事件DispatchTouchEvent流程图.png" alt="事件DispatchTouchEvent流程图" /></p>
+<p><img src="/assets/事件DispatchTouchEvent流程图-tiny.png" alt="事件DispatchTouchEvent流程图" /></p>
 
 <h5 id="view">View</h5>
 
@@ -1714,252 +1677,174 @@
     <span class="o">}</span>
 <span class="o">}</span></pre></td></tr></tbody></table></code></pre></figure>
 
-<p><img src="http://localhost:4000/assets/事件OnTouchEvent流程图.png" alt="事件OnTouchEvent流程图" /></p>
+<p><img src="/assets/事件OnTouchEvent流程图-tiny.png" alt="事件OnTouchEvent流程图" /></p>
 
 <h4 id="事件流">事件流</h4>
 
-<p><strong>Demo</strong>（<a href="https://github.com/shengshuqiang/viewdispatchtouchevent">git仓库</a>）ParentInterceptTouchEventActivity页面</p>
+<p><strong>Demo</strong><a href="https://github.com/shengshuqiang/viewdispatchtouchevent/blob/master/app/src/main/java/com/example/shengshuqiang/viewdispatchtouchevent/ParentInterceptTouchEventActivity.java">ParentInterceptTouchEventActivity页面git仓库</a></p>
 
 <p>使用<a href="https://www.jianshu.com/p/d968645067d7"><strong>MECE</strong></a>（Mutually Exclusive Collectively Exhaustive，相互独立，完全穷尽）法则</p>
 
-<p><img src="http://localhost:4000/assets/事件流MEMC图.png" alt="事件流MEMC图" /></p>
+<p><img src="/assets/事件流MEMC图-tiny.png" alt="事件流MEMC图" /></p>
 
-<p><img src="http://localhost:4000/assets/ParentInterceptTouchEventActivity.png" alt="ParentInterceptTouchEventActivity" /></p>
-
-<p>1.父控件ACTION_DOWN拦截<br />
-2.父控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-1.png" alt="角色事件消费状态-1" /></p>
-<blockquote>
-1. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -true-&gt; Parent.dispatchTouchEvent-true-&gt; 返回消费状态true<br />![事件流-1](http://localhost:4000/assets/事件流-1.png)<br />
-2. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -MOVE-&gt; Parent.onTouchEvent -消费状态-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />![事件流-2](http://localhost:4000/assets/事件流-2.png)<br />
-3. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&gt; Parent.onTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true![事件流-3](http://localhost:4000/assets/事件流-3.png)<br />
-</blockquote>
-<p>1.父控件ACTION_DOWN拦截<br />
-2.父控件不消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-2.png" alt="角色事件消费状态-2" /></p>
-<blockquote>
-4. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -false-&gt; Parent.dispatchTouchEvent-false-&gt; 返回消费状态false<br />![事件流-4](http://localhost:4000/assets/事件流-4.png)<br />
-5. 接收不到移动事件<br />
-6. 同5
-</blockquote>
-<p>1.父控件ACTION_MOVE拦截<br />
-2.子控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-3.png" alt="角色事件消费状态-3" /></p>
-<blockquote>
-7. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件消费事件，要么是自己消费了，要么是自己的后代或者后代的后代消费了）.onTouchEvent{存在调用多个Child该方法，前提是前面的Child均返回false} -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent{记录目标消费Child为该View}-true-&gt; 返回消费状态true<br />![事件流-7](http://localhost:4000/assets/事件流-7.png)<br />
-8. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.onInterceptTouchEvent  -true-&gt; Parent.dispatchTouchEvent -CANCEL-&gt; Child（目标消费Child）.dispatchTouchEvent{Child处理消费} -CANCEL-&gt;Child.onTouchEvent -消费状态-&gt; Child.dispatchTouchEvent-消费状态-&gt; 返回消费状态<br />![事件流-8](http://localhost:4000/assets/事件流-8.png)<br />
-9. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&gt; Parent.onTouchEvent -消费状态-&gt; Parent.dispatchTouchEvent -消费状态-&gt; 返回消费状态<br />![事件流-9](http://localhost:4000/assets/事件流-9.png)
-</blockquote>
-<p>1.父控件ACTION_MOVE拦截<br />
-2.子控件不消费事件<br />
-3.父控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-4.png" alt="角色事件消费状态-4" /></p>
-<blockquote>
-10. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&gt; Child.dispatchTouchEvent -false-&gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -true-&gt; 返回消费状态true<br />![事件流-10](http://localhost:4000/assets/事件流-10.png)<br />
-11. 同2<br />
-12. 同3<br />
-</blockquote>
-<p>1.父控件ACTION_MOVE拦截<br />
-2.子控件不消费事件<br />
-3.父控件不消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-5.png" alt="角色事件消费状态-5" /></p>
-<blockquote>
-13. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&gt; Child.dispatchTouchEvent -false-&gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -false-&gt; 返回消费状态false<br />![事件流-13](http://localhost:4000/assets/事件流-13.png)<br />
-14. 同5<br />
-15. 同5<br />
-</blockquote>
-<p>1.父控件ACTION_UP拦截<br />
-2.子控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-6.png" alt="角色事件消费状态-6" /></p>
-<blockquote>
-16. 同7<br />
-17. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Child(目标消费Child).dispatchTouchEvent -MOVE-&gt; Child.onTouchEvent -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />![事件流-17](http://localhost:4000/assets/事件流-17.png)<br />
-18. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -CANCEL-&gt; Child(目标消费Child).dispatchTouchEvent{Child处理消费} -CANCEL-&gt; Child.onTouchEvent -消费状态-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />![事件流-18](http://localhost:4000/assets/事件流-18.png)
-</blockquote>
-<p>1.父控件ACTION_UP拦截<br />
-2.子控件不消费事件<br />
-3.父控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-7.png" alt="角色事件消费状态-7" /></p>
-<blockquote>
-19. 同10<br />
-20. 同2<br />
-21. 同3<br />
-</blockquote>
-<p>1.父控件ACTION_UP拦截<br />
-2.子控件不消费事件<br />
-3.父控件不消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-8.png" alt="角色事件消费状态-8" /></p>
-<blockquote>
-22. 同13<br />
-23. 同5<br />
-24. 同5
-</blockquote>
-<ol>
-  <li>父控件不拦截<br /></li>
-  <li>子控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-9.png" alt="角色事件消费状态-9" /></li>
-</ol>
-<blockquote>
-25. 同7<br />
-26. 同17<br />
-27. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -UP-&gt; Child(目标消费Child).dispatchTouchEvent -UP-&gt; Child.onTouchEvent -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />![事件流-27](http://localhost:4000/assets/事件流-27.png)
-</blockquote>
-<ol>
-  <li>父控件不拦截<br /></li>
-  <li>子控件不消费事件<br /></li>
-  <li>父控件消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-10.png" alt="角色事件消费状态-10" /></li>
-</ol>
-<blockquote>
-28. 同10<br />
-29. 同2<br />
-30. 同3<br />
-</blockquote>
-<ol>
-  <li>父控件不拦截<br /></li>
-  <li>子控件不消费事件<br /></li>
-  <li>父控件不消费事件<br /><img src="http://localhost:4000/assets/角色事件消费状态-11.png" alt="角色事件消费状态-11" /></li>
-</ol>
-<blockquote>
-31. 同13<br />
-32. 同5<br />
-33. 同5<br />
-</blockquote>
+<table>
+  <thead>
+    <tr>
+      <th>条件</th>
+      <th>结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.父控件ACTION_DOWN拦截<br />2.父控件消费事件</td>
+      <td>1. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -true-&gt; Parent.dispatchTouchEvent-true-&gt; 返回消费状态true<br />2. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -MOVE-&gt; Parent.onTouchEvent -消费状态-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />3. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&gt; Parent.onTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_DOWN拦截<br />2.父控件不消费事件</td>
+      <td>4. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -false-&gt; Parent.dispatchTouchEvent-false-&gt; 返回消费状态false<br />5. 接收不到移动事件<br />6. 同5</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_MOVE拦截<br />2.子控件消费事件</td>
+      <td>7. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件消费事件，要么是自己消费了，要么是自己的后代或者后代的后代消费了）.onTouchEvent{存在调用多个Child该方法，前提是前面的Child均返回false} -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent{记录目标消费Child为该View}-true-&gt; 返回消费状态true<br />8. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.onInterceptTouchEvent  -true-&gt; Parent.dispatchTouchEvent -CANCEL-&gt; Child（目标消费Child）.dispatchTouchEvent{Child处理消费} -CANCEL-&gt;Child.onTouchEvent -消费状态-&gt; Child.dispatchTouchEvent-消费状态-&gt; 返回消费状态<br />9. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&gt; Parent.onTouchEvent -消费状态-&gt; Parent.dispatchTouchEvent -消费状态-&gt; 返回消费状态</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_MOVE拦截<br />2.子控件不消费事件<br />3.父控件消费事件</td>
+      <td>10. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&gt; Child.dispatchTouchEvent -false-&gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -true-&gt; 返回消费状态true<br />11. 同2<br />12. 同3</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_MOVE拦截<br />2.子控件不消费事件<br />3.父控件不消费事件</td>
+      <td>13. 接收按下事件 -DOWN-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -DOWN-&gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&gt; Child.dispatchTouchEvent -false-&gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&gt;  Parent.onTouchEvent -false-&gt; 返回消费状态false<br />14. 同5<br />15. 同5</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_UP拦截<br />2.子控件消费事件</td>
+      <td>16. 同7<br />17. 接收移动事件 -MOVE-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -MOVE-&gt; Child(目标消费Child).dispatchTouchEvent -MOVE-&gt; Child.onTouchEvent -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true<br />18. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.onInterceptTouchEvent -true-&gt; Parent.dispatchTouchEvent -CANCEL-&gt; Child(目标消费Child).dispatchTouchEvent{Child处理消费} -CANCEL-&gt; Child.onTouchEvent -消费状态-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_UP拦截<br />2.子控件不消费事件<br />3.父控件消费事件</td>
+      <td>19. 同10<br />20. 同2<br />21. 同3</td>
+    </tr>
+    <tr>
+      <td>1.父控件ACTION_UP拦截<br />2.子控件不消费事件<br />3.父控件不消费事件</td>
+      <td>22. 同13<br />23. 同5<br />24. 同5</td>
+    </tr>
+    <tr>
+      <td>1. 父控件不拦截<br />2. 子控件消费事件</td>
+      <td>25. 同7<br />26. 同17<br />27. 接收释放事件 -UP-&gt; Parent.dispatchTouchEvent -UP-&gt; Parent.onInterceptTouchEvent  -false-&gt; Parent.dispatchTouchEvent -UP-&gt; Child(目标消费Child).dispatchTouchEvent -UP-&gt; Child.onTouchEvent -true-&gt; Child.dispatchTouchEvent -true-&gt; Parent.dispatchTouchEvent -true-&gt; 返回消费状态true</td>
+    </tr>
+    <tr>
+      <td>1. 父控件不拦截<br />2. 子控件不消费事件<br />3. 父控件消费事件</td>
+      <td>28. 同10<br />29. 同2<br />30. 同3</td>
+    </tr>
+    <tr>
+      <td>1. 父控件不拦截<br />2. 子控件不消费事件<br />3. 父控件不消费事件</td>
+      <td>31. 同13<br />32. 同5<br />33. 同5</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><strong>启示</strong></p>
 
-<ol>
-  <li>ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。<br /><img src="http://localhost:4000/assets/事件分发路径.png" alt="事件分发路径" /></li>
-  <li>事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流<br /> <img src="http://localhost:4000/assets/事件分发拦截路径.png" alt="事件分发拦截路径" /></li>
-</ol>
+<p class="info">1. ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。<br /><img src="/assets/事件分发路径-tiny.png" alt="事件分发路径" />
+<br />2. 事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流<br /> <img src="/assets/事件分发拦截路径-tiny.png" alt="事件分发拦截路径" /></p>
 
 <h3 id="论证">论证</h3>
 
-<ol>
-  <li>从事件流可证明事件一致性保证(Consistency Guarantees)：
-    <ol>
-      <li>ViewGroup在ACTION_DOWN的事件分发返回false（不消费事件），则不再会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL）。</li>
-      <li>ViewGroup在ACTION_DOWN的事件分发返回true（消费事件），则会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL），如果ViewGroup拦截后续事件，则第一次拦截会将事件转为ACTION_CANCEL传递给目标消费子View（终止子View接收后续事件），接下来的后续事件自己消费。</li>
-      <li>ViewGroup在非ACTION_DOWN的事件分发返回消费状态对整体事件流没有影响。</li>
-    </ol>
-  </li>
-  <li>从注释可证明View.dispatchTouchEvent方法完成事件的消费处理；ViewGroup.dispatchTouchEvent方法完成事件的分发处理；ViewGroup.onInterceptTouchEvent方法完成事件的拦截处理；事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。以及View类的onTouchEvent方法完成具体处理事件消费。</li>
-</ol>
+<p class="success">1. 从事件流可证明事件一致性保证(Consistency Guarantees)：
+<br />  1. ViewGroup在ACTION_DOWN的事件分发返回false（不消费事件），则不再会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL）。
+<br />  2. ViewGroup在ACTION_DOWN的事件分发返回true（消费事件），则会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL），如果ViewGroup拦截后续事件，则第一次拦截会将事件转为ACTION_CANCEL传递给目标消费子View（终止子View接收后续事件），接下来的后续事件自己消费。
+<br />  3.  ViewGroup在非ACTION_DOWN的事件分发返回消费状态对整体事件流没有影响。
+<br />2. 从注释可证明:<br />View.dispatchTouchEvent方法完成事件的消费处理；<br />ViewGroup.dispatchTouchEvent方法完成事件的分发处理；<br />ViewGroup.onInterceptTouchEvent方法完成事件的拦截处理；<br />事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。<br />以及View类的onTouchEvent方法完成具体处理事件消费。</p>
 
 <h2 id="一张图">一张图</h2>
 
-<p><img src="http://localhost:4000/assets/事件分发一张图.png" alt="事件分发一张图" /></p>
+<p><img src="/assets/事件分发一张图-tiny.png" alt="事件分发一张图" /></p>
 
 <p><strong>赏析</strong></p>
 
-<ol>
-  <li>ACTION_DOWN会触发查找目标消费View，优先子View尝试消费，如果子View仍然没有消费，则依次回溯到父控件尝试消费（直至DecorView，然后Activity尝试消费），如果找到了，则回溯返回true。</li>
-  <li>ACTION_DOWN后续事件执行的前提是事件分发路径的终点就是目标消费View，目标消费View的父控件均会调用到事件拦截（让父控件有机会拦截下来，改变事件流），如果目标消费View的父控件拦截，拦截时的事件会转换为ACTION_CANCEL继续按原路径分发，后续的事件则不再分发给目标消费View，而是拦截的父控件自己消费。</li>
-  <li>非ACTION_DOWN返回的消费状态对事件流没有影响，如果未消费，会回调给Activity处理。</li>
-</ol>
+<p class="info">1. ACTION_DOWN会触发查找目标消费View，优先子View尝试消费，如果子View仍然没有消费，则依次回溯到父控件尝试消费（直至DecorView，然后Activity尝试消费），如果找到了，则回溯返回true。
+<br />2. ACTION_DOWN后续事件执行的前提是事件分发路径的终点就是目标消费View，目标消费View的父控件均会调用到事件拦截（让父控件有机会拦截下来，改变事件流），如果目标消费View的父控件拦截，拦截时的事件会转换为ACTION_CANCEL继续按原路径分发，后续的事件则不再分发给目标消费View，而是拦截的父控件自己消费。
+<br />3. 非ACTION_DOWN返回的消费状态对事件流没有影响，如果未消费，会回调给Activity处理。</p>
 
 <h2 id="标准">标准</h2>
 
 <h3 id="常见错误">常见错误</h3>
 
-<ol>
-  <li>不知道onInterceptTouchEvent和onTouchEvent什么时候会调用，但是知道dispatchTouchEvent每次都会调用，就把逻辑直接写在dispatchTouchEvent的重写方法里面。<br />问题：不满足事件流一致性，存在目标消费View没有接收到ACTION_UP/ACTION_CANCEL就结束了，导致焦点、按键状态或者按键事件不符合预期。</li>
-  <li>发现onInterceptTouchEvent经常调用到，逻辑写在onInterceptTouchEvent里面。<br />问题：onInterceptTouchEvent在View自己消费情况下或者拦截之后的事件流不再会调用到，会把坑隐藏得更深【不好复现的Bug才是最难解决的Bug】。</li>
-  <li>鸟枪法，dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent均会调用到逻辑。<br />问题：路子太野。。。</li>
-  <li>觉得自己很牛X，逻辑分散在dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent里面。<br />问题：可读性差，逻辑混乱。</li>
-  <li>事件消息只处理了ACTION_DOWN、ACTION_MOVE、ACTION_UP，没有对ACTION_CANCEL或者其他多点触控事件容错处理。<br />问题：总会出现不常见的问题。</li>
-</ol>
+<p class="error">1. 不知道onInterceptTouchEvent和onTouchEvent什么时候会调用，但是知道dispatchTouchEvent每次都会调用，就把逻辑直接写在dispatchTouchEvent的重写方法里面。<br /><strong>问题：</strong>不满足事件流一致性，存在目标消费View没有接收到ACTION_UP/ACTION_CANCEL就结束了，导致焦点、按键状态或者按键事件不符合预期。
+<br />2. 发现onInterceptTouchEvent经常调用到，逻辑写在onInterceptTouchEvent里面。<br /><strong>问题：</strong>onInterceptTouchEvent在View自己消费情况下或者拦截之后的事件流不再会调用到，会把坑隐藏得更深【不好复现的Bug才是最难解决的Bug】。
+<br />3. 鸟枪法，dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent均会调用到逻辑。<br /><strong>问题：</strong>路子太野。。。
+<br />4. 觉得自己很牛X，逻辑分散在dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent里面。<br /><strong>问题：</strong>可读性差，逻辑混乱。
+<br />5. 事件消息只处理了ACTION_DOWN、ACTION_MOVE、ACTION_UP，没有对ACTION_CANCEL或者其他多点触控事件容错处理。<br /><strong>问题：</strong>总会出现不常见的问题。</p>
 
 <h3 id="最佳实践">最佳实践</h3>
 
-<ol>
-  <li>明确事件流调用顺序以及拦截后的事件流。</li>
-  <li>dispatchTouchEvent：正常情况下不建议重写dispatchTouchEvent方法改变系统事件分发机制，可以看到，Google就没有几个类重新该方法。最多记下坐标点，但千万调用super. dispatchTouchEvent保证系统事件分发正常调用。</li>
-  <li>onInterceptTouchEvent：只处理拦截逻辑，在合适事件将事件流导到onTouchEvent。</li>
-  <li>onTouchEvent：真正处理逻辑。</li>
-  <li>除常见事件处理外，一定要上剩余事件容错处理。</li>
-</ol>
+<p class="success">1. 明确事件流调用顺序以及拦截后的事件流。
+<br />2. dispatchTouchEvent：正常情况下不建议重写dispatchTouchEvent方法改变系统事件分发机制，可以看到，Google就没有几个类重新该方法。最多记下坐标点，但千万调用super. dispatchTouchEvent保证系统事件分发正常调用。
+<br />3. onInterceptTouchEvent：只处理拦截逻辑，在合适事件将事件流导到onTouchEvent。
+<br />4. onTouchEvent：真正处理逻辑。
+<br />5. 除常见事件处理外，一定要上剩余事件容错处理。</p>
 
 <h2 id="渔">渔</h2>
 
 <h3 id="方法论">方法论</h3>
-<ol>
-  <li><a href="https://www.jianshu.com/p/d968645067d7">MECE法则和金字塔原理</a></li>
-  <li><a href="https://www.zhihu.com/question/27880205">SCQA 架构如何理解？</a></li>
-</ol>
+
+<p class="info">1. <a href="https://www.jianshu.com/p/d968645067d7">MECE法则和金字塔原理</a>
+<br />2. <a href="https://www.zhihu.com/question/27880205">SCQA 架构如何理解？</a></p>
 
 <h3 id="利器">利器</h3>
-<ol>
-  <li>AS源码英文翻译，参考<a href="http://blog.csdn.net/luofen521/article/details/74295716">AS翻译插件Translation</a></li>
-  <li>Android源码调试
-    <ol>
-      <li><a href="http://www.genymotion.net/">Android模拟器GenyMotion</a></li>
-      <li>GenyMotion创建和App的build.gradle中targetSdkVersion相同API Level模拟器即可Debug对应上源码。进阶参考<a href="http://weishu.me/2016/05/30/how-to-debug-android-framework/">如何调试Android Framework？</a></li>
-      <li><a href="http://weishu.me/2015/12/21/android-studio-debug-tips-you-may-not-know/">Android Studio你不知道的调试技巧</a></li>
-    </ol>
-  </li>
-  <li>关键日志输出，使用静态代理，进阶参考<a href="http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/">Android插件化原理解析——Hook机制之动态代理</a></li>
-  <li>绘图工具
-    <ol>
-      <li><a href="https://www.processon.com/i/5a633502e4b0332f153dd897">ProcessOn</a></li>
-      <li><a href="https://www.edrawsoft.com/download-edrawmax-mac.php">edraw</a></li>
-    </ol>
-  </li>
-  <li>个人主页
-    <ol>
-      <li><a href="https://www.jekyll.com.cn/">将纯文本转化为静态网站和博客</a></li>
-      <li><a href="https://www.zhihu.com/question/20409634">怎样引导新手使用 Markdown？</a></li>
-    </ol>
-  </li>
-</ol>
+<p class="info">1. AS源码英文翻译，参考<a href="http://blog.csdn.net/luofen521/article/details/74295716">AS翻译插件Translation</a>
+<br />2. Android源码调试
+<br />  1. <a href="http://www.genymotion.net/">Android模拟器GenyMotion</a>
+<br />  2. GenyMotion创建和App的build.gradle中targetSdkVersion相同API Level模拟器即可Debug对应上源码。进阶参考<a href="http://weishu.me/2016/05/30/how-to-debug-android-framework/">如何调试Android Framework？</a>
+<br />  3. <a href="http://weishu.me/2015/12/21/android-studio-debug-tips-you-may-not-know/">Android Studio你不知道的调试技巧</a>
+<br />3. 关键日志输出，使用静态代理，进阶参考<a href="http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/">Android插件化原理解析——Hook机制之动态代理</a>
+<br />4. 绘图工具
+<br />  1. <a href="https://www.processon.com/i/5a633502e4b0332f153dd897">ProcessOn</a>
+<br />  2. <a href="https://www.edrawsoft.com/download-edrawmax-mac.php">Edraw</a>
+<br />5. 个人主页
+<br />  1. <a href="https://www.jekyll.com.cn/">将纯文本转化为静态网站和博客</a>
+<br />  2. <a href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt主题模板</a>
+<br />  3. <a href="https://www.zhihu.com/question/20409634">怎样引导新手使用 Markdown？</a></p>
 
 <h1 id="利">利</h1>
 
-<ol>
-  <li>随心所欲控制事件流【大权在手，天下我有】</li>
-  <li>事件分发不再是个事，怕个球</li>
-  <li>各种酷炫动画和自定义控件燥起来</li>
-  <li>再也不用担心面试中尬聊事件分发</li>
-  <li>借鉴上述不成熟的“渔”去爱干嘛干嘛</li>
-</ol>
+<p class="success">1. 随心所欲控制事件流【大权在手，天下我有】
+<br />2. 事件分发不再是个事，怕个球
+<br />3. 各种酷炫动画和自定义控件燥起来
+<br />4. 再也不用担心面试中尬聊事件分发
+<br />5. 借鉴上述不成熟的“渔”去爱干嘛干嘛</p>
 
 <h1 id="进阶">进阶</h1>
 
-<ol>
-  <li>滚动控件和按键冲突处理，界面布局滚动</li>
-  <li>滑动冲突
-    <ol>
-      <li><a href="https://segmentfault.com/a/1190000002873657">NestedScrolling机制</a></li>
-      <li><a href="http://blog.csdn.net/lmj623565791/article/details/52204039">Android NestedScrolling机制完全解析 带你玩转嵌套滑动</a></li>
-      <li><a href="https://www.jianshu.com/p/982a83271327">外部拦截法&amp;内部拦截法</a></li>
-    </ol>
-  </li>
-  <li>手势（GestureDecetor）</li>
-</ol>
+<p class="info">1. 滚动控件和按键冲突处理，界面布局滚动
+<br />2. 滑动冲突
+<br />  1. <a href="https://segmentfault.com/a/1190000002873657">NestedScrolling机制</a>
+<br />  2. <a href="http://blog.csdn.net/lmj623565791/article/details/52204039">Android NestedScrolling机制完全解析 带你玩转嵌套滑动</a>
+<br />  3. <a href="https://www.jianshu.com/p/982a83271327">外部拦截法&amp;内部拦截法</a>
+<br />3. 手势（GestureDecetor）</p>
 
 <h1 id="参考">参考</h1>
-<ol>
-  <li><a href="https://www.jianshu.com/p/e99b5e8bd67b">图解 Android 事件分发机制</a></li>
-  <li><a href="http://blog.ingphone.com/android/2013/11/13/Android-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6.html">Android 响应用户屏幕手势操作</a></li>
-  <li><a href="https://www.jianshu.com/p/0c863bbde8eb">Android MotionEvent详解</a></li>
-  <li><a href="https://my.oschina.net/banxi/blog/56421">android触控,先了解MotionEvent(一)</a></li>
-  <li><a href="http://blog.csdn.net/woshimalingyi/article/details/50383578">Android多点触控之——MotionEvent(触控事件)</a></li>
-  <li><a href="http://ztelur.github.io/2016/02/04/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BView%E7%AF%87/">图解Android事件传递之View篇</a></li>
-  <li><a href="http://ztelur.github.io/2016/02/11/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BViewGroup%E7%AF%87/">图解Android事件传递之ViewGroup篇</a></li>
-</ol>
+<p class="info">1. <a href="https://www.jianshu.com/p/e99b5e8bd67b">图解 Android 事件分发机制</a>
+<br />2. <a href="http://blog.ingphone.com/android/2013/11/13/Android-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6.html">Android 响应用户屏幕手势操作</a>
+<br />3. <a href="https://www.jianshu.com/p/0c863bbde8eb">Android MotionEvent详解</a>
+<br />4. <a href="https://my.oschina.net/banxi/blog/56421">android触控,先了解MotionEvent(一)</a>
+<br />5. <a href="http://blog.csdn.net/woshimalingyi/article/details/50383578">Android多点触控之——MotionEvent(触控事件)</a>
+<br />6. <a href="http://ztelur.github.io/2016/02/04/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BView%E7%AF%87/">图解Android事件传递之View篇</a>
+<br />7. <a href="http://ztelur.github.io/2016/02/11/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BViewGroup%E7%AF%87/">图解Android事件传递之ViewGroup篇</a></p>
 
-<h1 id="歌">歌</h1>
+<h1 id="长歌">长歌</h1>
 
-<h2 id="念奴娇天丁震怒">念奴娇·天丁震怒</h2>
-<p>完颜亮(金代)</p>
-
-<ol>
-  <li>天丁震怒，掀翻银海，散乱珠箔（bó）。</li>
-  <li>六出奇花飞滚滚，平填了山中丘壑。(六出：雪花六角，因用为雪花的别名。)</li>
-  <li>皓虎颠狂，素麟猖獗(chāng jué)，掣(chè, 拉)断珍珠索。(皓虎：白色的老虎。素麟：白色的麒麟。)</li>
-  <li>玉龙酣战，鳞甲满天飘落。</li>
-  <li><br /></li>
-  <li>谁念万里关山，征夫僵立，缟（gǎo）带沾旗脚。(僵立：因寒冷而冻得僵硬直立。缟带：白色的衣带。)</li>
-  <li>色映戈矛，光摇剑戟(jǐ )，杀气横戎幕。(戎幕：行军作战时的营帐。)</li>
-  <li>貔（pí）虎豪雄，偏裨（pí）英勇，共与谈兵略。（裨：pí ，副，偏，小；bì ，增添，补助，如大有～益。）</li>
-  <li>须拼一醉，看取碧空寥廓(liáo kuò)。</li>
-</ol>
-
-<h1 id="copy-right">Copy Right</h1>
-<ul>
-  <li>作者： 盛书强，美团点评酒旅前端高级工程师，“九域之广,岂一人之强化,必伫才能,共成羽翼”，我们期待你的加入，简历发送至shengshuqiang@gmail.com。</li>
-  <li>声明： 本文为原创文章，转载请注明来源，共建和谐。</li>
-</ul>
+<p class="info"><strong>念奴娇·天丁震怒</strong>
+<br />完颜亮(金代)
+<br />
+<br />天丁震怒，掀翻银海，散乱珠箔（bó）。
+<br />六出奇花飞滚滚，平填了山中丘壑。(六出：雪花六角，因用为雪花的别名。)
+<br />皓虎颠狂，素麟猖獗(chāng jué)，掣(chè, 拉)断珍珠索。(皓虎：白色的老虎。素麟：白色的麒麟。)
+<br />玉龙酣战，鳞甲满天飘落。
+<br />
+<br />谁念万里关山，征夫僵立，缟（gǎo）带沾旗脚。(僵立：因寒冷而冻得僵硬直立。缟带：白色的衣带。)
+<br />色映戈矛，光摇剑戟(jǐ )，杀气横戎幕。(戎幕：行军作战时的营帐。)
+<br />貔（pí）虎豪雄，偏裨（pí）英勇，共与谈兵略。（裨：副，偏，小。）
+<br />须拼一醉，看取碧空寥廓(liáo kuò)。</p>
 </div>
 				<footer><meta itemprop="dateModified" content="2018-02-10T00:00:00+00:00"><div class="article-license"><div class="m-license"><div class="clearfix"><p>本文遵守 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 许可协议。</p><a class="license" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
       <img alt="Creative Commons License" src="/assets/images/license-cc4.png" />
@@ -1968,7 +1853,7 @@
 </div></div>
 				</footer>
 			</article>
-			<div class="article-previous-next clearfix"><div class="article-next"><span>下篇</span><a href="/2017/08/08/additional-styles.html">TeXt - Additional Styles</a></div></div></div>
+			<div class="article-previous-next clearfix"></div></div>
 	</div>
 </div></div>
       </div>
@@ -1976,7 +1861,7 @@
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="盛书强">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/https://github.com/shengshuqiang" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

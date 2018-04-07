@@ -1,5 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2018-04-07T11:15:14+00:00</updated><id>http://localhost:4000/</id><title type="html">盛书强</title><subtitle>盛之羽翼
-</subtitle><author><name>盛书强</name><email>674329414@qq.com</email></author><entry><title type="html">Android事件分发-来龙去脉</title><link href="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html" rel="alternate" type="text/html" title="Android事件分发-来龙去脉" /><published>2018-02-10T00:00:00+00:00</published><updated>2018-02-10T00:00:00+00:00</updated><id>http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89</id><content type="html" xml:base="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html">&lt;h1 id=&quot;情境situation&quot;&gt;情境(Situation)&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="zh" /><updated>2018-04-07T13:44:37+00:00</updated><id>/</id><title type="html">盛书强</title><subtitle>盛之羽翼
+</subtitle><author><name>盛书强</name><email>674329414@qq.com</email></author><entry><title type="html">Android事件分发-来龙去脉</title><link href="/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html" rel="alternate" type="text/html" title="Android事件分发-来龙去脉" /><published>2018-02-10T00:00:00+00:00</published><updated>2018-02-10T00:00:00+00:00</updated><id>/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89</id><content type="html" xml:base="/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html">&lt;!-- 添加目录 http://blog.csdn.net/hengwei_vc/article/details/47122103 --&gt;
+&lt;script src=&quot;/javascripts/jquery-2.1.4.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;/javascripts/toc.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $('#toc').toc();
+}); &lt;/script&gt;
+
+&lt;div id=&quot;toc&quot;&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;情境situation&quot;&gt;情境(Situation)&lt;/h1&gt;
 
 &lt;p class=&quot;info&quot;&gt;1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。
 &lt;br /&gt;2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。&lt;/p&gt;
@@ -32,34 +44,24 @@
 
 &lt;h4 id=&quot;约法三章&quot;&gt;约法三章&lt;/h4&gt;
 
-&lt;ol class=&quot;warning&quot;&gt;
-  &lt;li&gt;限于个人水平，本文只包含单点触控事件（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）。&lt;/li&gt;
-  &lt;li&gt;Window类相关的我不会，肤浅的认为和事件分发关系不大（求大牛点拨），直接跳过。&lt;/li&gt;
-  &lt;li&gt;一家之言，姑妄言之，姑妄听之。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;warning&quot;&gt;1. 限于个人水平，本文只包含单点触控事件（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）。
+&lt;br /&gt;2. Window类相关的我不会，肤浅的认为和事件分发关系不大（求大牛点拨），直接跳过。
+&lt;br /&gt;3. 一家之言，姑妄言之，姑妄听之。&lt;/p&gt;
 
 &lt;h4 id=&quot;点&quot;&gt;点&lt;/h4&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.android.com/reference/android/view/MotionEvent.html&quot;&gt;事件流一致性保证(Consistency Guarantees)&lt;/a&gt;：按下开始，中间可能伴随着移动，松开或者取消结束。ACTION_DOWN -&amp;gt; ACTION_MOVE(*) -&amp;gt; ACTION_UP/ACTION_CANCEL。&lt;/li&gt;
-  &lt;li&gt;View类的dispatchTouchEvent方法完成事件的消费处理，ViewGroup的dispatchTouchEvent方法完成事件的分发处理。正常情况下不建议重写该方法改变系统事件分发机制。&lt;/li&gt;
-  &lt;li&gt;ViewGroup类的onInterceptTouchEvent方法完成事件的拦截处理。事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。&lt;/li&gt;
-  &lt;li&gt;View类的onTouchEvent方法完成具体处理事件消费，即触发点击监听（OnClickListener）和长时间点击监听(OnLongClickListener)以及按键状态、焦点相关处理。
-    &lt;ol&gt;
-      &lt;li&gt;如果设置了OnTouchListener，会先调用OnTouchListener，如果该监听onTouch返回true，则不会调用onTouchEvent，直接返回已消费；&lt;/li&gt;
-      &lt;li&gt;如果设置了TouchDelegate ，onTouchEvent中会先调用TouchDelegate，如果该类onTouchEvent返回true，则直接返回已消费；&lt;/li&gt;
-      &lt;li&gt;如果View 可点击，执行onTouchEvent中事件处理，并返回true；
-        &lt;ol&gt;
-          &lt;li&gt;ACTION_DOWN：置按键标志位为按下状态，并触发延时（500ms）执行长按点击事件。&lt;/li&gt;
-          &lt;li&gt;ACTION_MOVE：如果按键坐标超出该控件区域，则置按键标志位为非按下状态，并且移除ACTION_DOWN触发的延时执行长按点击事件。&lt;/li&gt;
-          &lt;li&gt;ACTION_UP：如果按键标志位为按下状态，并且ACTION_DOWN触发的长按点击事件还未执行，则移除长按点击事件，执行点击事件。&lt;/li&gt;
-          &lt;li&gt;ACTION_CANCEL：置按键标志位为非按下状态，移除ACTION_DOWN触发的延时执行长按点击事件。&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-      &lt;li&gt;否则不可点击，返回false；&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. &lt;a href=&quot;https://developer.android.com/reference/android/view/MotionEvent.html&quot;&gt;事件流一致性保证(Consistency Guarantees)&lt;/a&gt;：按下开始，中间可能伴随着移动，松开或者取消结束。ACTION_DOWN -&amp;gt; ACTION_MOVE(*) -&amp;gt; ACTION_UP/ACTION_CANCEL。
+&lt;br /&gt;2. View类的dispatchTouchEvent方法完成事件的消费处理，ViewGroup的dispatchTouchEvent方法完成事件的分发处理。正常情况下不建议重写该方法改变系统事件分发机制。
+&lt;br /&gt;3. ViewGroup类的onInterceptTouchEvent方法完成事件的拦截处理。事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。
+&lt;br /&gt;4. View类的onTouchEvent方法完成具体处理事件消费，即触发点击监听（OnClickListener）和长时间点击监听(OnLongClickListener)以及按键状态、焦点相关处理。
+&lt;br /&gt;  1. 如果设置了OnTouchListener，会先调用OnTouchListener，如果该监听onTouch返回true，则不会调用onTouchEvent，直接返回已消费；
+&lt;br /&gt;  2. 如果设置了TouchDelegate ，onTouchEvent中会先调用TouchDelegate，如果该类onTouchEvent返回true，则直接返回已消费；
+&lt;br /&gt;  3. 如果View 可点击，执行onTouchEvent中事件处理，并返回true；
+&lt;br /&gt;    1. ACTION_DOWN：置按键标志位为按下状态，并触发延时（500ms）执行长按点击事件。
+&lt;br /&gt;    2. ACTION_MOVE：如果按键坐标超出该控件区域，则置按键标志位为非按下状态，并且移除ACTION_DOWN触发的延时执行长按点击事件。
+&lt;br /&gt;    3. ACTION_UP：如果按键标志位为按下状态，并且ACTION_DOWN触发的长按点击事件还未执行，则移除长按点击事件，执行点击事件。
+&lt;br /&gt;    4. ACTION_CANCEL：置按键标志位为非按下状态，移除ACTION_DOWN触发的延时执行长按点击事件。
+&lt;br /&gt;  4. 否则不可点击，返回false；&lt;/p&gt;
 
 &lt;h3 id=&quot;论据&quot;&gt;论据&lt;/h3&gt;
 
@@ -67,96 +69,57 @@
 
 &lt;h4 id=&quot;人机交互&quot;&gt;人机交互&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/人机交互流程图.png&quot; alt=&quot;人机交互流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/人机交互流程图-tiny.png&quot; alt=&quot;人机交互流程图&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发Java栈.png&quot; alt=&quot;事件分发Java栈&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/事件分发Java栈-tiny.png&quot; alt=&quot;事件分发Java栈&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol class=&quot;info&quot;&gt;
-  &lt;li&gt;用户的按键行为-&amp;gt;手机传感器-&amp;gt;ViewRootImpl-&amp;gt;DecorView-&amp;gt;WindowCallbackWrapper-&amp;gt;Activity-&amp;gt;PhoneWindow-&amp;gt;DecorView-&amp;gt;ViewGroup*-&amp;gt;View-&amp;gt;程序员的代码逻辑-&amp;gt;硬件（显示器、扬声器等）响应输出-&amp;gt;用户感知&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;用户的按键行为-&amp;gt;手机传感器-&amp;gt;ViewRootImpl-&amp;gt;DecorView-&amp;gt;WindowCallbackWrapper-&amp;gt;Activity-&amp;gt;PhoneWindow-&amp;gt;DecorView-&amp;gt;ViewGroup*-&amp;gt;View-&amp;gt;程序员的代码逻辑-&amp;gt;硬件（显示器、扬声器等）响应输出-&amp;gt;用户感知&lt;/p&gt;
 
 &lt;h4 id=&quot;view树&quot;&gt;View树&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/AndroidView树布局结构.png&quot; alt=&quot;AndroidView树布局结构&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/AndroidView树布局结构-tiny.png&quot; alt=&quot;AndroidView树布局结构&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol class=&quot;info&quot;&gt;
-  &lt;li&gt;View是由树形结构组织，节点为ViewGroup或者View。ViewGroup可以包含多个子节点，View没有子节点。&lt;/li&gt;
-  &lt;li&gt;Android中View树的根节点为DecorView（父View为FrameLayout，属于ViewGroup）。&lt;/li&gt;
-  &lt;li&gt;Android中用户可自定义的View子树根节点id为“android:id/content”。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. View是由树形结构组织，节点为ViewGroup或者View。ViewGroup可以包含多个子节点，View没有子节点。
+&lt;br /&gt;2. Android中View树的根节点为DecorView（父View为FrameLayout，属于ViewGroup）。
+&lt;br /&gt;3. Android中用户可自定义的View子树根节点id为“android:id/content”。&lt;/p&gt;
 
 &lt;h4 id=&quot;类图&quot;&gt;类图&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/View和ViewGroup类图.png&quot; alt=&quot;View和ViewGroup类图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/View和ViewGroup类图-tiny.png&quot; alt=&quot;View和ViewGroup类图&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol class=&quot;info&quot;&gt;
-  &lt;li&gt;ViewRootImpl是Android层逻辑起始点，用于接收来自系统底层的事件消息。相当于View管理类，本身不是View。（BTW：View绘制流程的三部曲（measure、layout、draw）也由该类触发的。）&lt;/li&gt;
-  &lt;li&gt;DecorView是Android View树的根节点，持有window对象。本身能够直接进行真正事件分发能力（继承了父类ViewGroup和View的事件分发处理功能），但是事件分发会直接调用window，间接传递到Activity的事件分发，后续会由Activity回调DecorView的真正事件分发能力。对应图中的环形依赖。&lt;/li&gt;
-  &lt;li&gt;Activity是Android中的页面，真正的事件分发由该类的dispatchTouchEvent触发。（Easter Eggs：如果你想让用户操作不了你的界面，蒙一层透明的View是不是有点low，直接重写该方法就可以控制。）&lt;/li&gt;
-  &lt;li&gt;ViewGroup负责事件分发和拦截处理。按下事件和后续事件（移动、释放或者取消）处理不相同。
-    &lt;ol&gt;
-      &lt;li&gt;按下事件，先判断是否拦截。
-        &lt;ol&gt;
-          &lt;li&gt;如果不拦截的话，分发事件寻找目标消费子View（逆序遍历子View，递归调用子View的事件分发，判断是否有子View消费。mFirstTouchTarget存储目标消费子View对象）。
-            &lt;ol&gt;
-              &lt;li&gt;如果有子View消费，则目标子View消费事件。&lt;/li&gt;
-              &lt;li&gt;否则自己尝试消费事件。&lt;/li&gt;
-            &lt;/ol&gt;
-          &lt;/li&gt;
-          &lt;li&gt;否则直接自己尝试消费事件。&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-      &lt;li&gt;后续事件
-        &lt;ol&gt;
-          &lt;li&gt;如果按下事件找到了目标消费子View，则判断是否拦截，否则不拦截。&lt;/li&gt;
-          &lt;li&gt;如果有目标消费子View，则根据是否拦截。
-            &lt;ol&gt;
-              &lt;li&gt;如果没有拦截，正常传送后续事件；&lt;/li&gt;
-              &lt;li&gt;如果有拦截，则当前事件转换为取消事件发送给目标消费子View，并且重置目标消费子View为空，接下来的后续事件直接自己尝试消费事件（不管是否消费，后续事件都会接收到&amp;amp;尝试处理事件分发）；&lt;/li&gt;
-            &lt;/ol&gt;
-          &lt;/li&gt;
-          &lt;li&gt;否则自己尝试消费事件。（不会调用是否拦截，其实拦截或者不拦截，都是自己消费事件。）&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;View负责事件消费事件处理。
-    &lt;ol&gt;
-      &lt;li&gt;调用mOnTouchListener的onTouch。
-        &lt;ol&gt;
-          &lt;li&gt;如果消费，直接返回true；&lt;/li&gt;
-          &lt;li&gt;否则，继续调用onTouchEvent方法；
-            &lt;ol&gt;
-              &lt;li&gt;如果为启用的（enable），返回可点击（clickable）。&lt;/li&gt;
-              &lt;li&gt;否则，调用mTouchDelegate的onTouchEvent。
-                &lt;ol&gt;
-                  &lt;li&gt;如果消费，直接返回true；&lt;/li&gt;
-                  &lt;li&gt;否则，
-                    &lt;ol&gt;
-                      &lt;li&gt;如果可点击（clickable）
-                        &lt;ol&gt;
-                          &lt;li&gt;进行事件流（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）处理（包含焦点、按键状态、按键和长时间按键）；&lt;/li&gt;
-                          &lt;li&gt;返回true。&lt;/li&gt;
-                        &lt;/ol&gt;
-                      &lt;/li&gt;
-                      &lt;li&gt;否则返回false；&lt;/li&gt;
-                    &lt;/ol&gt;
-                  &lt;/li&gt;
-                &lt;/ol&gt;
-              &lt;/li&gt;
-            &lt;/ol&gt;
-          &lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. ViewRootImpl是Android层逻辑起始点，用于接收来自系统底层的事件消息。相当于View管理类，本身不是View。（BTW：View绘制流程的三部曲（measure、layout、draw）也由该类触发的。）
+&lt;br /&gt;2. DecorView是Android View树的根节点，持有window对象。本身能够直接进行真正事件分发能力（继承了父类ViewGroup和View的事件分发处理功能），但是事件分发会直接调用window，间接传递到Activity的事件分发，后续会由Activity回调DecorView的真正事件分发能力。对应图中的环形依赖。
+&lt;br /&gt;3. Activity是Android中的页面，真正的事件分发由该类的dispatchTouchEvent触发。（Easter Eggs：如果你想让用户操作不了你的界面，蒙一层透明的View是不是有点low，直接重写该方法就可以控制。）
+&lt;br /&gt;4. ViewGroup负责事件分发和拦截处理。按下事件和后续事件（移动、释放或者取消）处理不相同。
+&lt;br /&gt;  1. 按下事件，先判断是否拦截。
+&lt;br /&gt;    1. 如果不拦截的话，分发事件寻找目标消费子View（逆序遍历子View，递归调用子View的事件分发，判断是否有子View消费。mFirstTouchTarget存储目标消费子View对象）。
+&lt;br /&gt;      1. 如果有子View消费，则目标子View消费事件。
+&lt;br /&gt;      2. 否则自己尝试消费事件。
+&lt;br /&gt;    2. 否则直接自己尝试消费事件。
+&lt;br /&gt;  2. 后续事件
+&lt;br /&gt;    1. 如果按下事件找到了目标消费子View，则判断是否拦截，否则不拦截。
+&lt;br /&gt;    2. 如果有目标消费子View，则根据是否拦截。
+&lt;br /&gt;      1. 如果没有拦截，正常传送后续事件；
+&lt;br /&gt;      2. 如果有拦截，则当前事件转换为取消事件发送给目标消费子View，并且重置目标消费子View为空，接下来的后续事件直接自己尝试消费事件（不管是否消费，后续事件都会接收到&amp;amp;尝试处理事件分发）；
+&lt;br /&gt;    3. 否则自己尝试消费事件。（不会调用是否拦截，其实拦截或者不拦截，都是自己消费事件。）
+&lt;br /&gt;5. View负责事件消费事件处理。
+&lt;br /&gt;  1. 调用mOnTouchListener的onTouch。
+&lt;br /&gt;    1. 如果消费，直接返回true；
+&lt;br /&gt;    2. 否则，继续调用onTouchEvent方法；
+&lt;br /&gt;      1. 如果为启用的（enable），返回可点击（clickable）。
+&lt;br /&gt;      2. 否则，调用mTouchDelegate的onTouchEvent。
+&lt;br /&gt;        1. 如果消费，直接返回true；
+&lt;br /&gt;        2. 否则，
+&lt;br /&gt;          1. 如果可点击（clickable）
+&lt;br /&gt;            1. 进行事件流（ACTION_DOWN，ACTION_MOVE，ACTION_UP，ACTION_CANCEL）处理（包含焦点、按键状态、按键和长时间按键）；
+&lt;br /&gt;            2. 返回true。
+&lt;br /&gt;          2. 否则返回false；&lt;/p&gt;
 
 &lt;h4 id=&quot;注释&quot;&gt;注释&lt;/h4&gt;
 
@@ -993,7 +956,7 @@
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件DispatchTouchEvent流程图.png&quot; alt=&quot;事件DispatchTouchEvent流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/事件DispatchTouchEvent流程图-tiny.png&quot; alt=&quot;事件DispatchTouchEvent流程图&quot; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;view&quot;&gt;View&lt;/h5&gt;
 
@@ -1490,1237 +1453,171 @@
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件OnTouchEvent流程图.png&quot; alt=&quot;事件OnTouchEvent流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/事件OnTouchEvent流程图-tiny.png&quot; alt=&quot;事件OnTouchEvent流程图&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;事件流&quot;&gt;事件流&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;Demo&lt;/strong&gt;（&lt;a href=&quot;https://github.com/shengshuqiang/viewdispatchtouchevent&quot;&gt;git仓库&lt;/a&gt;）ParentInterceptTouchEventActivity页面&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Demo&lt;/strong&gt;&lt;a href=&quot;https://github.com/shengshuqiang/viewdispatchtouchevent/blob/master/app/src/main/java/com/example/shengshuqiang/viewdispatchtouchevent/ParentInterceptTouchEventActivity.java&quot;&gt;ParentInterceptTouchEventActivity页面git仓库&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;使用&lt;a href=&quot;https://www.jianshu.com/p/d968645067d7&quot;&gt;&lt;strong&gt;MECE&lt;/strong&gt;&lt;/a&gt;（Mutually Exclusive Collectively Exhaustive，相互独立，完全穷尽）法则&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件流MEMC图.png&quot; alt=&quot;事件流MEMC图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/事件流MEMC图-tiny.png&quot; alt=&quot;事件流MEMC图&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/ParentInterceptTouchEventActivity.png&quot; alt=&quot;ParentInterceptTouchEventActivity&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;1.父控件ACTION_DOWN拦截&lt;br /&gt;
-2.父控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-1.png&quot; alt=&quot;角色事件消费状态-1&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-1. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent-true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-1](http://localhost:4000/assets/事件流-1.png)&lt;br /&gt;
-2. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -MOVE-&amp;gt; Parent.onTouchEvent -消费状态-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-2](http://localhost:4000/assets/事件流-2.png)&lt;br /&gt;
-3. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&amp;gt; Parent.onTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true![事件流-3](http://localhost:4000/assets/事件流-3.png)&lt;br /&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_DOWN拦截&lt;br /&gt;
-2.父控件不消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-2.png&quot; alt=&quot;角色事件消费状态-2&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-4. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent-false-&amp;gt; 返回消费状态false&lt;br /&gt;![事件流-4](http://localhost:4000/assets/事件流-4.png)&lt;br /&gt;
-5. 接收不到移动事件&lt;br /&gt;
-6. 同5
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;
-2.子控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-3.png&quot; alt=&quot;角色事件消费状态-3&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-7. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件消费事件，要么是自己消费了，要么是自己的后代或者后代的后代消费了）.onTouchEvent{存在调用多个Child该方法，前提是前面的Child均返回false} -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent{记录目标消费Child为该View}-true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-7](http://localhost:4000/assets/事件流-7.png)&lt;br /&gt;
-8. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.onInterceptTouchEvent  -true-&amp;gt; Parent.dispatchTouchEvent -CANCEL-&amp;gt; Child（目标消费Child）.dispatchTouchEvent{Child处理消费} -CANCEL-&amp;gt;Child.onTouchEvent -消费状态-&amp;gt; Child.dispatchTouchEvent-消费状态-&amp;gt; 返回消费状态&lt;br /&gt;![事件流-8](http://localhost:4000/assets/事件流-8.png)&lt;br /&gt;
-9. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&amp;gt; Parent.onTouchEvent -消费状态-&amp;gt; Parent.dispatchTouchEvent -消费状态-&amp;gt; 返回消费状态&lt;br /&gt;![事件流-9](http://localhost:4000/assets/事件流-9.png)
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;
-2.子控件不消费事件&lt;br /&gt;
-3.父控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-4.png&quot; alt=&quot;角色事件消费状态-4&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-10. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&amp;gt; Child.dispatchTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-10](http://localhost:4000/assets/事件流-10.png)&lt;br /&gt;
-11. 同2&lt;br /&gt;
-12. 同3&lt;br /&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;
-2.子控件不消费事件&lt;br /&gt;
-3.父控件不消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-5.png&quot; alt=&quot;角色事件消费状态-5&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-13. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&amp;gt; Child.dispatchTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -false-&amp;gt; 返回消费状态false&lt;br /&gt;![事件流-13](http://localhost:4000/assets/事件流-13.png)&lt;br /&gt;
-14. 同5&lt;br /&gt;
-15. 同5&lt;br /&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_UP拦截&lt;br /&gt;
-2.子控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-6.png&quot; alt=&quot;角色事件消费状态-6&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-16. 同7&lt;br /&gt;
-17. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Child(目标消费Child).dispatchTouchEvent -MOVE-&amp;gt; Child.onTouchEvent -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-17](http://localhost:4000/assets/事件流-17.png)&lt;br /&gt;
-18. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -CANCEL-&amp;gt; Child(目标消费Child).dispatchTouchEvent{Child处理消费} -CANCEL-&amp;gt; Child.onTouchEvent -消费状态-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-18](http://localhost:4000/assets/事件流-18.png)
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_UP拦截&lt;br /&gt;
-2.子控件不消费事件&lt;br /&gt;
-3.父控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-7.png&quot; alt=&quot;角色事件消费状态-7&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-19. 同10&lt;br /&gt;
-20. 同2&lt;br /&gt;
-21. 同3&lt;br /&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;1.父控件ACTION_UP拦截&lt;br /&gt;
-2.子控件不消费事件&lt;br /&gt;
-3.父控件不消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-8.png&quot; alt=&quot;角色事件消费状态-8&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-22. 同13&lt;br /&gt;
-23. 同5&lt;br /&gt;
-24. 同5
-&lt;/blockquote&gt;
-&lt;ol&gt;
-  &lt;li&gt;父控件不拦截&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;子控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-9.png&quot; alt=&quot;角色事件消费状态-9&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-25. 同7&lt;br /&gt;
-26. 同17&lt;br /&gt;
-27. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Child(目标消费Child).dispatchTouchEvent -UP-&amp;gt; Child.onTouchEvent -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;![事件流-27](http://localhost:4000/assets/事件流-27.png)
-&lt;/blockquote&gt;
-&lt;ol&gt;
-  &lt;li&gt;父控件不拦截&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;子控件不消费事件&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;父控件消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-10.png&quot; alt=&quot;角色事件消费状态-10&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-28. 同10&lt;br /&gt;
-29. 同2&lt;br /&gt;
-30. 同3&lt;br /&gt;
-&lt;/blockquote&gt;
-&lt;ol&gt;
-  &lt;li&gt;父控件不拦截&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;子控件不消费事件&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;父控件不消费事件&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/角色事件消费状态-11.png&quot; alt=&quot;角色事件消费状态-11&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-31. 同13&lt;br /&gt;
-32. 同5&lt;br /&gt;
-33. 同5&lt;br /&gt;
-&lt;/blockquote&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;条件&lt;/th&gt;
+      &lt;th&gt;结果&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_DOWN拦截&lt;br /&gt;2.父控件消费事件&lt;/td&gt;
+      &lt;td&gt;1. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent-true-&amp;gt; 返回消费状态true&lt;br /&gt;2. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -MOVE-&amp;gt; Parent.onTouchEvent -消费状态-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;3. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&amp;gt; Parent.onTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_DOWN拦截&lt;br /&gt;2.父控件不消费事件&lt;/td&gt;
+      &lt;td&gt;4. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent-false-&amp;gt; 返回消费状态false&lt;br /&gt;5. 接收不到移动事件&lt;br /&gt;6. 同5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;2.子控件消费事件&lt;/td&gt;
+      &lt;td&gt;7. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件消费事件，要么是自己消费了，要么是自己的后代或者后代的后代消费了）.onTouchEvent{存在调用多个Child该方法，前提是前面的Child均返回false} -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent{记录目标消费Child为该View}-true-&amp;gt; 返回消费状态true&lt;br /&gt;8. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.onInterceptTouchEvent  -true-&amp;gt; Parent.dispatchTouchEvent -CANCEL-&amp;gt; Child（目标消费Child）.dispatchTouchEvent{Child处理消费} -CANCEL-&amp;gt;Child.onTouchEvent -消费状态-&amp;gt; Child.dispatchTouchEvent-消费状态-&amp;gt; 返回消费状态&lt;br /&gt;9. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -UP-&amp;gt; Parent.onTouchEvent -消费状态-&amp;gt; Parent.dispatchTouchEvent -消费状态-&amp;gt; 返回消费状态&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;2.子控件不消费事件&lt;br /&gt;3.父控件消费事件&lt;/td&gt;
+      &lt;td&gt;10. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&amp;gt; Child.dispatchTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;11. 同2&lt;br /&gt;12. 同3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_MOVE拦截&lt;br /&gt;2.子控件不消费事件&lt;br /&gt;3.父控件不消费事件&lt;/td&gt;
+      &lt;td&gt;13. 接收按下事件 -DOWN-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -DOWN-&amp;gt; Child.dispatchTouchEvent{Parent分发，遍历调用Child分发消息，Child内部递归分发消息} -DOWN-&amp;gt; TargetChild（目标子控件，区别Child，子控件处理消费事件）.onTouchEvent{满足事件坐标在控件内的子View或者子View的后代均会调用到} -false-&amp;gt; Child.dispatchTouchEvent -false-&amp;gt; Parent.dispatchTouchEvent{没有目标消费Child} -DOWN-&amp;gt; Parent.(super)dispatchTouchEvent{Parent处理消费} -DOWN-&amp;gt;  Parent.onTouchEvent -false-&amp;gt; 返回消费状态false&lt;br /&gt;14. 同5&lt;br /&gt;15. 同5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_UP拦截&lt;br /&gt;2.子控件消费事件&lt;/td&gt;
+      &lt;td&gt;16. 同7&lt;br /&gt;17. 接收移动事件 -MOVE-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -MOVE-&amp;gt; Child(目标消费Child).dispatchTouchEvent -MOVE-&amp;gt; Child.onTouchEvent -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;br /&gt;18. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.onInterceptTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -CANCEL-&amp;gt; Child(目标消费Child).dispatchTouchEvent{Child处理消费} -CANCEL-&amp;gt; Child.onTouchEvent -消费状态-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_UP拦截&lt;br /&gt;2.子控件不消费事件&lt;br /&gt;3.父控件消费事件&lt;/td&gt;
+      &lt;td&gt;19. 同10&lt;br /&gt;20. 同2&lt;br /&gt;21. 同3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1.父控件ACTION_UP拦截&lt;br /&gt;2.子控件不消费事件&lt;br /&gt;3.父控件不消费事件&lt;/td&gt;
+      &lt;td&gt;22. 同13&lt;br /&gt;23. 同5&lt;br /&gt;24. 同5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1. 父控件不拦截&lt;br /&gt;2. 子控件消费事件&lt;/td&gt;
+      &lt;td&gt;25. 同7&lt;br /&gt;26. 同17&lt;br /&gt;27. 接收释放事件 -UP-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Parent.onInterceptTouchEvent  -false-&amp;gt; Parent.dispatchTouchEvent -UP-&amp;gt; Child(目标消费Child).dispatchTouchEvent -UP-&amp;gt; Child.onTouchEvent -true-&amp;gt; Child.dispatchTouchEvent -true-&amp;gt; Parent.dispatchTouchEvent -true-&amp;gt; 返回消费状态true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1. 父控件不拦截&lt;br /&gt;2. 子控件不消费事件&lt;br /&gt;3. 父控件消费事件&lt;/td&gt;
+      &lt;td&gt;28. 同10&lt;br /&gt;29. 同2&lt;br /&gt;30. 同3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1. 父控件不拦截&lt;br /&gt;2. 子控件不消费事件&lt;br /&gt;3. 父控件不消费事件&lt;/td&gt;
+      &lt;td&gt;31. 同13&lt;br /&gt;32. 同5&lt;br /&gt;33. 同5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;&lt;strong&gt;启示&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发路径.png&quot; alt=&quot;事件分发路径&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流&lt;br /&gt; &lt;img src=&quot;http://localhost:4000/assets/事件分发拦截路径.png&quot; alt=&quot;事件分发拦截路径&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。&lt;br /&gt;&lt;img src=&quot;/assets/事件分发路径-tiny.png&quot; alt=&quot;事件分发路径&quot; /&gt;
+&lt;br /&gt;2. 事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流&lt;br /&gt; &lt;img src=&quot;/assets/事件分发拦截路径-tiny.png&quot; alt=&quot;事件分发拦截路径&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;论证&quot;&gt;论证&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;从事件流可证明事件一致性保证(Consistency Guarantees)：
-    &lt;ol&gt;
-      &lt;li&gt;ViewGroup在ACTION_DOWN的事件分发返回false（不消费事件），则不再会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL）。&lt;/li&gt;
-      &lt;li&gt;ViewGroup在ACTION_DOWN的事件分发返回true（消费事件），则会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL），如果ViewGroup拦截后续事件，则第一次拦截会将事件转为ACTION_CANCEL传递给目标消费子View（终止子View接收后续事件），接下来的后续事件自己消费。&lt;/li&gt;
-      &lt;li&gt;ViewGroup在非ACTION_DOWN的事件分发返回消费状态对整体事件流没有影响。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;从注释可证明View.dispatchTouchEvent方法完成事件的消费处理；ViewGroup.dispatchTouchEvent方法完成事件的分发处理；ViewGroup.onInterceptTouchEvent方法完成事件的拦截处理；事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。以及View类的onTouchEvent方法完成具体处理事件消费。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;success&quot;&gt;1. 从事件流可证明事件一致性保证(Consistency Guarantees)：
+&lt;br /&gt;  1. ViewGroup在ACTION_DOWN的事件分发返回false（不消费事件），则不再会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL）。
+&lt;br /&gt;  2. ViewGroup在ACTION_DOWN的事件分发返回true（消费事件），则会收到后续事件（ACTION_MOVE、ACTION_UP/ACTION_CANCEL），如果ViewGroup拦截后续事件，则第一次拦截会将事件转为ACTION_CANCEL传递给目标消费子View（终止子View接收后续事件），接下来的后续事件自己消费。
+&lt;br /&gt;  3.  ViewGroup在非ACTION_DOWN的事件分发返回消费状态对整体事件流没有影响。
+&lt;br /&gt;2. 从注释可证明:&lt;br /&gt;View.dispatchTouchEvent方法完成事件的消费处理；&lt;br /&gt;ViewGroup.dispatchTouchEvent方法完成事件的分发处理；&lt;br /&gt;ViewGroup.onInterceptTouchEvent方法完成事件的拦截处理；&lt;br /&gt;事件分发路径上的ViewGroup，在ACTION_DOWN或者不是自己直接消费事件时一定会调用onInterceptTouchEvent方法。&lt;br /&gt;以及View类的onTouchEvent方法完成具体处理事件消费。&lt;/p&gt;
 
 &lt;h2 id=&quot;一张图&quot;&gt;一张图&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发一张图.png&quot; alt=&quot;事件分发一张图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/事件分发一张图-tiny.png&quot; alt=&quot;事件分发一张图&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;ACTION_DOWN会触发查找目标消费View，优先子View尝试消费，如果子View仍然没有消费，则依次回溯到父控件尝试消费（直至DecorView，然后Activity尝试消费），如果找到了，则回溯返回true。&lt;/li&gt;
-  &lt;li&gt;ACTION_DOWN后续事件执行的前提是事件分发路径的终点就是目标消费View，目标消费View的父控件均会调用到事件拦截（让父控件有机会拦截下来，改变事件流），如果目标消费View的父控件拦截，拦截时的事件会转换为ACTION_CANCEL继续按原路径分发，后续的事件则不再分发给目标消费View，而是拦截的父控件自己消费。&lt;/li&gt;
-  &lt;li&gt;非ACTION_DOWN返回的消费状态对事件流没有影响，如果未消费，会回调给Activity处理。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. ACTION_DOWN会触发查找目标消费View，优先子View尝试消费，如果子View仍然没有消费，则依次回溯到父控件尝试消费（直至DecorView，然后Activity尝试消费），如果找到了，则回溯返回true。
+&lt;br /&gt;2. ACTION_DOWN后续事件执行的前提是事件分发路径的终点就是目标消费View，目标消费View的父控件均会调用到事件拦截（让父控件有机会拦截下来，改变事件流），如果目标消费View的父控件拦截，拦截时的事件会转换为ACTION_CANCEL继续按原路径分发，后续的事件则不再分发给目标消费View，而是拦截的父控件自己消费。
+&lt;br /&gt;3. 非ACTION_DOWN返回的消费状态对事件流没有影响，如果未消费，会回调给Activity处理。&lt;/p&gt;
 
 &lt;h2 id=&quot;标准&quot;&gt;标准&lt;/h2&gt;
 
 &lt;h3 id=&quot;常见错误&quot;&gt;常见错误&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;不知道onInterceptTouchEvent和onTouchEvent什么时候会调用，但是知道dispatchTouchEvent每次都会调用，就把逻辑直接写在dispatchTouchEvent的重写方法里面。&lt;br /&gt;问题：不满足事件流一致性，存在目标消费View没有接收到ACTION_UP/ACTION_CANCEL就结束了，导致焦点、按键状态或者按键事件不符合预期。&lt;/li&gt;
-  &lt;li&gt;发现onInterceptTouchEvent经常调用到，逻辑写在onInterceptTouchEvent里面。&lt;br /&gt;问题：onInterceptTouchEvent在View自己消费情况下或者拦截之后的事件流不再会调用到，会把坑隐藏得更深【不好复现的Bug才是最难解决的Bug】。&lt;/li&gt;
-  &lt;li&gt;鸟枪法，dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent均会调用到逻辑。&lt;br /&gt;问题：路子太野。。。&lt;/li&gt;
-  &lt;li&gt;觉得自己很牛X，逻辑分散在dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent里面。&lt;br /&gt;问题：可读性差，逻辑混乱。&lt;/li&gt;
-  &lt;li&gt;事件消息只处理了ACTION_DOWN、ACTION_MOVE、ACTION_UP，没有对ACTION_CANCEL或者其他多点触控事件容错处理。&lt;br /&gt;问题：总会出现不常见的问题。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;error&quot;&gt;1. 不知道onInterceptTouchEvent和onTouchEvent什么时候会调用，但是知道dispatchTouchEvent每次都会调用，就把逻辑直接写在dispatchTouchEvent的重写方法里面。&lt;br /&gt;&lt;strong&gt;问题：&lt;/strong&gt;不满足事件流一致性，存在目标消费View没有接收到ACTION_UP/ACTION_CANCEL就结束了，导致焦点、按键状态或者按键事件不符合预期。
+&lt;br /&gt;2. 发现onInterceptTouchEvent经常调用到，逻辑写在onInterceptTouchEvent里面。&lt;br /&gt;&lt;strong&gt;问题：&lt;/strong&gt;onInterceptTouchEvent在View自己消费情况下或者拦截之后的事件流不再会调用到，会把坑隐藏得更深【不好复现的Bug才是最难解决的Bug】。
+&lt;br /&gt;3. 鸟枪法，dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent均会调用到逻辑。&lt;br /&gt;&lt;strong&gt;问题：&lt;/strong&gt;路子太野。。。
+&lt;br /&gt;4. 觉得自己很牛X，逻辑分散在dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent里面。&lt;br /&gt;&lt;strong&gt;问题：&lt;/strong&gt;可读性差，逻辑混乱。
+&lt;br /&gt;5. 事件消息只处理了ACTION_DOWN、ACTION_MOVE、ACTION_UP，没有对ACTION_CANCEL或者其他多点触控事件容错处理。&lt;br /&gt;&lt;strong&gt;问题：&lt;/strong&gt;总会出现不常见的问题。&lt;/p&gt;
 
 &lt;h3 id=&quot;最佳实践&quot;&gt;最佳实践&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;明确事件流调用顺序以及拦截后的事件流。&lt;/li&gt;
-  &lt;li&gt;dispatchTouchEvent：正常情况下不建议重写dispatchTouchEvent方法改变系统事件分发机制，可以看到，Google就没有几个类重新该方法。最多记下坐标点，但千万调用super. dispatchTouchEvent保证系统事件分发正常调用。&lt;/li&gt;
-  &lt;li&gt;onInterceptTouchEvent：只处理拦截逻辑，在合适事件将事件流导到onTouchEvent。&lt;/li&gt;
-  &lt;li&gt;onTouchEvent：真正处理逻辑。&lt;/li&gt;
-  &lt;li&gt;除常见事件处理外，一定要上剩余事件容错处理。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;success&quot;&gt;1. 明确事件流调用顺序以及拦截后的事件流。
+&lt;br /&gt;2. dispatchTouchEvent：正常情况下不建议重写dispatchTouchEvent方法改变系统事件分发机制，可以看到，Google就没有几个类重新该方法。最多记下坐标点，但千万调用super. dispatchTouchEvent保证系统事件分发正常调用。
+&lt;br /&gt;3. onInterceptTouchEvent：只处理拦截逻辑，在合适事件将事件流导到onTouchEvent。
+&lt;br /&gt;4. onTouchEvent：真正处理逻辑。
+&lt;br /&gt;5. 除常见事件处理外，一定要上剩余事件容错处理。&lt;/p&gt;
 
 &lt;h2 id=&quot;渔&quot;&gt;渔&lt;/h2&gt;
 
 &lt;h3 id=&quot;方法论&quot;&gt;方法论&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/d968645067d7&quot;&gt;MECE法则和金字塔原理&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/27880205&quot;&gt;SCQA 架构如何理解？&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
+
+&lt;p class=&quot;info&quot;&gt;1. &lt;a href=&quot;https://www.jianshu.com/p/d968645067d7&quot;&gt;MECE法则和金字塔原理&lt;/a&gt;
+&lt;br /&gt;2. &lt;a href=&quot;https://www.zhihu.com/question/27880205&quot;&gt;SCQA 架构如何理解？&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;利器&quot;&gt;利器&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;AS源码英文翻译，参考&lt;a href=&quot;http://blog.csdn.net/luofen521/article/details/74295716&quot;&gt;AS翻译插件Translation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Android源码调试
-    &lt;ol&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.genymotion.net/&quot;&gt;Android模拟器GenyMotion&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;GenyMotion创建和App的build.gradle中targetSdkVersion相同API Level模拟器即可Debug对应上源码。进阶参考&lt;a href=&quot;http://weishu.me/2016/05/30/how-to-debug-android-framework/&quot;&gt;如何调试Android Framework？&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://weishu.me/2015/12/21/android-studio-debug-tips-you-may-not-know/&quot;&gt;Android Studio你不知道的调试技巧&lt;/a&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;关键日志输出，使用静态代理，进阶参考&lt;a href=&quot;http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/&quot;&gt;Android插件化原理解析——Hook机制之动态代理&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;绘图工具
-    &lt;ol&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.processon.com/i/5a633502e4b0332f153dd897&quot;&gt;ProcessOn&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.edrawsoft.com/download-edrawmax-mac.php&quot;&gt;edraw&lt;/a&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;个人主页
-    &lt;ol&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.jekyll.com.cn/&quot;&gt;将纯文本转化为静态网站和博客&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/20409634&quot;&gt;怎样引导新手使用 Markdown？&lt;/a&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. AS源码英文翻译，参考&lt;a href=&quot;http://blog.csdn.net/luofen521/article/details/74295716&quot;&gt;AS翻译插件Translation&lt;/a&gt;
+&lt;br /&gt;2. Android源码调试
+&lt;br /&gt;  1. &lt;a href=&quot;http://www.genymotion.net/&quot;&gt;Android模拟器GenyMotion&lt;/a&gt;
+&lt;br /&gt;  2. GenyMotion创建和App的build.gradle中targetSdkVersion相同API Level模拟器即可Debug对应上源码。进阶参考&lt;a href=&quot;http://weishu.me/2016/05/30/how-to-debug-android-framework/&quot;&gt;如何调试Android Framework？&lt;/a&gt;
+&lt;br /&gt;  3. &lt;a href=&quot;http://weishu.me/2015/12/21/android-studio-debug-tips-you-may-not-know/&quot;&gt;Android Studio你不知道的调试技巧&lt;/a&gt;
+&lt;br /&gt;3. 关键日志输出，使用静态代理，进阶参考&lt;a href=&quot;http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/&quot;&gt;Android插件化原理解析——Hook机制之动态代理&lt;/a&gt;
+&lt;br /&gt;4. 绘图工具
+&lt;br /&gt;  1. &lt;a href=&quot;https://www.processon.com/i/5a633502e4b0332f153dd897&quot;&gt;ProcessOn&lt;/a&gt;
+&lt;br /&gt;  2. &lt;a href=&quot;https://www.edrawsoft.com/download-edrawmax-mac.php&quot;&gt;Edraw&lt;/a&gt;
+&lt;br /&gt;5. 个人主页
+&lt;br /&gt;  1. &lt;a href=&quot;https://www.jekyll.com.cn/&quot;&gt;将纯文本转化为静态网站和博客&lt;/a&gt;
+&lt;br /&gt;  2. &lt;a href=&quot;https://github.com/kitian616/jekyll-TeXt-theme&quot;&gt;TeXt主题模板&lt;/a&gt;
+&lt;br /&gt;  3. &lt;a href=&quot;https://www.zhihu.com/question/20409634&quot;&gt;怎样引导新手使用 Markdown？&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;利&quot;&gt;利&lt;/h1&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;随心所欲控制事件流【大权在手，天下我有】&lt;/li&gt;
-  &lt;li&gt;事件分发不再是个事，怕个球&lt;/li&gt;
-  &lt;li&gt;各种酷炫动画和自定义控件燥起来&lt;/li&gt;
-  &lt;li&gt;再也不用担心面试中尬聊事件分发&lt;/li&gt;
-  &lt;li&gt;借鉴上述不成熟的“渔”去爱干嘛干嘛&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;success&quot;&gt;1. 随心所欲控制事件流【大权在手，天下我有】
+&lt;br /&gt;2. 事件分发不再是个事，怕个球
+&lt;br /&gt;3. 各种酷炫动画和自定义控件燥起来
+&lt;br /&gt;4. 再也不用担心面试中尬聊事件分发
+&lt;br /&gt;5. 借鉴上述不成熟的“渔”去爱干嘛干嘛&lt;/p&gt;
 
 &lt;h1 id=&quot;进阶&quot;&gt;进阶&lt;/h1&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;滚动控件和按键冲突处理，界面布局滚动&lt;/li&gt;
-  &lt;li&gt;滑动冲突
-    &lt;ol&gt;
-      &lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000002873657&quot;&gt;NestedScrolling机制&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/52204039&quot;&gt;Android NestedScrolling机制完全解析 带你玩转嵌套滑动&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/982a83271327&quot;&gt;外部拦截法&amp;amp;内部拦截法&lt;/a&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;手势（GestureDecetor）&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p class=&quot;info&quot;&gt;1. 滚动控件和按键冲突处理，界面布局滚动
+&lt;br /&gt;2. 滑动冲突
+&lt;br /&gt;  1. &lt;a href=&quot;https://segmentfault.com/a/1190000002873657&quot;&gt;NestedScrolling机制&lt;/a&gt;
+&lt;br /&gt;  2. &lt;a href=&quot;http://blog.csdn.net/lmj623565791/article/details/52204039&quot;&gt;Android NestedScrolling机制完全解析 带你玩转嵌套滑动&lt;/a&gt;
+&lt;br /&gt;  3. &lt;a href=&quot;https://www.jianshu.com/p/982a83271327&quot;&gt;外部拦截法&amp;amp;内部拦截法&lt;/a&gt;
+&lt;br /&gt;3. 手势（GestureDecetor）&lt;/p&gt;
 
 &lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/e99b5e8bd67b&quot;&gt;图解 Android 事件分发机制&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.ingphone.com/android/2013/11/13/Android-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6.html&quot;&gt;Android 响应用户屏幕手势操作&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/0c863bbde8eb&quot;&gt;Android MotionEvent详解&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://my.oschina.net/banxi/blog/56421&quot;&gt;android触控,先了解MotionEvent(一)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/woshimalingyi/article/details/50383578&quot;&gt;Android多点触控之——MotionEvent(触控事件)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ztelur.github.io/2016/02/04/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BView%E7%AF%87/&quot;&gt;图解Android事件传递之View篇&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ztelur.github.io/2016/02/11/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BViewGroup%E7%AF%87/&quot;&gt;图解Android事件传递之ViewGroup篇&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;歌&quot;&gt;歌&lt;/h1&gt;
-
-&lt;h2 id=&quot;念奴娇天丁震怒&quot;&gt;念奴娇·天丁震怒&lt;/h2&gt;
-&lt;p&gt;完颜亮(金代)&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;天丁震怒，掀翻银海，散乱珠箔（bó）。&lt;/li&gt;
-  &lt;li&gt;六出奇花飞滚滚，平填了山中丘壑。(六出：雪花六角，因用为雪花的别名。)&lt;/li&gt;
-  &lt;li&gt;皓虎颠狂，素麟猖獗(chāng jué)，掣(chè, 拉)断珍珠索。(皓虎：白色的老虎。素麟：白色的麒麟。)&lt;/li&gt;
-  &lt;li&gt;玉龙酣战，鳞甲满天飘落。&lt;/li&gt;
-  &lt;li&gt;&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;谁念万里关山，征夫僵立，缟（gǎo）带沾旗脚。(僵立：因寒冷而冻得僵硬直立。缟带：白色的衣带。)&lt;/li&gt;
-  &lt;li&gt;色映戈矛，光摇剑戟(jǐ )，杀气横戎幕。(戎幕：行军作战时的营帐。)&lt;/li&gt;
-  &lt;li&gt;貔（pí）虎豪雄，偏裨（pí）英勇，共与谈兵略。（裨：pí ，副，偏，小；bì ，增添，补助，如大有～益。）&lt;/li&gt;
-  &lt;li&gt;须拼一醉，看取碧空寥廓(liáo kuò)。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;copy-right&quot;&gt;Copy Right&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;作者： 盛书强，美团点评酒旅前端高级工程师，“九域之广,岂一人之强化,必伫才能,共成羽翼”，我们期待你的加入，简历发送至shengshuqiang@gmail.com。&lt;/li&gt;
-  &lt;li&gt;声明： 本文为原创文章，转载请注明来源，共建和谐。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="Android" /><category term="事件分发" /><category term="源码剖析" /><summary type="html">情境(Situation) 1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。 2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。 冲突(Complication) 1. 网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），看完后不明觉厉。 2. 事件分发主要用于解决自定义炫酷控件以及滑动嵌套引发的冲突问题（程序傻傻分不清是横滑还是竖滑），发现同行各种写法都有，雷无处不在【人在家中坐，锅从天上来】。</summary></entry><entry><title type="html">TeXt - Additional Styles</title><link href="http://localhost:4000/2017/08/08/additional-styles.html" rel="alternate" type="text/html" title="TeXt - Additional Styles" /><published>2017-08-08T00:00:00+00:00</published><updated>2017-08-08T00:00:00+00:00</updated><id>http://localhost:4000/2017/08/08/additional-styles</id><content type="html" xml:base="http://localhost:4000/2017/08/08/additional-styles.html">&lt;h2 id=&quot;alert&quot;&gt;Alert&lt;/h2&gt;
-
-&lt;p class=&quot;success&quot;&gt;Success Text.&lt;/p&gt;
-
-&lt;p class=&quot;info&quot;&gt;Info Text.&lt;/p&gt;
-
-&lt;p class=&quot;warning&quot;&gt;Warning Text.&lt;/p&gt;
-
-&lt;p class=&quot;error&quot;&gt;Error Text.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Success Text.
-{:.success}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Info Text.
-{:.info}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Warning Text.
-{:.warning}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Error Text.
-{:.error}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;image&quot;&gt;Image&lt;/h2&gt;
-
-&lt;h3 id=&quot;border&quot;&gt;Border&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_border&quot; class=&quot;border&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.border}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;shadow&quot;&gt;Shadow&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_shadow&quot; class=&quot;shadow&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.shadow}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;rounded&quot;&gt;Rounded&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_rounded&quot; class=&quot;rounded&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.rounded}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;circle&quot;&gt;Circle&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_circle&quot; class=&quot;circle&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.circle}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;mixture&quot;&gt;Mixture&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_border+rounded&quot; class=&quot;border rounded&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.border.rounded}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_circle+shadow&quot; class=&quot;circle shadow&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.circle.shadow}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img src=&quot;//ww1.sinaimg.cn/large/73bd9e13ly1fof1u4iaorj2074074gp3.jpg&quot; alt=&quot;Lenna&quot; title=&quot;Lenna_circle+border+shadow&quot; class=&quot;circle border shadow&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![Lenna](path-to-image.jpg){:.circle.border.shadow}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="English" /><summary type="html">Alert Success Text. Info Text. Warning Text. Error Text.</summary></entry><entry><title type="html">TeXt - MathJax</title><link href="http://localhost:4000/2017/07/07/mathjax.html" rel="alternate" type="text/html" title="TeXt - MathJax" /><published>2017-07-07T00:00:00+00:00</published><updated>2017-07-07T00:00:00+00:00</updated><id>http://localhost:4000/2017/07/07/mathjax</id><content type="html" xml:base="http://localhost:4000/2017/07/07/mathjax.html">&lt;p&gt;When &lt;script type=&quot;math/tex&quot;&gt;a \ne 0&lt;/script&gt;, there are two solutions to &lt;script type=&quot;math/tex&quot;&gt;ax^2 + bx + c = 0&lt;/script&gt; and they are&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_1 = {-b + \sqrt{b^2-4ac} \over 2a}&lt;/script&gt;
-
-&lt;!--more--&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_2 = {-b - \sqrt{b^2-4ac} \over 2a} \notag&lt;/script&gt;
-
-&lt;p class=&quot;warning&quot;&gt;You need set &lt;code class=&quot;highlighter-rouge&quot;&gt;mathjax: true&lt;/code&gt; in the _config.yml or the markdown’s front matter to &lt;strong&gt;enable&lt;/strong&gt; it.&lt;/p&gt;
-
-&lt;p class=&quot;info&quot;&gt;&lt;strong&gt;After MathJax enabled&lt;/strong&gt;, you can set &lt;code class=&quot;highlighter-rouge&quot;&gt;mathjax_autoNumber: true&lt;/code&gt; to have equations be numbered automatically, You can use \notag or \nonumber to prevent individual equations from being numbered.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-tex highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;When &lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;a &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\ne&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;, there are two solutions to &lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; bx &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; c &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt; and they are
-&lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;b &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\over&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}$$&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;b &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\over&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;\notag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$$&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;front matter:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
-layout: post
-title: TeXt - MathJax
-tags:
-  - TeXt
-  - English
-mathjax: true
-mathjax_autoNumber: true
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="English" /><summary type="html">When , there are two solutions to and they are</summary></entry><entry><title type="html">TeXt - Mermaid</title><link href="http://localhost:4000/2017/06/06/mermaid.html" rel="alternate" type="text/html" title="TeXt - Mermaid" /><published>2017-06-06T00:00:00+00:00</published><updated>2017-06-06T00:00:00+00:00</updated><id>http://localhost:4000/2017/06/06/mermaid</id><content type="html" xml:base="http://localhost:4000/2017/06/06/mermaid.html">&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TB;
-    A[Do you have a problem in your life?]
-    B[Then don't worry]
-    C[Can you do something about it?]
-    A--no--&amp;gt;B;
-    A--yes--&amp;gt;C;
-    C--no--&amp;gt;B;
-    C--yes--&amp;gt;B;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;!--more--&gt;
-
-&lt;p class=&quot;warning&quot;&gt;You need set &lt;code class=&quot;highlighter-rouge&quot;&gt;mermaid: true&lt;/code&gt; in the _config.yml or the markdown’s front matter to &lt;strong&gt;enable&lt;/strong&gt; it.&lt;/p&gt;
-
-&lt;p&gt;Generation of diagrams and flowcharts from text in a similar manner as markdown.&lt;/p&gt;
-
-&lt;p&gt;Ever wanted to simplify documentation and avoid heavy tools like Visio when explaining your code?&lt;/p&gt;
-
-&lt;p&gt;This is why &lt;a href=&quot;https://mermaidjs.github.io/&quot;&gt;mermaid&lt;/a&gt; was born, a simple markdown-like script language for generating charts from text via javascript.&lt;/p&gt;
-
-&lt;h2 id=&quot;flowchart&quot;&gt;Flowchart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph TD;
-    A--&amp;gt;B;
-    A--&amp;gt;C;
-    B--&amp;gt;D;
-    C--&amp;gt;D;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mermaidjs.github.io/flowchart.html&quot;&gt;Documentation for Flowchart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```mermaid
-graph TD;
-    A--&amp;gt;B;
-    A--&amp;gt;C;
-    B--&amp;gt;D;
-    C--&amp;gt;D;
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;sequence-diagram&quot;&gt;Sequence Diagram&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;sequenceDiagram
-    participant Alice
-    participant Bob
-    Alice-&amp;gt;John: Hello John, how are you?
-    loop Healthcheck
-        John-&amp;gt;John: Fight against hypochondria
-    end
-    Note right of John: Rational thoughts &amp;lt;br/&amp;gt;prevail...
-    John--&amp;gt;Alice: Great!
-    John-&amp;gt;Bob: How about you?
-    Bob--&amp;gt;John: Jolly good!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mermaidjs.github.io/sequenceDiagram.html&quot;&gt;Documentation for Sequence Diagram&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```mermaid
-sequenceDiagram
-    participant Alice
-    participant Bob
-    Alice-&amp;gt;John: Hello John, how are you?
-    loop Healthcheck
-        John-&amp;gt;John: Fight against hypochondria
-    end
-    Note right of John: Rational thoughts &amp;lt;br/&amp;gt;prevail...
-    John--&amp;gt;Alice: Great!
-    John-&amp;gt;Bob: How about you?
-    Bob--&amp;gt;John: Jolly good!
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;gant-diagrams&quot;&gt;Gant Diagrams&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;gantt
-    dateFormat  YYYY-MM-DD
-    title Adding GANTT diagram functionality to mermaid
-    section A section
-    Completed task            :done,    des1, 2014-01-06,2014-01-08
-    Active task               :active,  des2, 2014-01-09, 3d
-    Future task               :         des3, after des2, 5d
-    Future task2              :         des4, after des3, 5d
-    section Critical tasks
-    Completed task in the critical line :crit, done, 2014-01-06,24h
-    Implement parser and jison          :crit, done, after des1, 2d
-    Create tests for parser             :crit, active, 3d
-    Future task in critical line        :crit, 5d
-    Create tests for renderer           :2d
-    Add to mermaid                      :1d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mermaidjs.github.io/gantt.html&quot;&gt;Documentation for Gant Diagram&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```mermaid
-gantt
-    dateFormat  YYYY-MM-DD
-    title Adding GANTT diagram functionality to mermaid
-    section A section
-    Completed task            :done,    des1, 2014-01-06,2014-01-08
-    Active task               :active,  des2, 2014-01-09, 3d
-    Future task               :         des3, after des2, 5d
-    Future task2              :         des4, after des3, 5d
-    section Critical tasks
-    Completed task in the critical line :crit, done, 2014-01-06,24h
-    Implement parser and jison          :crit, done, after des1, 2d
-    Create tests for parser             :crit, active, 3d
-    Future task in critical line        :crit, 5d
-    Create tests for renderer           :2d
-    Add to mermaid
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="English" /><summary type="html">graph TB; A[Do you have a problem in your life?] B[Then don't worry] C[Can you do something about it?] A--no--&amp;gt;B; A--yes--&amp;gt;C; C--no--&amp;gt;B; C--yes--&amp;gt;B;</summary></entry><entry><title type="html">TeXt - Chart</title><link href="http://localhost:4000/2017/05/05/chart.html" rel="alternate" type="text/html" title="TeXt - Chart" /><published>2017-05-05T00:00:00+00:00</published><updated>2017-05-05T00:00:00+00:00</updated><id>http://localhost:4000/2017/05/05/chart</id><content type="html" xml:base="http://localhost:4000/2017/05/05/chart.html">&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;line&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;January&quot;,
-      &quot;February&quot;,
-      &quot;March&quot;,
-      &quot;April&quot;,
-      &quot;May&quot;,
-      &quot;June&quot;,
-      &quot;July&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;# of bugs&quot;,
-        &quot;fill&quot;: false,
-        &quot;lineTension&quot;: 0.1,
-        &quot;backgroundColor&quot;: &quot;rgba(75,192,192,0.4)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;borderCapStyle&quot;: &quot;butt&quot;,
-        &quot;borderDash&quot;: [],
-        &quot;borderDashOffset&quot;: 0,
-        &quot;borderJoinStyle&quot;: &quot;miter&quot;,
-        &quot;pointBorderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointBorderWidth&quot;: 1,
-        &quot;pointHoverRadius&quot;: 5,
-        &quot;pointHoverBackgroundColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(220,220,220,1)&quot;,
-        &quot;pointHoverBorderWidth&quot;: 2,
-        &quot;pointRadius&quot;: 1,
-        &quot;pointHitRadius&quot;: 10,
-        &quot;data&quot;: [
-          65,
-          59,
-          80,
-          81,
-          56,
-          55,
-          40
-        ],
-        &quot;spanGaps&quot;: false
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;!--more--&gt;
-
-&lt;p class=&quot;warning&quot;&gt;You need set &lt;code class=&quot;highlighter-rouge&quot;&gt;chart: true&lt;/code&gt; in the _config.yml or the markdown’s front matter to &lt;strong&gt;enable&lt;/strong&gt; it.&lt;/p&gt;
-&lt;p&gt;Simple HTML5 Charts using the canvas element &lt;a href=&quot;http://www.chartjs.org/&quot;&gt;chartjs.org&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;line-chart&quot;&gt;Line Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;line&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;January&quot;,
-      &quot;February&quot;,
-      &quot;March&quot;,
-      &quot;April&quot;,
-      &quot;May&quot;,
-      &quot;June&quot;,
-      &quot;July&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;# of bugs&quot;,
-        &quot;fill&quot;: false,
-        &quot;lineTension&quot;: 0.1,
-        &quot;backgroundColor&quot;: &quot;rgba(75,192,192,0.4)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;borderCapStyle&quot;: &quot;butt&quot;,
-        &quot;borderDash&quot;: [],
-        &quot;borderDashOffset&quot;: 0,
-        &quot;borderJoinStyle&quot;: &quot;miter&quot;,
-        &quot;pointBorderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointBorderWidth&quot;: 1,
-        &quot;pointHoverRadius&quot;: 5,
-        &quot;pointHoverBackgroundColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(220,220,220,1)&quot;,
-        &quot;pointHoverBorderWidth&quot;: 2,
-        &quot;pointRadius&quot;: 1,
-        &quot;pointHitRadius&quot;: 10,
-        &quot;data&quot;: [
-          65,
-          59,
-          80,
-          81,
-          56,
-          55,
-          40
-        ],
-        &quot;spanGaps&quot;: false
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/line.html&quot;&gt;Documentation for Line Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;line&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;January&quot;,
-      &quot;February&quot;,
-      &quot;March&quot;,
-      &quot;April&quot;,
-      &quot;May&quot;,
-      &quot;June&quot;,
-      &quot;July&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;# of bugs&quot;,
-        &quot;fill&quot;: false,
-        &quot;lineTension&quot;: 0.1,
-        &quot;backgroundColor&quot;: &quot;rgba(75,192,192,0.4)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;borderCapStyle&quot;: &quot;butt&quot;,
-        &quot;borderDash&quot;: [],
-        &quot;borderDashOffset&quot;: 0,
-        &quot;borderJoinStyle&quot;: &quot;miter&quot;,
-        &quot;pointBorderColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointBorderWidth&quot;: 1,
-        &quot;pointHoverRadius&quot;: 5,
-        &quot;pointHoverBackgroundColor&quot;: &quot;rgba(75,192,192,1)&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(220,220,220,1)&quot;,
-        &quot;pointHoverBorderWidth&quot;: 2,
-        &quot;pointRadius&quot;: 1,
-        &quot;pointHitRadius&quot;: 10,
-        &quot;data&quot;: [
-          65,
-          59,
-          80,
-          81,
-          56,
-          55,
-          40
-        ],
-        &quot;spanGaps&quot;: false
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;bar-chart&quot;&gt;Bar Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;bar&quot;,
-  &quot;data&quot;: {
-  &quot;labels&quot;: [
-    &quot;Red&quot;,
-    &quot;Blue&quot;,
-    &quot;Yellow&quot;,
-    &quot;Green&quot;,
-    &quot;Purple&quot;,
-    &quot;Orange&quot;
-  ],
-  &quot;datasets&quot;: [
-    {
-    &quot;label&quot;: &quot;# of Votes&quot;,
-    &quot;data&quot;: [
-      12,
-      19,
-      3,
-      5,
-      2,
-      3
-    ],
-    &quot;backgroundColor&quot;: [
-      &quot;rgba(255, 99, 132, 0.2)&quot;,
-      &quot;rgba(54, 162, 235, 0.2)&quot;,
-      &quot;rgba(255, 206, 86, 0.2)&quot;,
-      &quot;rgba(75, 192, 192, 0.2)&quot;,
-      &quot;rgba(153, 102, 255, 0.2)&quot;,
-      &quot;rgba(255, 159, 64, 0.2)&quot;
-    ],
-    &quot;borderColor&quot;: [
-      &quot;rgba(255,99,132,1)&quot;,
-      &quot;rgba(54, 162, 235, 1)&quot;,
-      &quot;rgba(255, 206, 86, 1)&quot;,
-      &quot;rgba(75, 192, 192, 1)&quot;,
-      &quot;rgba(153, 102, 255, 1)&quot;,
-      &quot;rgba(255, 159, 64, 1)&quot;
-    ],
-    &quot;borderWidth&quot;: 1
-    }
-  ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/bar.html&quot;&gt;Documentation for Bar Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;bar&quot;,
-  &quot;data&quot;: {
-  &quot;labels&quot;: [
-    &quot;Red&quot;,
-    &quot;Blue&quot;,
-    &quot;Yellow&quot;,
-    &quot;Green&quot;,
-    &quot;Purple&quot;,
-    &quot;Orange&quot;
-  ],
-  &quot;datasets&quot;: [
-    {
-    &quot;label&quot;: &quot;# of Votes&quot;,
-    &quot;data&quot;: [
-      12,
-      19,
-      3,
-      5,
-      2,
-      3
-    ],
-    &quot;backgroundColor&quot;: [
-      &quot;rgba(255, 99, 132, 0.2)&quot;,
-      &quot;rgba(54, 162, 235, 0.2)&quot;,
-      &quot;rgba(255, 206, 86, 0.2)&quot;,
-      &quot;rgba(75, 192, 192, 0.2)&quot;,
-      &quot;rgba(153, 102, 255, 0.2)&quot;,
-      &quot;rgba(255, 159, 64, 0.2)&quot;
-    ],
-    &quot;borderColor&quot;: [
-      &quot;rgba(255,99,132,1)&quot;,
-      &quot;rgba(54, 162, 235, 1)&quot;,
-      &quot;rgba(255, 206, 86, 1)&quot;,
-      &quot;rgba(75, 192, 192, 1)&quot;,
-      &quot;rgba(153, 102, 255, 1)&quot;,
-      &quot;rgba(255, 159, 64, 1)&quot;
-    ],
-    &quot;borderWidth&quot;: 1
-    }
-  ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;radar-chart&quot;&gt;Radar Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;radar&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Eating&quot;,
-      &quot;Drinking&quot;,
-      &quot;Sleeping&quot;,
-      &quot;Designing&quot;,
-      &quot;Coding&quot;,
-      &quot;Cycling&quot;,
-      &quot;Running&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;My First dataset&quot;,
-        &quot;backgroundColor&quot;: &quot;rgba(179,181,198,0.2)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;pointBorderColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;data&quot;: [
-          65,
-          59,
-          90,
-          81,
-          56,
-          55,
-          40
-        ]
-      },
-      {
-        &quot;label&quot;: &quot;My Second dataset&quot;,
-        &quot;backgroundColor&quot;: &quot;rgba(255,99,132,0.2)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;pointBorderColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;data&quot;: [
-          28,
-          48,
-          40,
-          19,
-          96,
-          27,
-          100
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/radar.html&quot;&gt;Documentation for Radar Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;radar&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Eating&quot;,
-      &quot;Drinking&quot;,
-      &quot;Sleeping&quot;,
-      &quot;Designing&quot;,
-      &quot;Coding&quot;,
-      &quot;Cycling&quot;,
-      &quot;Running&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;My First dataset&quot;,
-        &quot;backgroundColor&quot;: &quot;rgba(179,181,198,0.2)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;pointBorderColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(179,181,198,1)&quot;,
-        &quot;data&quot;: [
-          65,
-          59,
-          90,
-          81,
-          56,
-          55,
-          40
-        ]
-      },
-      {
-        &quot;label&quot;: &quot;My Second dataset&quot;,
-        &quot;backgroundColor&quot;: &quot;rgba(255,99,132,0.2)&quot;,
-        &quot;borderColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;pointBackgroundColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;pointBorderColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBackgroundColor&quot;: &quot;#fff&quot;,
-        &quot;pointHoverBorderColor&quot;: &quot;rgba(255,99,132,1)&quot;,
-        &quot;data&quot;: [
-          28,
-          48,
-          40,
-          19,
-          96,
-          27,
-          100
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;polar-area-chart&quot;&gt;Polar Area Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;polarArea&quot;,
-  &quot;data&quot;: {
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          11,
-          16,
-          7,
-          3,
-          14
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#4BC0C0&quot;,
-          &quot;#FFCE56&quot;,
-          &quot;#E7E9ED&quot;,
-          &quot;#36A2EB&quot;
-        ],
-        &quot;label&quot;: &quot;My dataset&quot;
-      }
-    ],
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Green&quot;,
-      &quot;Yellow&quot;,
-      &quot;Grey&quot;,
-      &quot;Blue&quot;
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/latest/charts/polar.html&quot;&gt;Documentation for Polar Area Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;polarArea&quot;,
-  &quot;data&quot;: {
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          11,
-          16,
-          7,
-          3,
-          14
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#4BC0C0&quot;,
-          &quot;#FFCE56&quot;,
-          &quot;#E7E9ED&quot;,
-          &quot;#36A2EB&quot;
-        ],
-        &quot;label&quot;: &quot;My dataset&quot;
-      }
-    ],
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Green&quot;,
-      &quot;Yellow&quot;,
-      &quot;Grey&quot;,
-      &quot;Blue&quot;
-    ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;pie-chart&quot;&gt;Pie Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;pie&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Blue&quot;,
-      &quot;Yellow&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          300,
-          50,
-          100
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ],
-        &quot;hoverBackgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/doughnut.html&quot;&gt;Documentation for Pie Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;pie&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Blue&quot;,
-      &quot;Yellow&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          300,
-          50,
-          100
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ],
-        &quot;hoverBackgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-} ```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;doughnut-chart&quot;&gt;Doughnut Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;doughnut&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Blue&quot;,
-      &quot;Yellow&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          300,
-          50,
-          100
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ],
-        &quot;hoverBackgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/doughnut.html&quot;&gt;Documentation for Doughnut Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;doughnut&quot;,
-  &quot;data&quot;: {
-    &quot;labels&quot;: [
-      &quot;Red&quot;,
-      &quot;Blue&quot;,
-      &quot;Yellow&quot;
-    ],
-    &quot;datasets&quot;: [
-      {
-        &quot;data&quot;: [
-          300,
-          50,
-          100
-        ],
-        &quot;backgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ],
-        &quot;hoverBackgroundColor&quot;: [
-          &quot;#FF6384&quot;,
-          &quot;#36A2EB&quot;,
-          &quot;#FFCE56&quot;
-        ]
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;bubble-chart&quot;&gt;Bubble Chart&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-chart&quot;&gt;{
-  &quot;type&quot;: &quot;bubble&quot;,
-  &quot;data&quot;: {
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;First Dataset&quot;,
-        &quot;data&quot;: [
-          {
-            &quot;x&quot;: 20,
-            &quot;y&quot;: 30,
-            &quot;r&quot;: 15
-          },
-          {
-            &quot;x&quot;: 40,
-            &quot;y&quot;: 10,
-            &quot;r&quot;: 10
-          }
-        ],
-        &quot;backgroundColor&quot;: &quot;#FF6384&quot;,
-        &quot;hoverBackgroundColor&quot;: &quot;#FF6384&quot;
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.chartjs.org/docs/latest/charts/bubble.html&quot;&gt;Documentation for Bubble Chart&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```chart
-{
-  &quot;type&quot;: &quot;bubble&quot;,
-  &quot;data&quot;: {
-    &quot;datasets&quot;: [
-      {
-        &quot;label&quot;: &quot;First Dataset&quot;,
-        &quot;data&quot;: [
-          {
-            &quot;x&quot;: 20,
-            &quot;y&quot;: 30,
-            &quot;r&quot;: 15
-          },
-          {
-            &quot;x&quot;: 40,
-            &quot;y&quot;: 10,
-            &quot;r&quot;: 10
-          }
-        ],
-        &quot;backgroundColor&quot;: &quot;#FF6384&quot;,
-        &quot;hoverBackgroundColor&quot;: &quot;#FF6384&quot;
-      }
-    ]
-  },
-  &quot;options&quot;: {}
-}
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="English" /><summary type="html">{ &quot;type&quot;: &quot;line&quot;, &quot;data&quot;: { &quot;labels&quot;: [ &quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot; ], &quot;datasets&quot;: [ { &quot;label&quot;: &quot;# of bugs&quot;, &quot;fill&quot;: false, &quot;lineTension&quot;: 0.1, &quot;backgroundColor&quot;: &quot;rgba(75,192,192,0.4)&quot;, &quot;borderColor&quot;: &quot;rgba(75,192,192,1)&quot;, &quot;borderCapStyle&quot;: &quot;butt&quot;, &quot;borderDash&quot;: [], &quot;borderDashOffset&quot;: 0, &quot;borderJoinStyle&quot;: &quot;miter&quot;, &quot;pointBorderColor&quot;: &quot;rgba(75,192,192,1)&quot;, &quot;pointBackgroundColor&quot;: &quot;#fff&quot;, &quot;pointBorderWidth&quot;: 1, &quot;pointHoverRadius&quot;: 5, &quot;pointHoverBackgroundColor&quot;: &quot;rgba(75,192,192,1)&quot;, &quot;pointHoverBorderColor&quot;: &quot;rgba(220,220,220,1)&quot;, &quot;pointHoverBorderWidth&quot;: 2, &quot;pointRadius&quot;: 1, &quot;pointHitRadius&quot;: 10, &quot;data&quot;: [ 65, 59, 80, 81, 56, 55, 40 ], &quot;spanGaps&quot;: false } ] }, &quot;options&quot;: {} }</summary></entry><entry xml:lang="zh-Hans"><title type="html">TeXt - Simplified Chinese | 简体中文</title><link href="http://localhost:4000/2017/04/13/simplified-chinese.html" rel="alternate" type="text/html" title="TeXt - Simplified Chinese | 简体中文" /><published>2017-04-13T00:00:00+00:00</published><updated>2017-04-13T00:00:00+00:00</updated><id>http://localhost:4000/2017/04/13/simplified-chinese</id><content type="html" xml:base="http://localhost:4000/2017/04/13/simplified-chinese.html">&lt;p&gt;在 _config.yml 或者头信息里设置 &lt;code class=&quot;highlighter-rouge&quot;&gt;lang: zh-Hans&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;lang: zh&lt;/code&gt; 后，主题文字变为简体中文。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;strong&gt;front matter:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
-layout: post
-title: TeXt - Simplified Chinese | 简体中文
-tags:
-  - TeXt
-  - Simplified Chinese | 简
-lang: zh-Hans
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可以看到这个页面的导航和版权信息都变成了简体中文。&lt;/p&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="Simplified Chinese | 简" /><summary type="html">在 _config.yml 或者头信息里设置 lang: zh-Hans 或 lang: zh 后，主题文字变为简体中文。</summary></entry><entry xml:lang="zh-Hant"><title type="html">TeXt - Traditional Chinese | 繁體中文</title><link href="http://localhost:4000/2017/04/12/traditional-chinese.html" rel="alternate" type="text/html" title="TeXt - Traditional Chinese | 繁體中文" /><published>2017-04-12T00:00:00+00:00</published><updated>2017-04-12T00:00:00+00:00</updated><id>http://localhost:4000/2017/04/12/traditional-chinese</id><content type="html" xml:base="http://localhost:4000/2017/04/12/traditional-chinese.html">&lt;p&gt;在 _config.yml 或者頭信息裏設置 &lt;code class=&quot;highlighter-rouge&quot;&gt;lang: zh-Hant&lt;/code&gt; 後，主題文字變為繁體中文。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;strong&gt;front matter:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
-layout: post
-title: TeXt - Traditional Chinese | 繁體中文
-tags:
-  - TeXt
-  - Traditional Chinese | 繁
-lang: zh-Hant
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可以看到這個頁面的導航和版權信息都變成了繁體中文。&lt;/p&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="Traditional Chinese | 繁" /><summary type="html">在 _config.yml 或者頭信息裏設置 lang: zh-Hant 後，主題文字變為繁體中文。</summary></entry><entry xml:lang="en"><title type="html">TeXt - English</title><link href="http://localhost:4000/2017/04/03/english.html" rel="alternate" type="text/html" title="TeXt - English" /><published>2017-04-03T00:00:00+00:00</published><updated>2017-04-03T00:00:00+00:00</updated><id>http://localhost:4000/2017/04/03/english</id><content type="html" xml:base="http://localhost:4000/2017/04/03/english.html">&lt;p&gt;English is the default language of TeXt, if you set &lt;code class=&quot;highlighter-rouge&quot;&gt;lang&lt;/code&gt; in _config.yml to the other language but want make the page English, just set &lt;code class=&quot;highlighter-rouge&quot;&gt;lang: en&lt;/code&gt; in the front matter.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;strong&gt;front matter:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
-layout: post
-title: TeXt - English
-tags:
-  - TeXt
-  - English
-lang: en
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="TeXt" /><category term="English" /><summary type="html">English is the default language of TeXt, if you set lang in _config.yml to the other language but want make the page English, just set lang: en in the front matter.</summary></entry><entry><title type="html">Jekyll - Paragraphs</title><link href="http://localhost:4000/2016/10/10/paragraphs.html" rel="alternate" type="text/html" title="Jekyll - Paragraphs" /><published>2016-10-10T00:00:00+00:00</published><updated>2016-10-10T00:00:00+00:00</updated><id>http://localhost:4000/2016/10/10/paragraphs</id><content type="html" xml:base="http://localhost:4000/2016/10/10/paragraphs.html">&lt;p&gt;Electroencephalography (EEG) is an electrophysiological monitoring method to record electrical activity of the brain. It is typically noninvasive, with the electrodes placed along the scalp, although invasive electrodes are sometimes used such as in electrocorticography. EEG measures voltage fluctuations resulting from ionic current within the neurons of the brain. In clinical contexts, EEG refers to the recording of the brain’s spontaneous electrical activity over a period of time, as recorded from multiple electrodes placed on the scalp. Diagnostic applications generally focus either on event-related potentials or on the spectral content of EEG. The former investigates potential fluctuations time locked to an event like stimulus onset or button press. The latter analyses the type of neural oscillations (popularly called “brain waves”) that can be observed in EEG signals in the frequency domain.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;EEG is most often used to diagnose epilepsy, which causes abnormalities in EEG readings. It is also used to diagnose sleep disorders, depth of anesthesia, coma, encephalopathies, and brain death. EEG used to be a first-line method of diagnosis for tumors, stroke and other focal brain disorders, but this use has decreased with the advent of high-resolution anatomical imaging techniques such as magnetic resonance imaging (MRI) and computed tomography (CT). Despite limited spatial resolution, EEG continues to be a valuable tool for research and diagnosis. It is one of the few mobile techniques available and offers millisecond-range temporal resolution which is not possible with CT, PET or MRI.&lt;/p&gt;
-
-&lt;p&gt;Derivatives of the EEG technique include evoked potentials (EP), which involves averaging the EEG activity time-locked to the presentation of a stimulus of some sort (visual, somatosensory, or auditory). Event-related potentials (ERPs) refer to averaged EEG responses that are time-locked to more complex processing of stimuli; this technique is used in cognitive science, cognitive psychology, and psychophysiological research.&lt;/p&gt;
-
-&lt;h2 id=&quot;very-long-word&quot;&gt;Very Long Word&lt;/h2&gt;
-
-&lt;p&gt;MethionylglutaminylarginyltyrosylglutamylserylleucylphenylalanylalanylglutaminylleucyllysylglutamylarginyllysylglutamylglycylalanylphenylalanylvalylprolyphenylalanYlvalythreonylleucylglycylaspartylprolylglycylisoleucylglutamylglutaminylsErylleucyllysylisoleucylaspartylthreonylleucylIsoleucylglutamylalanylglycylalanylasparthlalanylleucylglutamylleucylglycylisoleucylprolylphenylalanylseRylaspartylprolylleucylalanylaspartylglycylpRolylthreOnylisoleucylglutaminylasPfraginylalanylthreonylleucylarfinylalanylphenylalanylalanylalanylglycylvalythreonylprolylalanylglutaminylcysteinylphenylalanylglutamylmethionylleucylalanylleuOylisoleucylarginylglutaminyllysyhistidylprolylthreonylisoleucylprolylisoleucylglycylleucylmethionyltyrosylalanylasparaginylleucylvalylphenylalanylasparaginyllysyglycylisoleucylaspartylglutamylphenylalanylthrosylalanylglutaminylcysteinylglutamyllysylvalylglycylvalylaspartylserylvalylleucylvalylalnylaspartylvalylprolylvalylglUtaminylglutamylserylalanylprolylphenylalanylarginylglutaminylalanylalanylleucylarginylhistidylasparaginyvalylalanylprolylisoleucylprolylisoleucylphenylalanylisoleucylphenylalanylisoleucylcysteinylprolylprolylaspartylalanylaspartylaspartylaspartylleucylleucylarginylglutaminylisoleucylalanylseryltyrosylglycylarginylglycyltyrosylthreonyltyrOsylleucylleucylserylarginylalanylglycylvalylthreonylglycylalanylglutamYlasparainylarginylalanylalanylleucylprolylleucylasparaginylhistidylleucylValylalanyllysylleucyllysylglutamyltyrosylasparaginylalanylalanylprolylprolylleucylglutaminylglgycylphenylalanylglycylisoleucylserylalanylprolylaspartylglutaminylvalyllysylalanylalanylisoleucylaspartylalanylglycylalanylalanylglycylalanylisoleucylserylglycylserylalanylisoleucylvalyllysylisoIeucylisoleucylglutamylglutaminylHistidylasparaginyliSoleucylglutamylprolylglutamyllysylmethionylleucylalanylalanylleucyllysylvalylphenylalanylcalylglutaminylprolylmethionlysylalanylalanylthreonylarginylserine&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;From Wikipedia, the free encyclopedia&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="Jekyll" /><category term="English" /><summary type="html">Electroencephalography (EEG) is an electrophysiological monitoring method to record electrical activity of the brain. It is typically noninvasive, with the electrodes placed along the scalp, although invasive electrodes are sometimes used such as in electrocorticography. EEG measures voltage fluctuations resulting from ionic current within the neurons of the brain. In clinical contexts, EEG refers to the recording of the brain’s spontaneous electrical activity over a period of time, as recorded from multiple electrodes placed on the scalp. Diagnostic applications generally focus either on event-related potentials or on the spectral content of EEG. The former investigates potential fluctuations time locked to an event like stimulus onset or button press. The latter analyses the type of neural oscillations (popularly called “brain waves”) that can be observed in EEG signals in the frequency domain.</summary></entry><entry><title type="html">Jekyll - Headers</title><link href="http://localhost:4000/2016/09/19/headers.html" rel="alternate" type="text/html" title="Jekyll - Headers" /><published>2016-09-19T00:00:00+00:00</published><updated>2016-09-19T00:00:00+00:00</updated><id>http://localhost:4000/2016/09/19/headers</id><content type="html" xml:base="http://localhost:4000/2016/09/19/headers.html">&lt;h1 id=&quot;text-theme-heading&quot;&gt;TeXt Theme Heading&lt;/h1&gt;
-
-&lt;h2 id=&quot;text-theme-heading-1&quot;&gt;TeXt Theme Heading&lt;/h2&gt;
-
-&lt;h3 id=&quot;text-theme-heading-2&quot;&gt;TeXt Theme Heading&lt;/h3&gt;
-
-&lt;h4 id=&quot;text-theme-heading-3&quot;&gt;TeXt Theme Heading&lt;/h4&gt;
-
-&lt;h5 id=&quot;text-theme-heading-4&quot;&gt;TeXt Theme Heading&lt;/h5&gt;
-
-&lt;h6 id=&quot;text-theme-heading-5&quot;&gt;TeXt Theme Heading&lt;/h6&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# TeXt Theme Heading
-## TeXt Theme Heading
-### TeXt Theme Heading
-#### TeXt Theme Heading
-##### TeXt Theme Heading
-###### TeXt Theme Heading
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;first-level-header&quot;&gt;First level header&lt;/h1&gt;
-
-&lt;h2 id=&quot;second-level-header&quot;&gt;Second level header&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;markdown:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;First level header
-==================
-
-Second level header
-------
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="Jekyll" /><category term="English" /><summary type="html">TeXt Theme Heading TeXt Theme Heading TeXt Theme Heading TeXt Theme Heading TeXt Theme Heading TeXt Theme Heading</summary></entry></feed>
+&lt;p class=&quot;info&quot;&gt;1. &lt;a href=&quot;https://www.jianshu.com/p/e99b5e8bd67b&quot;&gt;图解 Android 事件分发机制&lt;/a&gt;
+&lt;br /&gt;2. &lt;a href=&quot;http://blog.ingphone.com/android/2013/11/13/Android-%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6.html&quot;&gt;Android 响应用户屏幕手势操作&lt;/a&gt;
+&lt;br /&gt;3. &lt;a href=&quot;https://www.jianshu.com/p/0c863bbde8eb&quot;&gt;Android MotionEvent详解&lt;/a&gt;
+&lt;br /&gt;4. &lt;a href=&quot;https://my.oschina.net/banxi/blog/56421&quot;&gt;android触控,先了解MotionEvent(一)&lt;/a&gt;
+&lt;br /&gt;5. &lt;a href=&quot;http://blog.csdn.net/woshimalingyi/article/details/50383578&quot;&gt;Android多点触控之——MotionEvent(触控事件)&lt;/a&gt;
+&lt;br /&gt;6. &lt;a href=&quot;http://ztelur.github.io/2016/02/04/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BView%E7%AF%87/&quot;&gt;图解Android事件传递之View篇&lt;/a&gt;
+&lt;br /&gt;7. &lt;a href=&quot;http://ztelur.github.io/2016/02/11/%E5%9B%BE%E8%A7%A3Android%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%B9%8BViewGroup%E7%AF%87/&quot;&gt;图解Android事件传递之ViewGroup篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;长歌&quot;&gt;长歌&lt;/h1&gt;
+
+&lt;p class=&quot;info&quot;&gt;&lt;strong&gt;念奴娇·天丁震怒&lt;/strong&gt;
+&lt;br /&gt;完颜亮(金代)
+&lt;br /&gt;
+&lt;br /&gt;天丁震怒，掀翻银海，散乱珠箔（bó）。
+&lt;br /&gt;六出奇花飞滚滚，平填了山中丘壑。(六出：雪花六角，因用为雪花的别名。)
+&lt;br /&gt;皓虎颠狂，素麟猖獗(chāng jué)，掣(chè, 拉)断珍珠索。(皓虎：白色的老虎。素麟：白色的麒麟。)
+&lt;br /&gt;玉龙酣战，鳞甲满天飘落。
+&lt;br /&gt;
+&lt;br /&gt;谁念万里关山，征夫僵立，缟（gǎo）带沾旗脚。(僵立：因寒冷而冻得僵硬直立。缟带：白色的衣带。)
+&lt;br /&gt;色映戈矛，光摇剑戟(jǐ )，杀气横戎幕。(戎幕：行军作战时的营帐。)
+&lt;br /&gt;貔（pí）虎豪雄，偏裨（pí）英勇，共与谈兵略。（裨：副，偏，小。）
+&lt;br /&gt;须拼一醉，看取碧空寥廓(liáo kuò)。&lt;/p&gt;</content><author><name>盛书强</name><email>674329414@qq.com</email></author><category term="Android" /><category term="事件分发" /><category term="源码剖析" /><summary type="html">情境(Situation) 1. 专注于移动互联网数年，作为高P的我【鼓掌】竟然对事件分发机制见招拆招，似懂非懂。不专业，没法忍。 2. View树的递归嵌套逻辑让广大一线同行云里雾里，手足无措。 冲突(Complication) 1. 网上好多相关主题的博客，描述信息点非常多（但是ACTION_CANCEL描述很少），看完后不明觉厉。 2. 事件分发主要用于解决自定义炫酷控件以及滑动嵌套引发的冲突问题（程序傻傻分不清是横滑还是竖滑），发现同行各种写法都有，雷无处不在【人在家中坐，锅从天上来】。</summary></entry></feed>
