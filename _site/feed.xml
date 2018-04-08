@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="zh" /><updated>2018-04-07T13:44:37+00:00</updated><id>/</id><title type="html">盛书强</title><subtitle>盛之羽翼
-</subtitle><author><name>盛书强</name><email>674329414@qq.com</email></author><entry><title type="html">Android事件分发-来龙去脉</title><link href="/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html" rel="alternate" type="text/html" title="Android事件分发-来龙去脉" /><published>2018-02-10T00:00:00+00:00</published><updated>2018-02-10T00:00:00+00:00</updated><id>/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89</id><content type="html" xml:base="/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html">&lt;!-- 添加目录 http://blog.csdn.net/hengwei_vc/article/details/47122103 --&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh" /><updated>2018-04-08T11:43:49+00:00</updated><id>http://localhost:4000/</id><title type="html">盛书强</title><subtitle>盛之羽翼
+</subtitle><author><name>盛书强</name><email>674329414@qq.com</email></author><entry><title type="html">Android事件分发-来龙去脉</title><link href="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html" rel="alternate" type="text/html" title="Android事件分发-来龙去脉" /><published>2018-02-10T00:00:00+00:00</published><updated>2018-02-10T00:00:00+00:00</updated><id>http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89</id><content type="html" xml:base="http://localhost:4000/2018/02/10/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91-%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89.html">&lt;!-- 添加目录 http://blog.csdn.net/hengwei_vc/article/details/47122103 --&gt;
 &lt;script src=&quot;/javascripts/jquery-2.1.4.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 
 &lt;script src=&quot;/javascripts/toc.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
@@ -69,9 +69,9 @@ $(document).ready(function() {
 
 &lt;h4 id=&quot;人机交互&quot;&gt;人机交互&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/人机交互流程图-tiny.png&quot; alt=&quot;人机交互流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/人机交互流程图-tiny.png&quot; alt=&quot;人机交互流程图&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/事件分发Java栈-tiny.png&quot; alt=&quot;事件分发Java栈&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发Java栈-tiny.png&quot; alt=&quot;事件分发Java栈&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 &lt;h4 id=&quot;view树&quot;&gt;View树&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/AndroidView树布局结构-tiny.png&quot; alt=&quot;AndroidView树布局结构&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/AndroidView树布局结构-tiny.png&quot; alt=&quot;AndroidView树布局结构&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
@@ -89,7 +89,7 @@ $(document).ready(function() {
 
 &lt;h4 id=&quot;类图&quot;&gt;类图&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/View和ViewGroup类图-tiny.png&quot; alt=&quot;View和ViewGroup类图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/View和ViewGroup类图-tiny.png&quot; alt=&quot;View和ViewGroup类图&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
@@ -956,7 +956,7 @@ $(document).ready(function() {
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/事件DispatchTouchEvent流程图-tiny.png&quot; alt=&quot;事件DispatchTouchEvent流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件DispatchTouchEvent流程图-tiny.png&quot; alt=&quot;事件DispatchTouchEvent流程图&quot; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;view&quot;&gt;View&lt;/h5&gt;
 
@@ -1453,7 +1453,7 @@ $(document).ready(function() {
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/事件OnTouchEvent流程图-tiny.png&quot; alt=&quot;事件OnTouchEvent流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件OnTouchEvent流程图-tiny.png&quot; alt=&quot;事件OnTouchEvent流程图&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;事件流&quot;&gt;事件流&lt;/h4&gt;
 
@@ -1461,7 +1461,7 @@ $(document).ready(function() {
 
 &lt;p&gt;使用&lt;a href=&quot;https://www.jianshu.com/p/d968645067d7&quot;&gt;&lt;strong&gt;MECE&lt;/strong&gt;&lt;/a&gt;（Mutually Exclusive Collectively Exhaustive，相互独立，完全穷尽）法则&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/事件流MEMC图-tiny.png&quot; alt=&quot;事件流MEMC图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件流MEMC图-tiny.png&quot; alt=&quot;事件流MEMC图&quot; /&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -1520,8 +1520,8 @@ $(document).ready(function() {
 
 &lt;p&gt;&lt;strong&gt;启示&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p class=&quot;info&quot;&gt;1. ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。&lt;br /&gt;&lt;img src=&quot;/assets/事件分发路径-tiny.png&quot; alt=&quot;事件分发路径&quot; /&gt;
-&lt;br /&gt;2. 事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流&lt;br /&gt; &lt;img src=&quot;/assets/事件分发拦截路径-tiny.png&quot; alt=&quot;事件分发拦截路径&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;info&quot;&gt;1. ACTION_DOWN执行事件分发查找（遍历子View，递归分发查找，如果子View未消费，则回退到自己消费，依次向上回溯，找到目标消费View为止）找到目标消费子View。后续事件不再需要查找，直接发送给目标消费子View，如果没有，则自己消费。&lt;br /&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发路径-tiny.png&quot; alt=&quot;事件分发路径&quot; /&gt;
+&lt;br /&gt;2. 事件已消费路径上（终点为目标消费View），如果有父控件拦截事件，则第一次拦截后，会将当前事件转为ACTION_CANCEL传递给目标消费子View，后续事件则直接自己处理消费，不论是否消费，均能收到后续事件流&lt;br /&gt; &lt;img src=&quot;http://localhost:4000/assets/事件分发拦截路径-tiny.png&quot; alt=&quot;事件分发拦截路径&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;论证&quot;&gt;论证&lt;/h3&gt;
 
@@ -1533,7 +1533,7 @@ $(document).ready(function() {
 
 &lt;h2 id=&quot;一张图&quot;&gt;一张图&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/事件分发一张图-tiny.png&quot; alt=&quot;事件分发一张图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/事件分发一张图-tiny.png&quot; alt=&quot;事件分发一张图&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;赏析&lt;/strong&gt;&lt;/p&gt;
 
