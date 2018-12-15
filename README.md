@@ -185,3 +185,8 @@ bundle exec jekyll serve -H 0.0.0.0
 
 - [Demo](https://tianqi.name/jekyll-TeXt-theme/)
 - [Qi's blog](https://tianqi.name/blog/)
+
+# QA
+
+1. 如何写文章？<br>直接在\_posts里面写markdown文件就行，文件名格式[年-月-日-标题.MARKUP](https://www.jekyll.com.cn/docs/posts/)。如shengshuqiang.github.io/_posts/2018-12-15-进击ReactNative-纳百川.md。
+2. 数据库流量次数不生效，进入[leancloud数据库控制台](https://leancloud.cn/dashboard/data.html?appid=XNxg7j5txa1vlQa9QsV5WeRM-gzGzoHsz#/shengshuqiang_blog_pv)将所有用户读写权限勾选。
