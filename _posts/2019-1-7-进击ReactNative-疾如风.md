@@ -18,8 +18,7 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![进击ReactNative疾如风]({{ site.url }}/assets/进击ReactNative疾如风.png)
-目前没有找到让我能达到Native开发熟练度的ReactNative文章，在@胡朝旭大神点拨“ReactNative涉及Java、C和JavaScript，业界大部分只会其一，少数会其二，全会的不是一般的人，而且他们也没有时间写这个”下，<br>我的机会来了<img src="http://www.linglingfa.net/new/face/233.gif"/><br>ReactNative涉及技术栈包含前端、客户端、跨端同学，语言包含Java、C++、JavaScript。<br>直接看源码肯定是一头雾水【大神当我这句话没说】，<br>我尝试先从**“原理+实践，现学现做”**的角度**手写ReactNative**，加深理解。<br>目的是先学会怎么用，再去想为什么！
+![进击ReactNative疾如风]({{ site.url }}/assets/进击ReactNative疾如风.png)<br>目前没有找到让我能达到Native开发熟练度的ReactNative文章，在@胡朝旭大神点拨“ReactNative涉及Native(Android/iOS)、C和JavaScript，业界大部分只会其一，少数会其二，全会的不是一般的人，而且他们也没有时间写这个”下，<br>**我的机会来了**<img src="http://www.linglingfa.net/new/face/233.gif"/><br>ReactNative涉及技术栈包含前端、客户端、跨平台通信，语言包含Java/Object-C、C、JavaScript。<br>直接看源码肯定是一头雾水【大神当我这句话没说】，<br>我尝试先从**“原理+实践，现学现做”**的角度**手写ReactNative**，加深理解。<br>目的是先学会怎么用，再去想为什么！
 {:.success}
 <!--more-->
 
@@ -27,9 +26,9 @@ $(document).ready(function() {
 
 ## 约法三章
 
-1. 本文是我解决问题的一种思路，会因为我目前水平局限，如果有其他更优解，望大神不吝赐教。
-2. 本文还没有触及ReactNative源码，属于我单方面的臆想。
-3. 本文是在[AdvanceOnReactNative Demo](https://github.com/shengshuqiang/AdvanceOnReactNative)运行通过的基础上写作，中间杂糅一些段子，纯粹为博一笑。
+2. 本文还没有触及到ReactNative源码，属于我单方面的臆想，中间杂糅一些段子和啰嗦的三观，纯粹为博一笑。
+3. 本文是在[AdvanceOnReactNative Demo](https://github.com/shengshuqiang/AdvanceOnReactNative)运行通过（环境为Mac电脑）的基础上写作，Native端从Java出发，目前不包含Object-C【因为我是Android开发，不会iOS】。
+4. 本文是我解决问题的一种思路，会因为我目前水平局限，如果有其他更优解，望大神不吝赐教。
 
 ## 三问
 
@@ -37,7 +36,8 @@ $(document).ready(function() {
 2. **从哪来**：隶属于大前端（FontEnd、iOS、Android）战斗序列，和全栈小伙伴们（产品、研发（前端、后端）、测试）并肩作战。
 3. **到哪去**：全栈工程师。
 
-<img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=859306704,3538571102&fm=26&gp=0.jpg" alt="三问" width="30%" height="30%" /><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542416334451&di=3538ddd1b4c9af54fc91fa6dde0d88f2&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2F20170819%2FJF98-fykcypq0000579.jpg" alt="不管是谁" width="30%" height="30%" />
+![三问](https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=859306704,3538571102&fm=26&gp=0.jpg)
+![不管是谁](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542416334451&di=3538ddd1b4c9af54fc91fa6dde0d88f2&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2F20170819%2FJF98-fykcypq0000579.jpg)
    
 ## 三看
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 ### 向外看
 
-1. 业界领袖Facebook 15年推出ReactNative、目前已席卷全球，蒸蒸日上；Google 17年推出Flutter，炙手可热。国内巨擘微信小程序、阿里Weex、大众点评Picasso等。无一不是时代洪流的弄潮儿。<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20180809/8747c6b10f79405790cefec2e6271ca7.jpeg" width="30%" height="30%" />
+1. 业界领袖Facebook 15年推出ReactNative、目前已席卷全球，蒸蒸日上；Google 17年推出Flutter，炙手可热。国内巨擘微信小程序、阿里Weex、大众点评Picasso等。无一不是时代洪流的弄潮儿。<br>![](http://5b0988e595225.cdn.sohucs.com/images/20180809/8747c6b10f79405790cefec2e6271ca7.jpeg)
 2. 客户端动态化方案技术演进：Web➢Hybrid➢插件化➢热更新➢ReactNative、Weex、小程序、Fultter。
 3. 公司前端人数近年来快速增长，过去App中应用主要是Native实现（H5、Android、iOS三足鼎立），现在大部分被H5取代（H5和Android&iOS平分秋色），特别是创新性需求，H5快速试错、随时上线造就其终端王者地位。
 4. 移动互联网瞬息万变（H5抢占一波又一波风口，根本不用等Native后援），手机硬件性能提升、通信网络不断升级、各种前端方案百花齐放（离线化、[AMP（ Accelerated Mobile Pages ，移动页面加速）](https://baike.baidu.com/item/amp/20623731?fr=aladdin)、[PWA（Progressive Web App，渐进式WEB应用）](https://segmentfault.com/a/1190000012353473)），为前端一统天下提供了物质基础。
@@ -62,7 +62,7 @@ $(document).ready(function() {
 2. 总之，动态化方案的出现，不是为了替代谁，更多是为了给用户更好的体验，同时让业务可以更快的迭代，并在不断的尝试中，给用户带来更好的产品。-- [再谈移动端动态化方案](http://www.sohu.com/a/246063323_505779)
 2. “时势不可尽倚，贫穷不可尽欺，世事翻来覆去，须当周而复始。”-- [寒窑赋](https://baike.baidu.com/item/%E7%A0%B4%E7%AA%91%E8%B5%8B/7791451?fr=aladdin)
 
-<br><img src="https://pic4.zhimg.com/80/v2-2bd8921d36259b4687e7de4fe3f24d27_hd.png" width="30%" height="30%" />
+<br>![](https://pic4.zhimg.com/80/v2-2bd8921d36259b4687e7de4fe3f24d27_hd.png)
 <br>△ -- 叶俊星 [美团旅行前端技术体系的思考与实践](https://zhuanlan.zhihu.com/p/29373613)
 
 ## 三思
@@ -88,7 +88,7 @@ $(document).ready(function() {
 5. “天下武功，无招不破，唯快不破。”-- 星爷的《功夫》
 6. “假如祸事不可免的话，朕情愿它早点来。”-- 《康熙王朝》中康熙回答周培公[“万一吴三桂造反，皇帝的心思是什么”](https://v.qq.com/x/page/e0622kd63z0.html)
 
-<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541914179348&di=051d28fb0214ccb408f02e2b9798fb23&imgtype=0&src=http%3A%2F%2Ffsv.cmoney.tw%2Fcmstatic%2Fnotes%2Fcapture%2F470430%2F20170217160601521.jpg" width="30%" height="30%" />
+<br>![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541914179348&di=051d28fb0214ccb408f02e2b9798fb23&imgtype=0&src=http%3A%2F%2Ffsv.cmoney.tw%2Fcmstatic%2Fnotes%2Fcapture%2F470430%2F20170217160601521.jpg)
 <br>△ -- [《大明王朝1566》](http://www.sohu.com/a/153324482_497602)
 
 ## 三愿
@@ -106,7 +106,7 @@ $(document).ready(function() {
 2. 卒子的命运，注定是身不由己。“今亡亦死,举大计亦死,等死,死国可乎?”-- 《陈涉世家》
 3. 最朴实的方法，敢于直面人生，我开始努力切入ReactNative源码了，目标是达到客户端熟练度。
 
-<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541954176177&di=6659cd539fe2660894fb4c820186bd60&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161021%2F5479e3439be145e7b925a0644e3d13a7_th.jpeg" alt="理想VS现实" width="30%" height="30%" />
+<br>![理想VS现实](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541954176177&di=6659cd539fe2660894fb4c820186bd60&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161021%2F5479e3439be145e7b925a0644e3d13a7_th.jpeg)
 
 # 疑问(Question)
 
@@ -120,7 +120,8 @@ $(document).ready(function() {
 6. How：怎么做到的（实现原理）？
 7. How Much：有什么价值，投入产出比是多少，怎么衡量？
 
-<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546775431818&di=bbede93b18b3018b73eaf9f7d52639d2&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fnote%2Flarge%2Fpublic%2Fp36908353.jpg" alt="5W2H" width="30%" height="30%" /><img src="{{ site.url }}/assets/灵魂拷问三连.jpg" alt="灵魂拷问三连" width="30%" height="30%" />
+<br>![5W2H](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546775431818&di=bbede93b18b3018b73eaf9f7d52639d2&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fnote%2Flarge%2Fpublic%2Fp36908353.jpg)
+<br> ![灵魂拷问三连]({{ site.url }}/assets/灵魂拷问三连.jpg) 
 
 # 答案(Answer)
 
@@ -138,15 +139,15 @@ $(document).ready(function() {
     * **代价高**：热修复不成熟，难以及时止损，好羡慕后台和前端就可以“偷偷地、悄悄地”把bug改了，客户端即使发现了问题，等到发版修复，再小的问题也闹得满城风雨了。<br>“且欲[防微杜渐，忧在未萌](https://baike.baidu.com/item/%E9%98%B2%E5%BE%AE%E6%9D%9C%E6%B8%90/601280?fr=aladdin)。”-- 宋书·吴喜传
     * **体重胖**：各家应用的布局都是构建生态平台，打造巨无霸应用，实现一桶天下。随着业务迭代和时间这把杀猪刀，应用体重无可奈何的飙升。让我减肥?开玩笑!你知道我为这身材花了多少钱吗?
 
-<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541952301987&di=4bcc3298ef66ff8424dbf1d206f96261&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180829%2Fc640fda97a5147c78f38a6e505ed335a.jpeg" alt="站在巨人的肩膀上" width="30%" height="30%" />
+<br>![站在巨人的肩膀上](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541952301987&di=4bcc3298ef66ff8424dbf1d206f96261&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180829%2Fc640fda97a5147c78f38a6e505ed335a.jpeg)
 
 2. **途径**：MECE分析法（Mutually Exclusive Collectively Exhaustive，“相互独立，完全穷尽”）。穷举所有的可能性，比方我拿起杀猪刀，假装庖丁解牛，手工制作一个简易版ReactNative。
 
-<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541955092281&di=b3af2ad5edfe6e7daa51cb0d777ab8fe&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmw690%2F003GHWbUzy78T5mxcbj65%26690" alt="MECE" width="30%" height="30%" />
+<br>![MECE](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541955092281&di=b3af2ad5edfe6e7daa51cb0d777ab8fe&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmw690%2F003GHWbUzy78T5mxcbj65%26690)
 
 ### 有利
 
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542542981&di=d8788816752e07f582032420ae21fb52&imgtype=jpg&er=1&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171208%2F21211fa948284d8d98a7ffb3bf149021.jpeg" alt="升职加薪走上人生巅峰" width="30%" height="30%" />
+![升职加薪走上人生巅峰](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542542981&di=d8788816752e07f582032420ae21fb52&imgtype=jpg&er=1&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171208%2F21211fa948284d8d98a7ffb3bf149021.jpeg)
 
 1. **时间**：洞悉ReactNative底层原理，有助于更快更好地完成工作，节约时间。是不是面对ReactNative红屏不知所措？遇到问题没法深入，不得不肤浅的换一种解决方案试试？网上资料太少，知其然不知其所以然，没法随心所欲、游刃有余？
 1. **加薪**：一分耕耘一分收获。
@@ -156,17 +157,16 @@ $(document).ready(function() {
 
 ### 有节
 
-1. 站在巨人的肩膀上，不要重复造轮子。<br><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541949456499&di=e3c64252bb027cd5911741a7aea6a304&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D0fd751a79fcad1c8c4b6f46417570d7c%2Fa686c9177f3e6709f6a4047731c79f3df9dc5595.jpg
-" alt="站在巨人的肩膀上" width="30%" height="30%" />
+1. 站在巨人的肩膀上，不要重复造轮子。<br>![站在巨人的肩膀上](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541949456499&di=e3c64252bb027cd5911741a7aea6a304&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D0fd751a79fcad1c8c4b6f46417570d7c%2Fa686c9177f3e6709f6a4047731c79f3df9dc5595.jpg)
 2. 战线不要太长，明天的你很轻松做到的，现在做可能有点吃力，毕竟我们还在成长，还有明天。
-3. 把握分寸，毕竟精力有限。<br><img src="{{ site.url }}/assets/把握分寸.jpg" alt="把握分寸" width="30%" height="30%" />
+3. 把握分寸，毕竟精力有限。<br>![把握分寸]({{ site.url }}/assets/把握分寸.jpg)
 
 ## 庖丁解牛
 
 ### 磨刀霍霍
 
 1. 模仿最小可用产品（Minimum Viable Product， MVP）理念，手工制作一个对角棋AI程序，JSX控制AI算法和UI，Java控制台输出棋谱和对弈交互。<br>“世事如棋盘，世人若棋子。这年头，谁利用谁还不一定！”-- 《画江湖》李克用
-<br><img src="http://a.36krcnd.com/nil_class/0b33832f-1dbc-4471-a550-f90f2b26d00f/19DA.tmp.jpg" alt="最小可用产品（Minimum Viable Product， MVP）" width="50%" height="50%" />
+<br>![最小可用产品（Minimum Viable Product， MVP）](http://a.36krcnd.com/nil_class/0b33832f-1dbc-4471-a550-f90f2b26d00f/19DA.tmp.jpg)
 
 ### 一刀两断
 
