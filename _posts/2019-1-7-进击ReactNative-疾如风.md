@@ -18,7 +18,7 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![进击ReactNative疾如风]({{ site.url }}/assets/进击ReactNative疾如风.png)<br>目前没有找到让我能达到Native开发熟练度的ReactNative文章，在@胡朝旭大神点拨“ReactNative涉及Native(Android/iOS)、C和JavaScript，业界大部分只会其一，少数会其二，全会的不是一般的人，而且他们也没有时间写这个”下，<br>**我的机会来了**<img src="http://www.linglingfa.net/new/face/233.gif"/><br>ReactNative涉及技术栈包含前端、客户端、跨平台通信，语言包含Java/Object-C、C、JavaScript。<br>直接看源码肯定是一头雾水【大神当我这句话没说】，<br>我尝试先从**“原理+实践，现学现做”**的角度**手写ReactNative**，加深理解。<br>目的是先学会怎么用，再去想为什么！
+![进击ReactNative疾如风]({{ site.url }}/assets/进击ReactNative疾如风.png)<br>目前没有找到让我能达到Native开发熟练度的ReactNative文章，在@胡朝旭大神点拨“ReactNative涉及Native(Android/iOS)、C和JavaScript，业界大部分只会其一，少数会其二，全会的不是一般的人，而且他们也没有时间写这个”下，<br>**我的机会来了**<img src="http://www.linglingfa.net/new/face/233.gif"/><br>ReactNative涉及技术栈包含前端、客户端、跨平台通信，语言包含Java/OC、C、JavaScript。<br>直接看源码肯定是一头雾水【大神当我这句话没说】，<br>我尝试先从**“原理+实践，现学现做”**的角度**手写ReactNative**，加深理解。<br>目的是先学会怎么用，再去想为什么！
 {:.success}
 <!--more-->
 
@@ -472,7 +472,7 @@ Step0: 1➡️5
 ```
 ### 操刀必割（Do It）
 
-☞**思路**：java端启动js初始化运行环境<br>2. js端输出游戏规则和棋局，等待java端输入<br>3. java端输入指令，js刷新棋盘并且对弈，直至高下立判<br>4. java端只是用户输入和棋盘展示终端，c端只负责透传消息，js端负责逻辑处理
+☞**思路**：<br>1. java端启动js初始化运行环境<br>2. js端输出游戏规则和棋局，等待java端输入<br>3. java端输入指令，js刷新棋盘并且对弈，直至高下立判<br>4. java端只是用户输入和棋盘展示终端，c端只负责透传消息，js端负责逻辑处理
 {:.info}
 
 因为CMake和Make不懂，在使用CMake将引入V8的HelloJNI.cc打成动态链接库始终过不去。<br>在我进击ReactNative最黑暗的时刻，是@罗佳妮女神、@雷地球和@张千一大牛指点迷津，我才能够更上一层楼，O(∩_∩)O谢谢你们的帮助
