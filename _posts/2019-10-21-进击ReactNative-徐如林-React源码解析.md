@@ -189,7 +189,7 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 ![]({{ site.url }}/assets/用户点击渲染Fiber双树图.jpg)
 
-**初始化NativeView树**
+**用户点击NativeView树**
 
 ![]({{ site.url }}/assets/用户点击NativeView树图.png)
 
@@ -695,10 +695,7 @@ function ReactNativeRenderer_render() {
 
 问：React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
 
-答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。
-
-1. 我们通过react-devtools看到的reactdom树不是完全的。下面是react-devtools上显示的：<br>![]({{ site.url }}/assets/devtools_react_dom_tree.png)<br>文本节点没有，实际最外层还有一个HostRoot节点。
-2. reactdom树中只有部分dom节点(宿主节点，对应文本和Native组件)是显示在界面上的，其他的并不展示。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
+答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
 
 问：Element、Instance、DOM之间关系？
 
