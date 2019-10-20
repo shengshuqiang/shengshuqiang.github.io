@@ -30,13 +30,9 @@ $(document).ready(function() {
 
 近几年移动互联网北漂，让我明白一个道：所谓经验，就是不断探索、抽象、践行、强化自己的方法论，呈发展的螺旋形式，“复盘总结”一直是快速成长的牛人居家旅行必备技能。我攻坚ReactNative的最大动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），这都不重要，我能举一，必能反三。这就是道，我旨在强化出一套跨界喜剧王的方法论，如何从0将ReactNative技能练到Android熟练度，并且同样适用于Flutter和小程序。
 
-![授之以鱼不如授之以渔](https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=715008485,843781424&fm=26&gp=0.jpg)
-
 ## 授业（懂算法）
 
 现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。阅读源码的好处不言而喻，源码是唯一的真相和注释，学到的比你期望的多得多。
-
-![Talk is cheap. Show me the code.](http://5b0988e595225.cdn.sohucs.com/images/20180102/9648fc14eb1146b8839470cbe852be56.jpeg)
 
 本文必须带你看到源码但不是做英语阅读，尽量做到：
 
@@ -93,8 +89,7 @@ $(document).ready(function() {
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：react-native init AwesomeProject
-3. 欧了，简单demo(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。
-4. ![]({{ site.url }}/assets/简单demo.gif)
+3. 欧了，简单demo(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
 5. 配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
 ### 第三步（上源码）
@@ -205,6 +200,8 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 ### 小结
 
 #### 简约伪代码
+
+Talk is cheap. Show me the code.
 
 ```
 function ReactNativeRenderer_render() {
@@ -694,36 +691,26 @@ function ReactNativeRenderer_render() {
 
 问：明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 
-答：查看View.js源码，发现里面会再次render出Context.Consumer。
-![]({{ site.url }}/assets/view_render.png)。
-![]({{ site.url }}/assets/text_render.png)
-我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。
-![]({{ site.url }}/assets/renderApplication.png)
+答：查看View.js源码，发现里面会再次render出Context.Consumer。<br>![]({{ site.url }}/assets/view_render.png)<br>![]({{ site.url }}/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![]({{ site.url }}/assets/renderApplication.png)
 
 问：React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
 
-答：**只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。
+答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。
 
-1. 我们通过react-devtools看到的reactdom树不是完全的。下面是react-devtools上显示的：![]({{ site.url }}/assets/devtools_react_dom_tree.png)，文本节点没有，实际最外层还有一个HostRoot节点。
-2. reactdom树中只有部分dom节点(宿主节点，对应文本和Native组件)是显示在界面上的，其他的并不展示。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。
-![]({{ site.url }}/assets/fiber_tag.png)
-![]({{ site.url }}/assets/get_fiber_tag.png)
-![]({{ site.url }}/assets/text_fiber_tag.png)
-![]({{ site.url }}/assets/allocateTag.png)
+1. 我们通过react-devtools看到的reactdom树不是完全的。下面是react-devtools上显示的：<br>![]({{ site.url }}/assets/devtools_react_dom_tree.png)<br>文本节点没有，实际最外层还有一个HostRoot节点。
+2. reactdom树中只有部分dom节点(宿主节点，对应文本和Native组件)是显示在界面上的，其他的并不展示。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
 
 问：Element、Instance、DOM之间关系？
 
-答：![]({{ site.url }}/assets/element_instance_dom_relation.png)
-![]({{ site.url }}/assets/element_instance_dom.png)
-![]({{ site.url }}/assets/element_instance_dom2.png)
+答：![]({{ site.url }}/assets/element_instance_dom_relation.png)<br>![]({{ site.url }}/assets/element_instance_dom.png)<br>![]({{ site.url }}/assets/element_instance_dom2.png)
 
 问：都说React有个diffing算法，这个在代码哪里，怎么比较的，文案变了会设计diff算法吗？
 
-答：diffing算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。![]({{ site.url }}/assets/reconcileSingleElement.png)，文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
+答：diffing算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。<br>![]({{ site.url }}/assets/reconcileSingleElement.png)<br>文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
 
 问：浅比较shouldComponentUpdate说的是什么，到底应该怎么用？
 
-答：判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）![]({{ site.url }}/assets/shouldComponentUpdate.png)![]({{ site.url }}/assets/shallowEqual.png)。
+答：判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）<br>![]({{ site.url }}/assets/shouldComponentUpdate.png)<br>![]({{ site.url }}/assets/shallowEqual.png)
 
 问：React有棵DOM树，树在哪，怎么看，怎么操作Native的DOM树？
 
