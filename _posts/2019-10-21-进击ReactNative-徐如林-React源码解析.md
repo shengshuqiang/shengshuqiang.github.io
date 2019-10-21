@@ -16,11 +16,11 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![进击ReactNative疾如风]({{ site.url }}/assets/徐如林logo.png)<br>有的人可能会不理解，大前端跨平台的战火为谁而燃，吾辈何以为战？专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个桥头堡。纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。哈，是时候该我出手了。祭出“大海航术”，经过一年来不懈钻研，基于React Developer Tools研发插件，实时绘制运行时三张图--Fiber双树图、Native View树图、React方法调用树图，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber迷航，日照大海现双龙。
+![进击ReactNative疾如风]({{ site.url }}/assets/徐如林logo.png)<br>有的人可能会不理解，大前端跨平台的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个桥头堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。祭出“大海航术”，经过一年来不懈钻研，基于React Developer Tools研发插件，实时绘制运行时三张图--Fiber双树图、Native View树图、React方法调用树图，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber迷航，日照大海现双龙。
 {:.success}
 <!--more-->
 
-如果有对ReactNative不太熟悉的朋友，可以看一下我上篇文章[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)润润嗓子，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，了解整体跨平台套路，迂回包抄，相对比较轻松！本文则正面硬杠React源码，会略显烧脑。
+如果有对ReactNative不太熟悉的朋友，可以看一下我上篇文章[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)润润嗓子，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，了解整体跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，会略显烧脑。
 
 做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼一下。
 
@@ -28,23 +28,23 @@ $(document).ready(function() {
 
 ## 传道（攻坚方法论）
 
-近几年移动互联网北漂，让我明白一个道：所谓经验，就是不断探索、抽象、践行、强化自己的方法论，呈发展的螺旋形式，“复盘总结”一直是快速成长的牛人居家旅行必备技能。我攻坚ReactNative的最大动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），这都不重要，我能举一，必能反三。这就是道，我旨在强化出一套跨界喜剧王的方法论，如何从0将ReactNative技能练到Android熟练度，并且同样适用于Flutter和小程序。
+近几年移动互联网北漂，让我明白一个道：所谓经验，就是不断探索、抽象、践行、强化自己的方法论，呈发展的螺旋形式，“复盘总结”一直是快速成长的牛人居家旅行必备技能。我攻坚ReactNative的最大动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），这都不重要，我能举一，必能反三。这就是道，我旨在强化出一套跨界喜剧王的方法论，如何从零将ReactNative技能练到高阶Android熟练度，并且同样适用于进击Flutter和小程序。
 
 ## 授业（懂算法）
 
-现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。阅读源码的好处不言而喻，源码是唯一的真相和注释，学到的比你期望的多得多。
+现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。阅读源码的好处不言而喻，源码是唯一的真相和注释，学到的比你要的多得多。
 
 本文必须带你看到源码但不是做英语阅读，尽量做到：
 
-1. **承上**（你的api怎么用的）
+1. **承上**（你的API怎么用的）
 	* 生命周期调用时机
 	* render干了什么
 	* setState发生了什么
-	* PureComponent比Component高在哪里，我们怎么能做到更高
+	* PureComponent比Component好在哪里，我怎么能做得更好
 1. **启下**（底层怎么处理的）
 	* 深入浅出Fiber双树算法
-	* diff算法
-	* Native操作指令从哪来的
+	* Diff算法在哪
+	* Native操作指令从哪来
 
 ## 解惑（考考你）
 
@@ -53,14 +53,14 @@ $(document).ready(function() {
 1. 明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 2. React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
 2. Element、Instance、DOM之间关系？
-2. 都说React有个diffing算法，这个在代码哪里，怎么比较的，文案变了会涉及diff算法吗？
-3. 浅比较shouldComponentUpdate说的是什么，到底应该怎么用？
-4. React有棵DOM树，树在哪，怎么看，怎么操作Native的DOM树？
+2. 都说React有个Diff算法，这个在代码哪里，怎么比较的，文案变了会涉及Diff算法吗？
+3. 浅比较shouldComponentUpdate的正确姿势是啥？
+4. React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
 5. setState到底干啥了？
 6. React高效在哪？
 7. React工作流程？
 8. 如何关联Native自定义组件？
-9. Fiber节点数据结构中各属性含义？？
+9. Fiber节点数据结构中各属性含义？
 
 ![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg)
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 ### 第一步（查资料）
 
-网上一顿关键字搜索，站在前人的肩膀上，知道个大概，不要急，妥妥的数十篇深度文章以上，你的感觉才能来。这里给大家安利三篇文章（ReactNative优秀文章导读）和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈的汇集，这么说吧，发盆友圈是停不下来了，上一天班我就发一篇。
+网上一顿关键字搜索，站在巨人的肩膀上，知己知彼。不要急，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇文章（ReactNative优秀文章导读）和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈的汇集，这么说吧，发盆友圈是停不下来了，上一天班我就发一篇。
 
 1. [进击ReactNative-纳百川](https://shengshuqiang.github.io/2018/12/15/%E8%BF%9B%E5%87%BBReactNative-%E7%BA%B3%E7%99%BE%E5%B7%9D.html)
 2. [进击ReactNative-积土（React）山](https://shengshuqiang.github.io/2019/01/20/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E5%9C%9F-React-%E5%B1%B1.html)
@@ -80,33 +80,33 @@ $(document).ready(function() {
 
 ![]({{ site.url }}/assets/CatonFiberTree.png)
 
-卡通图来源React的美女程序员Lin Clark在2017年React大会的演讲视频截图，这个视频太棒了，建议大家看一看[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。
+卡通图来源于美女程序员Lin Clark在2017年React大会的演讲，这个太棒啦，建议大家看一看[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。
 
 ### 第二步（搭台子）
 
-搭一个实验室--本地可运行环境（我的开发平台macOS，目标平台Android）。
+搭一个自己的专属牧场--本地可运行环境（开发平台macOS，目标平台Android）。
 
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：react-native init AwesomeProject
-3. 欧了，简单demo(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
-5. 配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
+3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
+5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
 ### 第三步（上源码）
 
-我们来读源码（ "react": "16.8.3","react-native": "0.59.8"）吧！ReactNative上层JS代码主要实现在node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
+我们来读源码（ 16.8.3react,0.59.8react-native）吧！ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
 
 ![]({{ site.url }}/assets/ReactCodeStructure.png)
 
-我给自己的读码方法论命名为“大海航术”，简单说就是运行时日志辅助断点调试，再加上自己野兽般的想象力，达到能自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
+我给自己的读码方法论命名为“**大海航术**”，即运行时日志为辅，断点调试为主，匹配自己野兽般的想象力，目标自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
 
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，可不简单。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着Fiber数据结构中的各种光怪陆离的属性，而且用到了复杂的双树数据结构，这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天专注的投入，要是打断了，你都找不到北。
+对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber数据结构属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是打断了，你都找不到北。
 
 ![]({{ site.url }}/assets/ReactNativeRenderer.render.png)
 
-按这个套路，连Log加Debug带猜，发现装不下去了，这道题太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍，仍然没什么收获，等着顿悟吧，直到那一天。。。
+按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧，直到那一天。。。
 
-来个段子活跃一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
+先来个段子活跃一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
 
 我受到了启发，也来个脑筋急转弯，能不能自己写个脚本把Fiber双树画出来，日志记录了算法的所有行为，但问题是可读性太差，上万条日志能联系起来推理，猴哥都不一定能做到，况且我又不是猴子，是时候生产工具鸟枪换炮了。说干就干，我将日志中的Fiber双树用JS脚本画了出来。
 
@@ -280,7 +280,7 @@ function ReactNativeRenderer_render() {
                                                     }
                                                 }
                                             } else {
-                                                // 已存在，则diff更新(为了简化，忽略resumeMountClassInstance)
+                                                // 已存在，则Diff更新(为了简化，忽略resumeMountClassInstance)
                                                 /** updateClassInstance */
                                                 {
                                                     // 更新实例
@@ -334,7 +334,7 @@ function ReactNativeRenderer_render() {
                                                 } else {
                                                     const nextChildren = instance.render();
                                                     /** reconcileChildFibers
-                                                     * 硬核diff算法
+                                                     * 硬核Diff算法
                                                      * */
                                                     {
                                                         const isObject = typeof nextChildren === "object" && nextChildren;
@@ -348,24 +348,24 @@ function ReactNativeRenderer_render() {
                                                                         // 判断类型是否相同
                                                                         const isTypeEquals = child.elementType === nextChildren.type;
                                                                         if (isTypeEquals) {
-                                                                            // diff算法:类型相同,复用子节点树&删除子节点兄弟树
+                                                                            // Diff算法:类型相同,复用子节点树&删除子节点兄弟树
                                                                             (function deleteRemainingChildren(sibling) {
                                                                             })(workInProgress.sibling);
                                                                             workInProgress.child = (function useFiber(workInProgress) {
                                                                             })(workInProgress);
                                                                         } else {
-                                                                            // diff算法:类型不相同,删除全部子节点树
+                                                                            // Diff算法:类型不相同,删除全部子节点树
                                                                             (function deleteRemainingChildren(sibling) {
                                                                             })(workInProgress);
-                                                                            // diff算法:新建子节点
+                                                                            // Diff算法:新建子节点
                                                                             workInProgress.child = (function createFiberFromElement(nextChildren) {
                                                                             })(nextChildren);
                                                                         }
                                                                     } else {
-                                                                        // diff算法:key不同,删除子节点树
+                                                                        // Diff算法:key不同,删除子节点树
                                                                         (function deleteChild(sibling) {
                                                                         })(workInProgress);
-                                                                        // diff算法:新建子节点
+                                                                        // Diff算法:新建子节点
                                                                         workInProgress.child = (function createFiberFromElement(nextChildren) {
                                                                         })(nextChildren);
                                                                     }
@@ -689,49 +689,49 @@ function ReactNativeRenderer_render() {
 
 ## QA
 
-问：明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
+**问：**明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 
-答：查看View.js源码，发现里面会再次render出Context.Consumer。<br>![]({{ site.url }}/assets/view_render.png)<br>![]({{ site.url }}/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![]({{ site.url }}/assets/renderApplication.png)
+**答：**查看View.js源码，发现里面会再次render出Context.Consumer。<br>![]({{ site.url }}/assets/view_render.png)<br>![]({{ site.url }}/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![]({{ site.url }}/assets/renderApplication.png)
 
-问：React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
+**问：**React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
 
-答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
+**答：**只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
 
-问：Element、Instance、DOM之间关系？
+**问：**Element、Instance、DOM之间关系？
 
-答：![]({{ site.url }}/assets/element_instance_dom_relation.png)<br>![]({{ site.url }}/assets/element_instance_dom.png)<br>![]({{ site.url }}/assets/element_instance_dom2.png)
+**答：**![]({{ site.url }}/assets/element_instance_dom_relation.png)<br>![]({{ site.url }}/assets/element_instance_dom.png)<br>![]({{ site.url }}/assets/element_instance_dom2.png)
 
-问：都说React有个diffing算法，这个在代码哪里，怎么比较的，文案变了会设计diff算法吗？
+**问：**都说React有个Diff算法，这个在代码哪里，怎么比较的，文案变了会设计Diff算法吗？
 
-答：diffing算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。<br>![]({{ site.url }}/assets/reconcileSingleElement.png)<br>文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
+**答：**Diff算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。<br>![]({{ site.url }}/assets/reconcileSingleElement.png)<br>文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
 
-问：浅比较shouldComponentUpdate说的是什么，到底应该怎么用？
+**问：**浅比较shouldComponentUpdate的正确姿势是啥？
 
-答：判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）<br>![]({{ site.url }}/assets/shouldComponentUpdate.png)<br>![]({{ site.url }}/assets/shallowEqual.png)
+**答：**判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）<br>![]({{ site.url }}/assets/shouldComponentUpdate.png)<br>![]({{ site.url }}/assets/shallowEqual.png)
 
-问：React有棵DOM树，树在哪，怎么看，怎么操作Native的DOM树？
+**问：**React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
 
-答：在我扩展的插件上看。
+**答：**在我扩展的插件上看。
 
-问：setState到底干啥了？
+**问：**setState到底干啥了？
 
-答：触发Fiber双树重新diff渲染，具体调用可以使用方法调用树追踪。
+**答：**触发Fiber双树重新Diff渲染，具体调用可以使用方法调用树追踪。
 
-问：React高效在哪？
+**问：**React高效在哪？
 
-答：基于优先级的可中断的树遍历算法，且diff算法复杂度O（n）。
+**答：**基于优先级的可中断的树遍历算法，且Diff算法复杂度O（n）。
 
-问：React工作流程？
+**问：**React工作流程？
 
-答：文章中有。
+**答：**文章中有。
 
-问：如何关联Native自定义组件？
+**问：**如何关联Native自定义组件？
 
-答：这是个好问题，留给读者自行解答。
+**答：**这是个好问题，留给读者自行解答。
 
-问：Fiber节点数据结构中各属性含义？
+**问：**Fiber节点数据结构中各属性含义？
 
-答：
+**答：**
 
 1. return, child, sibling：<br>![](https://pic2.zhimg.com/80/v2-453e1f48a4f53356bee021c90ee00bed_hd.jpg)
 2. key: 复用标识。
@@ -752,7 +752,7 @@ function ReactNativeRenderer_render() {
 9. updateQueue: state更新队列。状态更新、回调和 DOM 更新的队列。
 10. firstEffect 、lastEffect 等玩意是用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构。
 11. effectTag：副作用，增删改操作。
-12. alternate：在调用render或setState后，会克隆出一个镜像fiber，diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复。workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list。
+12. alternate：在调用render或setState后，会克隆出一个镜像fiber，Diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复。workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list。
 
 
 ## 生命周期调用
