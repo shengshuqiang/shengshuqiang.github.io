@@ -37,23 +37,23 @@ $(document).ready(function() {
 本文必须带你看到源码但不是做英语阅读，尽量做到：
 
 1. **承上**（你的API怎么用的）
-	* 生命周期调用时机
-	* render干了什么
-	* setState发生了什么
-	* PureComponent比Component好在哪里，我怎么能做得更好
+	* 生命周期调用时机。
+	* render干了什么？
+	* setState发生了什么？
+	* PureComponent比Component好在哪里，怎么能做得更好？
 1. **启下**（底层怎么处理的）
-	* 深入浅出Fiber双树算法
-	* Diff算法在哪
-	* Native操作指令从哪来
+	* 深入浅出Fiber双树算法。
+	* Diff算法在哪？
+	* Native操作指令从哪来？
 
 ## 解惑（考考你）
 
 爱思考的童靴会发现各种各样的问题，我也是。下面是我遇到的问题，需要一个满意的答复。
 
-1. 明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
-2. React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
+1. 明明只写了几个组件，通过React Developer Tools看到的却是一堆布局，而且还有Context.Consumer，这些都是干啥的？
+2. React组件和Native View看起来不是一一对应的，那么映射关系是什么？
 2. Element、Instance、DOM之间关系？
-2. 都说React有个Diff算法，这个在代码哪里，怎么比较的，文案变了会涉及Diff算法吗？
+2. 都说React有个Diff算法，代码在哪里，怎么比较的，文案变了会涉及Diff算法吗？
 3. 浅比较shouldComponentUpdate的正确姿势是啥？
 4. React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
 5. setState到底干啥了？
@@ -70,13 +70,13 @@ $(document).ready(function() {
 
 ### 第一步（查资料）
 
-网上一顿关键字搜索，站在巨人的肩膀上，知己知彼。不要急，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇文章（ReactNative优秀文章导读）和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈的汇集，这么说吧，发盆友圈是停不下来了，上一天班我就发一篇。
+网上一顿关键字搜索，站在巨人的肩膀上，集思广益。不要急，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇ReactNative优秀文章导读和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈的汇总，这么说吧，发盆友圈是停不下来了，上一天班就得发一篇。
 
 1. [进击ReactNative-纳百川](https://shengshuqiang.github.io/2018/12/15/%E8%BF%9B%E5%87%BBReactNative-%E7%BA%B3%E7%99%BE%E5%B7%9D.html)
 2. [进击ReactNative-积土（React）山](https://shengshuqiang.github.io/2019/01/20/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E5%9C%9F-React-%E5%B1%B1.html)
 3. [进击ReactNative-积水（JavaScript）渊](https://shengshuqiang.github.io/2019/02/24/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E6%B0%B4-JavaScript-%E6%B8%8A.html)
 
-不间断的阅读输出，能获得很多启发，有助于修正强化方法论。比方说通过XMind自由缩放源码地图、DIY ReactNative、抽象伪代码表述等。过程中，我发现大家都在用一个有意思的卡通图。
+不间断的阅读输出，获益匪浅，有助于修正强化自己的方法论。比方说通过XMind自由缩放源码地图、DIY ReactNative、抽象伪代码表述等。过程中，我发现大家的文章都在引用一个有意思的卡通图。
 
 ![]({{ site.url }}/assets/CatonFiberTree.png)
 
@@ -86,27 +86,29 @@ $(document).ready(function() {
 
 搭一个自己的专属牧场--本地可运行环境（开发平台macOS，目标平台Android）。
 
-1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）
-2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了
-2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：react-native init AwesomeProject
-3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
+1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
+2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
+2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
+3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif){:height="80%" width="80%"}
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
 ### 第三步（上源码）
 
 我们来读源码（ 16.8.3react,0.59.8react-native）吧！ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
 
-![]({{ site.url }}/assets/ReactCodeStructure.png)
+<img src="https://shengshuqiang.github.io/assets/ReactCodeStructure.png" width="30%" height="30%" />
 
 我给自己的读码方法论命名为“**大海航术**”，即运行时日志为辅，断点调试为主，匹配自己野兽般的想象力，目标自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
 
 对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber数据结构属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是打断了，你都找不到北。
 
-![]({{ site.url }}/assets/ReactNativeRenderer.render.png)
+[![]({{ site.url }}/assets/ReactNativeRenderer.render.png)]({{ site.url }}/assets/深入ReactNative.xmind)
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧，直到那一天。。。
 
-先来个段子活跃一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
+来个段子放松一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，怎么办？脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Templarsign.jpg" width="30%" height="30%" />
 
 我受到了启发，也来个脑筋急转弯，能不能自己写个脚本把Fiber双树画出来，日志记录了算法的所有行为，但问题是可读性太差，上万条日志能联系起来推理，猴哥都不一定能做到，况且我又不是猴子，是时候生产工具鸟枪换炮了。说干就干，我将日志中的Fiber双树用JS脚本画了出来。
 
