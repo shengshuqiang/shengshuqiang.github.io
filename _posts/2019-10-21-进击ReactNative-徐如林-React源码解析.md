@@ -16,71 +16,150 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![进击ReactNative疾如风]({{ site.url }}/assets/徐如林logo.png)<br>有的人可能会不理解，大前端跨平台的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个桥头堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。祭出“大海航术”，经过一年来不懈钻研，基于React Developer Tools研发插件，实时绘制运行时三张图--Fiber双树图、Native View树图、React方法调用树图，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber迷航，日照大海现双龙。
+![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端跨平台的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个碉堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三张图--**Fiber双树图**、**Native View树图**、**React方法调用树图**，在上帝视角和时间旅行的引领下，冲破波诡云谲的算法迷航，日照大海现双龙。
 {:.success}
 <!--more-->
 
-如果有对ReactNative不太熟悉的朋友，可以看一下我上篇文章[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)润润嗓子，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，了解整体跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，会略显烧脑。
+如果有对ReactNative不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
 
-做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼一下。
+话说，做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼动一下。
 
 # 定目标
 
 ## 传道（攻坚方法论）
 
-近几年移动互联网北漂，让我明白一个道：所谓经验，就是不断探索、抽象、践行、强化自己的方法论，呈发展的螺旋形式，“复盘总结”一直是快速成长的牛人居家旅行必备技能。我攻坚ReactNative的最大动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），这都不重要，我能举一，必能反三。这就是道，我旨在强化出一套跨界喜剧王的方法论，如何从零将ReactNative技能练到高阶Android熟练度，并且同样适用于进击Flutter和小程序。
+近几年的移动互联网北漂生涯，给我结结实实的上了一课：人生，就是不断探索、抽象、践行、强化自己的方法论，过程呈螺旋式上升，成长快乐的秘诀在于**复盘**。
+
+我攻坚ReactNative的原动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），但这不重要，我能举一，必能反三，这就是道。我旨在强化出一套跨界喜剧王的方法论，如何从零将ReactNative技能练到比肩高阶Android的熟练度，并且同样适用于进击Flutter和小程序。
 
 ## 授业（懂算法）
 
-现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。阅读源码的好处不言而喻，源码是唯一的真相和注释，学到的比你要的多得多。
+现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。也罢，唯一的出路只有自力更生啃源码。坚信源码才是世间唯一的真相，不二的注释，思想的火花，王者的农药。后来，终于在眼泪中明白，源码大法好啊，得到的比想要的多得多（贫穷限制了我的想象）。往小的说，技术成长。往大的说，核心竞争力。
 
-本文必须带你看到源码但不是做英语阅读，尽量做到：
+本文和你分享的是如何通过**先进生产工具**轻松地看懂代码，区别于呆板的流水式英文阅读，尽量做到：
 
-1. **承上**（你的API怎么用的）
-	* 生命周期调用时机。
-	* render干了什么？
-	* setState发生了什么？
-	* PureComponent比Component好在哪里，怎么能做得更好？
-1. **启下**（底层怎么处理的）
-	* 深入浅出Fiber双树算法。
-	* Diff算法在哪？
-	* Native操作指令从哪来？
+1. **承上**（上层API怎么用的）
+	* 生命周期调用时机是什么
+	* render干了什么
+	* setState发生了什么
+	* PureComponent比Component好在哪里，怎么能做得更好
+1. **启下**（底层原理怎么玩的）
+	* 深入浅出Fiber双树算法
+	* Diff算法在哪
+	* Native操作指令从哪来
 
 ## 解惑（考考你）
 
-爱思考的童靴会发现各种各样的问题，我也是。下面是我遇到的问题，需要一个满意的答复。
+聪明的童靴往往都会有一些亟需亲自操刀的疑问，我也不能免俗。问题来了，现在就差一个满意的答案。
+
+### 组件
 
 1. 明明只写了几个组件，通过React Developer Tools看到的却是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 2. React组件和Native View看起来不是一一对应的，那么映射关系是什么？
-2. Element、Instance、DOM之间关系？
-2. 都说React有个Diff算法，代码在哪里，怎么比较的，文案变了会涉及Diff算法吗？
-3. 浅比较shouldComponentUpdate的正确姿势是啥？
-4. React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
-5. setState到底干啥了？
-6. React高效在哪？
+3. 组件API调用时机、作用和最佳实践
+
+{% highlight javascript linenos %}
+// 组件类
+class Component<P, S> {
+	// 变量
+	props;
+	state;
+	context;
+	refs;
+	// 方法
+	constructor(props, context);
+	setState(state, callback): void;
+	forceUpdate(callBack): void;
+	render(): ReactNode;
+}
+{% endhighlight %}
+
+### 生命周期
+
+[你真的懂React生命周期吗?](https://blog.csdn.net/WonderGlans/article/details/83479577)
+
+1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
+1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
+1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
+2. 生命周期API调用时机、作用和最佳实践
+
+{% highlight javascript linenos %}
+// 新生命周期
+interface NewLifecycle<P, S, SS> {
+    getSnapshotBeforeUpdate?(prevProps, prevState): SS | null;
+    componentDidUpdate?(prevProps, prevState, snapshot): void;
+}
+// 废弃生命周期
+interface DeprecatedLifecycle<P, S> {
+    componentWillMount?(): void;
+    UNSAFE_componentWillMount?(): void;
+    componentWillReceiveProps?(nextProps, nextContext): void;
+    UNSAFE_componentWillReceiveProps?(nextProps, nextContext): void;
+    componentWillUpdate?(nextProps, nextState, nextContext): void;
+    UNSAFE_componentWillUpdate?(nextProps, nextState, nextContext): void;
+}
+// 组件生命周期（继承新和废弃生命周期）
+interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
+    componentDidMount?(): void;
+    shouldComponentUpdate?(nextProps, nextState, nextContext): boolean;
+    componentWillUnmount?(): void;
+    componentDidCatch?(error, errorInfo): void;
+}
+{% endhighlight %}
+
+
+### 数据结构
+
+2. 区分Element、Instance、DOM、Component、Fiber的不同含义以及之间关系？
+3. Fiber节点数据结构中各属性含义？
+
+### Virtual DOM
+
+1. Virtual DOM遇到了哪些假问题，又解决了哪些真问题？([手写Virtual DOM带给我们的新思考](https://github.com/livoras/blog/issues/13))
+2. React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
+
+### Diff算法
+
+2. Diff算法的策略是什么，能得出哪些最佳实践？
+3. 都说React有个Diff算法，代码在哪里，怎么比较的，文案变了会涉及Diff算法吗？
+
+### 原理
+
+4. React高效在哪？
 7. React工作流程？
 8. 如何关联Native自定义组件？
-9. Fiber节点数据结构中各属性含义？
 
 ![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg)
 
 # 追过程
 
-## 三步曲
+## 观天
 
-### 第一步（查资料）
-
-网上一顿关键字搜索，站在巨人的肩膀上，集思广益。不要急，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇ReactNative优秀文章导读和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈的汇总，这么说吧，发盆友圈是停不下来了，上一天班就得发一篇。
+我们不是孤军作战，站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇ReactNative优秀文章导读和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈阶段性的汇总，这么说吧，发盆友圈是停不下来了，上一天班发一篇。
 
 1. [进击ReactNative-纳百川](https://shengshuqiang.github.io/2018/12/15/%E8%BF%9B%E5%87%BBReactNative-%E7%BA%B3%E7%99%BE%E5%B7%9D.html)
 2. [进击ReactNative-积土（React）山](https://shengshuqiang.github.io/2019/01/20/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E5%9C%9F-React-%E5%B1%B1.html)
 3. [进击ReactNative-积水（JavaScript）渊](https://shengshuqiang.github.io/2019/02/24/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E6%B0%B4-JavaScript-%E6%B8%8A.html)
 
-不间断的阅读输出，获益匪浅，有助于修正强化自己的方法论。比方说通过XMind自由缩放源码地图、DIY ReactNative、抽象伪代码表述等。过程中，我发现大家的文章都在引用一个有意思的卡通图。
+牛人教我[”坚定看多，数量堆死力量“](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，自己的方法论涨姿势了，比方说通过XMind自由缩放源码地图、DIY ReactNative、抽象伪代码表述等。
 
-![]({{ site.url }}/assets/CatonFiberTree.png)
+**里程碑**
 
-卡通图来源于美女程序员Lin Clark在2017年React大会的演讲，这个太棒啦，建议大家看一看[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。
+1. What：
+2. Why：
+3. How Much：
+2. 硬核资料：美女程序员Lin Clark在2017年React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。<br>![](https://shengshuqiang.github.io/assets/CatonFiberTree.png)
+2. 术语
+	3. Element：元素，即我们在组件render方法返回的有趣的标签语句（JSX），类似`<Text>Hello World</Text>`。Babel 会把 JSX 转译成一个名为 React.createElement() 函数调用，类似`React.createElement(Text, {}, 'Hello World');`。
+	4. Component：组件，即开发者通常定义的继承自Component或PureComponent的类。
+	5. Instance：组件实例，即ref持有的引用。在生成Fiber节点时会调用 new Component() 创建。
+	5. DOM：文档对象模型（Document Object Model），简单说就是界面控件树（对应Html是DOM树，对应Native是View树）的节点。
+	7. Virtual DOM：虚拟DOM，即DOM树的内存缓存映射。背景是每次操作DOM树均会引发页面刷新导致界面咔咔咔。思路是先在内存计算出所有差异结果，然后整合成一次DOM操作完成刷新。目标是纵享丝滑。
+	8. Fiber：纤维，是比线程控制得更精密的并发处理机制。React中指的是碎片化更新中可操作的细粒度节点，用于存储中间态计算结果，为“**可紧急插队、可中断恢复**”的页面刷新提供技术支持。
+	8. 关系：![]({{ site.url }}/assets/element_instance_dom_relation.png)
+	9. // TODO ps一张完整关系图
+10. Fiber数据结构
+	11. 
 
 ### 第二步（搭台子）
 
@@ -94,7 +173,11 @@ $(document).ready(function() {
 
 ### 第三步（上源码）
 
-我们来读源码（ 16.8.3react,0.59.8react-native）吧！ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
+我们来读源码（ 16.8.3react,0.59.8react-native）吧！
+
+* ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
+* [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
+* react.d.ts：接口定义，详见/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts。
 
 <img src="https://shengshuqiang.github.io/assets/ReactCodeStructure.png" width="30%" height="30%" />
 
@@ -114,7 +197,7 @@ $(document).ready(function() {
 
 [![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/assets/DrawFiber/drawfiber.html)
 
-上面Demo，初始化渲染有60步，我这么一步步复制数据生成Fiber树图片，这和猴子也没啥区别。这时，我想起来了好基友李阳推荐的React Developer Tools工具、恰巧彼时团队内部也有童靴在扩展该工具。我能不能写个插件，实时绘制运行时Fiber双树图。虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，插件也给我搞出来了。
+上面Demo，初始化渲染有60步，我这么一步步复制数据生成Fiber双树图片，这和猴子也没啥区别。这时，我想起来了好基友李阳推荐的React Developer Tools工具、恰巧彼时团队内部也有童靴在扩展该工具。我能不能写个插件，实时绘制运行时Fiber双树图。虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，插件也给我搞出来了。
 
 ![]({{ site.url }}/assets/ReactDeveloperToolsDemo.jpg)
 
@@ -125,6 +208,8 @@ $(document).ready(function() {
 ![]({{ site.url }}/assets/ReactDeveloperToolsDemo2.gif)
 
 ## 大海航术
+
+![循序渐进](http://ddrvcn.oss-cn-hangzhou.aliyuncs.com/2019/7/7NJRve.jpg)
 
 终于到了压轴环节，上大海航术动图。
 
@@ -202,6 +287,9 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 ### 小结
 
 #### 简约伪代码
+
+[](https://facebook.github.io/react-native/docs/performance.html#common-sources-of-performance-problems)
+可编辑表格
 
 Talk is cheap. Show me the code.
 
