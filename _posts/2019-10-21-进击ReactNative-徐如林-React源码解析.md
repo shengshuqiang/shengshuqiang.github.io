@@ -168,7 +168,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif){:height="80%" width="80%"}
+3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
 ### 第三步（上源码）
@@ -288,6 +288,7 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 #### 简约伪代码
 
+// TODO highlight.js使用
 [](https://facebook.github.io/react-native/docs/performance.html#common-sources-of-performance-problems)
 可编辑表格
 
