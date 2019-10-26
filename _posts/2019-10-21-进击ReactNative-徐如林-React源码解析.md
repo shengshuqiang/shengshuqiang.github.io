@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 1. 明明只写了几个组件，通过React Developer Tools看到的却是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 2. React组件和Native View看起来不是一一对应的，那么映射关系是什么？
-3. 组件API调用时机、作用和最佳实践
+3. [组件API](https://reactjs.org/docs/react-component.html#other-apis)调用时机、作用和最佳实践
 
 {% highlight javascript linenos %}
 // 组件类
@@ -84,7 +84,7 @@ class Component<P, S> {
 1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
 1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
 1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
-2. 生命周期API调用时机、作用和最佳实践
+2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle))调用时机、作用和最佳实践
 
 {% highlight javascript linenos %}
 // 新生命周期
@@ -155,7 +155,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **术语**
 
-***Component***：组件，即开发者通常定义的类组件（继承Component的普通组件和继承PureComponent的纯组件）和函数式组件（返回Element的函数）。
+***Component***：组件，即开发者通常定义的[类组件](https://reactjs.org/docs/react-api.html#components)（继承[Component](https://reactjs.org/docs/react-api.html#reactcomponent)的普通组件和继承[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)的纯组件）和函数式组件（返回Element的函数）。
 
 ```
 // 普通组件
@@ -180,12 +180,15 @@ const App = function () {
 }
 ```
 
-*JSX*：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 React.createElement 函数调用.
+*JSX*：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
 
 ```
 React.createElement(
+	// 类型type
 	{$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+	// 属性props
 	{style: {color: "black"}, __source: {…}},
+	// 子节点children
 	"点击数0"
 );
 ```
@@ -211,10 +214,15 @@ React.createElement(
 ```
 // App
 {
+	// React Element唯一标识
 	$$typeof: Symbol(react.element),
+	// 开发者指定唯一标识，用于复用
 	key: null,
+	// 属性
 	props: {rootTag: 241},
+	// 引用
 	ref: null,
+	// 类型
 	type: ƒ App(props),
 	_owner: null,
 	_store: {validated: true},
@@ -244,31 +252,45 @@ React.createElement(
 {
 	actualDuration: 175.7499999985157,
 	actualStartTime: 9793.884999999136,
+	// 候补树，在调用render或setState后，会克隆出一个镜像fiber，diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复
 	alternate: null,
+	// 第一个子节点
 	child: FiberNode {id: 12, tag: 11, key: null, elementType: {…}, type: {…}, …},
 	childExpirationTime: 0,
 	contextDependencies: null,
 	effectTag: 5,
 	elementType: ƒ App(props),
 	expirationTime: 0,
+	// 用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构
 	firstEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	// 我添加的Fiber节点唯一标识（采用id自增生成），用于生成Fiber双树
 	id: 11,
 	index: 0,
+	// 复用标识
 	key: null,
 	lastEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	// 在前一个渲染中用于创建输出的 Fiber 的 props
 	memoizedProps: {rootTag: 191},
+	// 用于创建输出的 Fiber 状态。处理更新时，它会反映当前在屏幕上呈现的状态
 	memoizedState: null,
 	mode: 4,
+	// workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list
 	nextEffect: FiberNode {id: 10, tag: 5, key: null, elementType: "RCTView", type: "RCTView", …},
+	// props是函数的参数。一个 fiber 的pendingProps在执行开始时设置，并在结束时设置memoizedProps。已从 React 元素中的新数据更新并且需要应用于子组件或 DOM 元素的 props
 	pendingProps: {rootTag: 191},
 	ref: null,
+	// 父节点
 	return: FiberNode {id: 10, tag: 5, key: null, elementType: "RCTView", type: "RCTView", …},
 	selfBaseDuration: 28.63000000070315,
+	// 兄弟节点
 	sibling: null,
+	// 保存组件的类实例、DOM 节点或与 Fiber 节点关联的其他 React 元素类型的引用。总的来说，我们可以认为该属性用于保持与一个 Fiber 节点相关联的局部状态。(HostRoot对应{containerInfo}；ClassComponent对应为new的函数对象实例；HostComponent对应为ReactNativeFiberHostComponent，包含_children和_nativeTag；HostText对应为nativeTag）
 	stateNode: hookClazz {props: {…}, context: {…}, refs: {…}, updater: {…}, _reactInternalFiber: FiberNode, …},
+	// 它在协调算法中用于确定需要完成的工作。如前所述，工作取决于React元素的类型
 	tag: 1,
 	treeBaseDuration: 155.36499999871012,
 	type: ƒ App(props),
+	// state更新队列。状态更新、回调和 DOM 更新的队列
 	updateQueue: null,
 	_debugID: 12,
 	_debugIsCurrentlyTiming: false,
@@ -277,12 +299,22 @@ React.createElement(
 	__proto__: Object
 }
 ```
+![](https://pic2.zhimg.com/80/v2-453e1f48a4f53356bee021c90ee00bed_hd.jpg)
 
 ***DOM***：文档对象模型（Document Object Model），简单说就是界面控件树（对应Html是DOM树，对应Native是View树）的节点。
 
-![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
+```
+UIManager.createView	[3,"RCTRawText",1,{"text":"点击数0"}]
+UIManager.createView	[5,"RCTText",1,{"ellipsizeMode":"tail","allowFontScaling":true,"accessible":true,"color":-16777216}]
+UIManager.setChildren	[5,[3]]
+UIManager.createView	[7,"RCTView",1,{"flex":1,"pointerEvents":"box-none","collapsable":true}]
+UIManager.setChildren	[7,[5]]
+UIManager.createView	[9,"RCTView",1,{"pointerEvents":"box-none","flex":1}]
+UIManager.setChildren	[9,[7]]
+UIManager.setChildren	[1,[9]]
+```
 
-***Fiber数据结构***
+![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
 
 
 ## 运行
