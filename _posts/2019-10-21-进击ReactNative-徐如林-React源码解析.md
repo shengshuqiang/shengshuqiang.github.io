@@ -20,7 +20,8 @@ $(document).ready(function() {
 {:.success}
 <!--more-->
 
-如果有对ReactNative不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
+// TODO 演进图
+本篇文章主要针对React源码分析，先说清楚开发者接触到的API，然后再深挖对应底层实现逻辑。如果有对ReactNative不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
 
 话说，做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼动一下。
 
@@ -34,16 +35,18 @@ $(document).ready(function() {
 
 ## 授业（懂算法）
 
-现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。也罢，唯一的出路只有自力更生啃源码。坚信源码才是世间唯一的真相，不二的注释，思想的火花，王者的农药。后来，终于在眼泪中明白，源码大法好啊，得到的比想要的多得多（贫穷限制了我的想象）。往小的说，技术成长。往大的说，核心竞争力。
+现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。也罢，唯一的出路只有自力更生啃源码了。
 
-本文和你分享的是如何通过**先进生产工具**轻松地看懂代码，区别于呆板的流水式英文阅读，尽量做到：
+我一直坚信，只有源码才是唯一的真相，不二的注释，思想的火花，王者的农药。后来，终于在眼泪中明白，源码大法好啊，得到的比想要的多得多（贫穷限制了我的想象）。往小的说，技术成长。往大的说，核心竞争力。
 
-1. **承上**（上层API怎么用的）
+本文和你分享的是如何通过**先进生产力**相对轻松地看懂代码，区别于呆板的流水式英文阅读，尽量做到：
+
+1. **承上**（用户态--上层API怎么用）
+	* 组件中方法（constructor、setState、forceUpdate、render）的作用是什么
 	* 生命周期调用时机是什么
-	* render干了什么
-	* setState发生了什么
 	* PureComponent比Component好在哪里，怎么能做得更好
-1. **启下**（底层原理怎么玩的）
+1. **启下**（内核态--底层原理怎么玩）
+	* 各种概念的含义，对应数据结构是什么
 	* 深入浅出Fiber双树算法
 	* Diff算法在哪
 	* Native操作指令从哪来
@@ -121,47 +124,168 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 ### Diff算法
 
 2. Diff算法的策略是什么，能得出哪些最佳实践？
-3. 都说React有个Diff算法，代码在哪里，怎么比较的，文案变了会涉及Diff算法吗？
+3. 都说React有个Diff算法（Tree Diff 分层求异；Component Diff 同类同树，异类异树；Element Diff 增删移复用key），代码在哪里，怎么比较的？
 
 ### 原理
 
 4. React高效在哪？
 7. React工作流程？
 8. 如何关联Native自定义组件？
+9. Fiber双树是干啥的？
 
 ![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg)
 
 # 追过程
 
-## 观天
+## 学习
 
-我们不是孤军作战，站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利三篇ReactNative优秀文章导读和一个[微信朋友圈](https://shengshuqiang.github.io/about.html)。没错，就是我，不一样的烟火。发盆友圈，我是认真的。前面三篇文章是我盆友圈阶段性的汇总，这么说吧，发盆友圈是停不下来了，上一天班发一篇。
+我们不是一个人在战斗，有必要站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发。
 
-1. [进击ReactNative-纳百川](https://shengshuqiang.github.io/2018/12/15/%E8%BF%9B%E5%87%BBReactNative-%E7%BA%B3%E7%99%BE%E5%B7%9D.html)
-2. [进击ReactNative-积土（React）山](https://shengshuqiang.github.io/2019/01/20/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E5%9C%9F-React-%E5%B1%B1.html)
-3. [进击ReactNative-积水（JavaScript）渊](https://shengshuqiang.github.io/2019/02/24/%E8%BF%9B%E5%87%BBReactNative-%E7%A7%AF%E6%B0%B4-JavaScript-%E6%B8%8A.html)
+本着[”**坚定看多，数量堆死力量**“](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，自己的方法论姿势见涨，比方说通过XMind自由缩放源码地图帮助理解、手写ReactNative寻求理论加实践、抽象伪代码表述助力说清楚等。
 
-牛人教我[”坚定看多，数量堆死力量“](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，自己的方法论涨姿势了，比方说通过XMind自由缩放源码地图、DIY ReactNative、抽象伪代码表述等。
+**Fiber架构里程碑**
 
-**里程碑**
+**Why：**一路狂奔式地更新，无暇处理用户响应，引发界面咔咔咔。
 
-1. What：
-2. Why：
-3. How Much：
-2. 硬核资料：美女程序员Lin Clark在2017年React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。<br>![](https://shengshuqiang.github.io/assets/CatonFiberTree.png)
-2. 术语
-	3. Element：元素，即我们在组件render方法返回的有趣的标签语句（JSX），类似`<Text>Hello World</Text>`。Babel 会把 JSX 转译成一个名为 React.createElement() 函数调用，类似`React.createElement(Text, {}, 'Hello World');`。
-	4. Component：组件，即开发者通常定义的继承自Component或PureComponent的类。
-	5. Instance：组件实例，即ref持有的引用。在生成Fiber节点时会调用 new Component() 创建。
-	5. DOM：文档对象模型（Document Object Model），简单说就是界面控件树（对应Html是DOM树，对应Native是View树）的节点。
-	7. Virtual DOM：虚拟DOM，即DOM树的内存缓存映射。背景是每次操作DOM树均会引发页面刷新导致界面咔咔咔。思路是先在内存计算出所有差异结果，然后整合成一次DOM操作完成刷新。目标是纵享丝滑。
-	8. Fiber：纤维，是比线程控制得更精密的并发处理机制。React中指的是碎片化更新中可操作的细粒度节点，用于存储中间态计算结果，为“**可紧急插队、可中断恢复**”的页面刷新提供技术支持。
-	8. 关系：![]({{ site.url }}/assets/element_instance_dom_relation.png)
-	9. // TODO ps一张完整关系图
-10. Fiber数据结构
-	11. 
+**What：**Fiber，纤维，是比线程控制得更精密的并发处理机制。更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。
 
-### 第二步（搭台子）
+**How Much：**纵享丝滑。
+
+**硬核资料：**程序媛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。<br>![](https://shengshuqiang.github.io/assets/CatonFiberTree.png)
+
+**术语**
+
+***Component***：组件，即开发者通常定义的类组件（继承Component的普通组件和继承PureComponent的纯组件）和函数式组件（返回Element的函数）。
+
+```
+// 普通组件
+class App extends React.Component {
+    render() {
+        return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+    }
+}
+```
+```
+// 纯组件
+class App extends React.PureComponent {
+    render() {
+        return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+    }
+}
+```
+```
+// 函数式组件
+const App = function () {
+    return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+}
+```
+
+*JSX*：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 React.createElement 函数调用.
+
+```
+React.createElement(
+	{$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+	{style: {color: "black"}, __source: {…}},
+	"点击数0"
+);
+```
+***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用 new Component() 创建。
+
+```
+// App
+{
+	forceUpdate: ƒ (),
+	isReactComponent: ƒ (),
+	setState: ƒ (),
+	componentDidMount: ƒ (),
+	componentWillUnmount: ƒ (),
+	constructor: ƒ App(props),
+	isMounted: (...),
+	render: ƒ (),
+	replaceState: (...),
+	__proto__: Component
+}
+```
+***Element***：元素，是DOM节点的一种纯对象描述，即虚拟DOM。组件render方法返回值。详见[React.createElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js#L753)。
+
+```
+// App
+{
+	$$typeof: Symbol(react.element),
+	key: null,
+	props: {rootTag: 241},
+	ref: null,
+	type: ƒ App(props),
+	_owner: null,
+	_store: {validated: true},
+	_self: null,
+	_source: {fileName: "/Users/shengshuqiang/dream/AdvanceOnReactNative/Aw…native/Libraries/ReactNative/renderApplication.js", lineNumber: 38},
+	__proto__: Object
+}
+// Text
+{
+	$$typeof: Symbol(react.element),
+	key: null,
+	props: {style: {color: "black"}, children: "点击数0"},
+	ref: null,
+	type: {$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+	_owner: FiberNode {id: 11, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	_store: {validated: false},
+	_self: null,
+	_source: {fileName: "/Users/shengshuqiang/dream/AdvanceOnReactNative/AwesomeProject/App.js", lineNumber: 213},
+	__proto__: Object
+}
+```
+
+***FiberNode***：碎片化更新中可操作的细粒度节点，用于存储中间态计算结果，为“**可紧急插队、可中断恢复**”的页面刷新提供技术支持。详见[ReactNative.createFiberFromElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js#L6021)。
+
+```
+// FiberNode
+{
+	actualDuration: 175.7499999985157,
+	actualStartTime: 9793.884999999136,
+	alternate: null,
+	child: FiberNode {id: 12, tag: 11, key: null, elementType: {…}, type: {…}, …},
+	childExpirationTime: 0,
+	contextDependencies: null,
+	effectTag: 5,
+	elementType: ƒ App(props),
+	expirationTime: 0,
+	firstEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	id: 11,
+	index: 0,
+	key: null,
+	lastEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	memoizedProps: {rootTag: 191},
+	memoizedState: null,
+	mode: 4,
+	nextEffect: FiberNode {id: 10, tag: 5, key: null, elementType: "RCTView", type: "RCTView", …},
+	pendingProps: {rootTag: 191},
+	ref: null,
+	return: FiberNode {id: 10, tag: 5, key: null, elementType: "RCTView", type: "RCTView", …},
+	selfBaseDuration: 28.63000000070315,
+	sibling: null,
+	stateNode: hookClazz {props: {…}, context: {…}, refs: {…}, updater: {…}, _reactInternalFiber: FiberNode, …},
+	tag: 1,
+	treeBaseDuration: 155.36499999871012,
+	type: ƒ App(props),
+	updateQueue: null,
+	_debugID: 12,
+	_debugIsCurrentlyTiming: false,
+	_debugOwner: null,
+	_debugSource: {fileName: "/Users/shengshuqiang/dream/AdvanceOnReactNative/Aw…native/Libraries/ReactNative/renderApplication.js", lineNumber: 38},
+	__proto__: Object
+}
+```
+
+***DOM***：文档对象模型（Document Object Model），简单说就是界面控件树（对应Html是DOM树，对应Native是View树）的节点。
+
+![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
+
+***Fiber数据结构***
+
+
+## 运行
 
 搭一个自己的专属牧场--本地可运行环境（开发平台macOS，目标平台Android）。
 
@@ -171,9 +295,13 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
-### 第三步（上源码）
+## 源码
 
 我们来读源码（ 16.8.3react,0.59.8react-native）吧！
+
+### 用户态
+
+### 内核态
 
 * ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
 * [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
@@ -187,7 +315,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 [![]({{ site.url }}/assets/ReactNativeRenderer.render.png)]({{ site.url }}/assets/深入ReactNative.xmind)
 
-按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧，直到那一天。。。
+按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧，直到那一天。我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
 
 来个段子放松一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，怎么办？脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
 
@@ -195,7 +323,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 我受到了启发，也来个脑筋急转弯，能不能自己写个脚本把Fiber双树画出来，日志记录了算法的所有行为，但问题是可读性太差，上万条日志能联系起来推理，猴哥都不一定能做到，况且我又不是猴子，是时候生产工具鸟枪换炮了。说干就干，我将日志中的Fiber双树用JS脚本画了出来。
 
-[![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/assets/DrawFiber/drawfiber.html)
+[![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
 
 上面Demo，初始化渲染有60步，我这么一步步复制数据生成Fiber双树图片，这和猴子也没啥区别。这时，我想起来了好基友李阳推荐的React Developer Tools工具、恰巧彼时团队内部也有童靴在扩展该工具。我能不能写个插件，实时绘制运行时Fiber双树图。虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，插件也给我搞出来了。
 
@@ -852,6 +980,8 @@ function ReactNativeRenderer_render() {
 
 ## 高性能实践
 
+让浏览器休息好，浏览器就能跑得更快
+
 留到下期。
 
 ## 问题定位利器
@@ -878,6 +1008,8 @@ function ReactNativeRenderer_render() {
 感谢岳母大人和媳妇大人的默默付出，感谢士兴大佬、朝旭大神、车昊大哥、张杰大哥、思文大拿、陈卓大牛的技术支持和迷津指点。
 
 曾经在知乎看到一个问题，“[能魔改react-native源码的是什么水平的前端？](https://www.zhihu.com/question/269731127)”我挑战了这个水平。
+
+Airbnb摇了摇头，说“ ReactNative太难了”，然后倒下了。但是我们，必须，站到台前，领导大家～
 
 谨以此文，献给(那些)曾经热爱互联网技术，并和并肩作战的伙伴们一同度过时光的人们，呈现这重逢的此刻。
 

@@ -18,7 +18,6 @@ baseurl: /
 title: 盛书强
 description: > #this means to ignore newlines until "nav_lists:"
   盛之羽翼
-
 nav_lists:
   - titles:
       en: About
