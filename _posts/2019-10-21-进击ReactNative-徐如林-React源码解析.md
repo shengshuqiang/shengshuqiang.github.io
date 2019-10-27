@@ -331,41 +331,37 @@ UIManager.setChildren	[1,[9]]
 
 我们来读源码（16.8.3 react，0.59.8 react-native）吧！
 
+* ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
+* [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
+* [react.d.ts](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/react.d.ts)：接口定义，详见本地目录/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts。
+
+```
+```
+
 ### 用户态（浅水区）
 
 ### 内核态（深水区）
 
-* ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
-* [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
-* react.d.ts：接口定义，详见/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts。
 
-<img src="https://shengshuqiang.github.io/assets/ReactCodeStructure.png" width="30%" height="30%" />
+<!--<img src="https://shengshuqiang.github.io/assets/ReactCodeStructure.png" width="30%" height="30%" />-->
 
-我给自己的读码方法论命名为“**大海航术**”，即运行时日志为辅，断点调试为主，匹配自己野兽般的想象力，目标自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
+我给自己的读码方法论命名为“**大海航术**”，即运行时日志分析为辅，断点调试分析为主，匹配发挥自己野兽般的想象力，力图自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
 
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber数据结构属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是打断了，你都找不到北。
+对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，我都找不到北。
 
 [![]({{ site.url }}/assets/ReactNativeRenderer.render.png)]({{ site.url }}/assets/深入ReactNative.xmind)
 
-按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷。即使这样，我仍然尝试把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧，直到那一天。我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
+按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。直到那一天，我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
 
-来个段子放松一下。[《读懂圣殿骑士团，读懂现代银行的起源》](https://mp.weixin.qq.com/s?__biz=MzUzMjY0NDY4Ng==&mid=2247483854&idx=1&sn=bd82089baec16c3b7d2e96d57e8e5840&chksm=fab157efcdc6def9b4a890ba7894b6c440fd4b38923810f6bc27cbc71b549081e3c92c05328d&mpshare=1&scene=1&srcid=1020RvqHBV8LgoFciquJ4koA&sharer_sharetime=1571535764572&sharer_shareid=82c707e9022f9f44af256194c6fc9b1f&pass_ticket=PNCtDJj79ATAfJb0AYzGIeOribtLxFVNeuVyR9kwmBPpNQoMX6K0qv0q3H5sYMDq#rd)里面有个有意思的小故事，说欧洲国王和圣殿骑士团借钱打战，打赢了就把钱还上，没想到打输了，欠了一屁股债，怎么办？脑子很活的法国国王就想：“可不可以不还钱”，随后的问题就是“不还钱会发生啥？”，进一步“不仅不还钱，而且杀鸡取卵，有问题吗？”能有啥问题，没问题，那就干。然后说圣殿骑士团搞基（因为圣殿骑士团徽章是两个人骑一匹马）犯法，于是砍死了债主，钱也就不用还了。
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Templarsign.jpg" width="30%" height="30%" />
-
-我受到了启发，也来个脑筋急转弯，能不能自己写个脚本把Fiber双树画出来，日志记录了算法的所有行为，但问题是可读性太差，上万条日志能联系起来推理，猴哥都不一定能做到，况且我又不是猴子，是时候生产工具鸟枪换炮了。说干就干，我将日志中的Fiber双树用JS脚本画了出来。
+脑子很活的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树图”，进一步“绘制方便源码分析的实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
 [![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
 
-上面Demo，初始化渲染有60步，我这么一步步复制数据生成Fiber双树图片，这和猴子也没啥区别。这时，我想起来了好基友李阳推荐的React Developer Tools工具、恰巧彼时团队内部也有童靴在扩展该工具。我能不能写个插件，实时绘制运行时Fiber双树图。虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，插件也给我搞出来了。
+说到底，问题本质在于仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更加具象了。本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，并非一蹴而就。能想到接入React Developer Tools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
 
-![]({{ site.url }}/assets/ReactDeveloperToolsDemo.jpg)
+![]({{ site.url }}/assets/ReactDeveloperToolsDemo.png)
 
 这里必须给React Developer Tools点32个赞，这是我迄今见过最好的架构，我就一JS倔强青铜的水平，竟然看着文档能把源码跑起来（过程中编译相关小问题找大牛给解了），进一步把自己的脚本集成进去，模仿已有脚本一顿Ctrl+F、Ctrl+C、Ctrl+V就成了，延展性可见一斑，不服不行。
-
-上面截图可以看到，插件里面有两棵树（Fiber双树和Native View树）和一堆数字按钮。数字按钮对应每一步，点击按钮即可完成时间旅行。光凭这两颗树，还是要靠日志像猴子一样手动映射源码，我才不做猴子呢。在此之上，我继续绘制实时方法调用树（看着有点像抽象语法树，但是只有我这么用）。
-
-![]({{ site.url }}/assets/ReactDeveloperToolsDemo2.gif)
 
 ## 大海航术
 
