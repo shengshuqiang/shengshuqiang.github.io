@@ -319,21 +319,21 @@ UIManager.setChildren	[1,[9]]
 
 ## 运行
 
-搭一个自己的专属牧场--本地可运行环境（开发平台macOS，目标平台Android）。
+搭一个自己的专属实验室--本地可运行环境（开发平台macOS，目标平台Android）。
 
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。<br>![]({{ site.url }}/assets/简单demo.gif)
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染<br>![]({{ site.url }}/assets/简单demo.gif)
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
 
 ## 源码
 
-我们来读源码（ 16.8.3react,0.59.8react-native）吧！
+我们来读源码（16.8.3 react，0.59.8 react-native）吧！
 
-### 用户态
+### 用户态（浅水区）
 
-### 内核态
+### 内核态（深水区）
 
 * ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
 * [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
