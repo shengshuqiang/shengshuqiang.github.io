@@ -67,8 +67,6 @@ class Component<P, S> {
 	// 变量
 	props;
 	state;
-	context;
-	refs;
 	// 方法
 	constructor(props, context);
 	setState(state, callback): void;
@@ -79,12 +77,10 @@ class Component<P, S> {
 
 ### 生命周期
 
-[你真的懂React生命周期吗?](https://blog.csdn.net/WonderGlans/article/details/83479577)
-
 1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
 1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
 1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
-2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle))调用时机、作用和最佳实践
+2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践
 
 {% highlight javascript linenos %}
 // 新生命周期
@@ -147,7 +143,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **Why：**一路狂奔式地更新，无暇处理用户响应，引发界面咔咔咔。
 
-**What：**Fiber，纤维，是比线程控制得更精密的并发处理机制。更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。
+**What：**Fiber，纤维，是比线程控制得更精密的并发处理机制。更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。本质上，它还是一个工具，用来帮助开发者操纵 DOM ，从而构建出页面。
 
 **How Much：**纵享丝滑。
 
@@ -155,7 +151,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **术语**
 
-***Component***：组件，即开发者通常定义的[类组件](https://reactjs.org/docs/react-api.html#components)（继承[Component](https://reactjs.org/docs/react-api.html#reactcomponent)的普通组件和继承[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)的纯组件）和函数式组件（返回Element的函数）。
+[***Component***](https://zh-hans.reactjs.org/docs/glossary.html#components)：组件，是可复用的小的代码片段，它们返回要在页面中渲染的 React 元素。分为[类组件](https://reactjs.org/docs/react-api.html#components)（继承[Component](https://reactjs.org/docs/react-api.html#reactcomponent)的普通组件和继承[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)的纯组件）和函数式组件（返回Element的函数）。
 
 ```
 // 普通组件
@@ -180,7 +176,7 @@ const App = function () {
 }
 ```
 
-*JSX*：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
+[*JSX*](https://zh-hans.reactjs.org/docs/glossary.html#jsx)：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
 
 ```
 React.createElement(
@@ -209,7 +205,7 @@ React.createElement(
 	__proto__: Component
 }
 ```
-***Element***：元素，是DOM节点的一种纯对象描述，即虚拟DOM。组件render方法返回值。详见[React.createElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js#L753)。
+[***Element***](https://zh-hans.reactjs.org/docs/glossary.html#elements)：元素，描述了你在屏幕上想看到的内容。是DOM节点的一种纯对象描述，即虚拟DOM，对应组件render方法返回值。详见[React.createElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js#L753)。
 
 ```
 // App
@@ -332,32 +328,47 @@ UIManager.setChildren	[1,[9]]
 我们来读源码（16.8.3 react，0.59.8 react-native）吧！
 
 * ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
-* [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：存JS侧React相关定义和简单实现。
+* [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：纯JS侧React相关定义和简单实现。
 * [react.d.ts](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/react.d.ts)：接口定义，详见本地目录/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts。
 
 ```
+#  源码目录/Users/shengshuqiang/dream/AdvanceOnReactNative/AwesomeProject/node_modules
+.
+├── react
+│   └── cjs
+│       └── react.development.js # 纯JS侧React相关定义和简单实现
+└── react-native
+    ├── LICENSE
+    └── Libraries
+        ├── Components # 官方提供的各种组件，如View、ScrollView、Touchable等
+        └── Renderer
+            └── oss
+                ├── GreateNavigationArt.js # “大海航术”核心实现，主要hook调用，打印调用栈日志和dump Fiber双树信息，约600行
+                └── ReactNativeRenderer-dev.js # ReactNative上层JS代码核心实现，约2W行
+
 ```
 
-### 用户态（浅水区）
+## 迷航
 
-### 内核态（深水区）
+我给自己的读码方法论命名为“**海航术**”，是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟性），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的方法论（套路）。
 
-
-<!--<img src="https://shengshuqiang.github.io/assets/ReactCodeStructure.png" width="30%" height="30%" />-->
-
-我给自己的读码方法论命名为“**大海航术**”，即运行时日志分析为辅，断点调试分析为主，匹配发挥自己野兽般的想象力，力图自圆其说，唬住不懂的人（包括我自己），假装懂了的套路。
-
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，我都找不到北。
+对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的树数据结构，还是双树。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，我都找不到北。
 
 [![]({{ site.url }}/assets/ReactNativeRenderer.render.png)]({{ site.url }}/assets/深入ReactNative.xmind)
 
-按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。直到那一天，我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
+按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
-脑子很活的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树图”，进一步“绘制方便源码分析的实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
+## 变数
+
+直到那一天，我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
+
+脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
 [![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
 
-说到底，问题本质在于仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更加具象了。本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，并非一蹴而就。能想到接入React Developer Tools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，虽说是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
+说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
+
+本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，无法一蹴而就。能想到接入React Developer Tools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，表面上是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
 
 ![]({{ site.url }}/assets/ReactDeveloperToolsDemo.png)
 
@@ -365,13 +376,91 @@ UIManager.setChildren	[1,[9]]
 
 ## 大海航术
 
+“**海航术**”的大方向（日志、调试、想象）是正确的，这个想象操作空间太大，是个非标品。“**大海航术**”的大就在可视化放飞想象力。
+
+1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br>![]({{ site.url }}/assets/React方法调用树图.png)
+2. 以**Fiber双树图**为里程碑，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![]({{ site.url }}/assets/Fiber双树图.png)
+3. 以**Native View树图**为分界线，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![]({{ site.url }}/assets/NativeView树图.png)
+
+粗略感受一下大海航术动图。
+
+
+[![]({{ site.url }}/assets/大海航术动图.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+
+[![]({{ site.url }}/assets/大海航术动图2.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+
+更多详见[Html Demo 页面]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+
+### 用户态（浅水区）
+
+**组件API**
+
+组件变量/方法 | 概念 | 调用时机 | 作用 | 最佳实践
+--- | --- | --- | --- | --- 
+[props](https://zh-hans.reactjs.org/docs/glossary.html#props) | 属性，是 React 组件的输入。它们是从父组件向下传递给子组件的数据。 | 通过父组件的render方法\<SubComponent props={props}/>设置返回，通过this.props读取，，多用于页面刷新或逻辑计算 | 存储父组件传递到子组件的信息 | UI组件。根据属性纯展示，没有内部逻辑
+[state](https://zh-hans.reactjs.org/docs/glossary.html#state) | 状态，当组件中的一些数据在某些时刻发生变化时，这时就需要使用 state 来跟踪状态 | 通过setState设置，通过this.state读取，多用于页面刷新或逻辑计算 | 存储子组件自身维护的状态 | 容器组件。纯逻辑组件，通过组合UI组件完成渲染
+constructor | 构造函数 | ReactNative.constructClassInstance，生成虚拟DOM节点（FiberNode）时 | 创建组件实例，用于Fiber树计算出操作DOM指令 | 1. 初始化state<br>2. 注意这不是props传递的唯一入口，仅初始化调用该处，后续props刷新不再调用
+setState | 设置状态 | 用户主动调用，常见于按键或者生命周期方法中调用 | 设置状态，刷新页面 | 1. 控制影响组件粒度，避免大规模刷新（性能杀手）<br>2. 区分哪些生命周期中不能调用setState，避免死循环<br>3. 仅影响组件显示状态的数据放在state里面，其他数据可用组件成员变量存储
+forceUpdate | 强制更新 | 用户主动调用，强制页面刷新 | 调用后将不再调用shouldComponentUpdate方法，直接回重新render | 1. 谨慎使用<br>2. 数据内容改变但是浅（只比较state和props一级属性值是否相等）没有变化时
+render | 渲染 | ReactNative.finishClassComponent，Diff比较前 | 返回当前组件对应Virtual DOM树，描述当前组件的颜值 | 1. 合理通过函数组件或者类组件进行封装，提供可读性和可维护性<br>2. 养成良好的编程习惯（可扩展性、鲁棒性、可靠性、易用性、可移植性等）
+
+**生命周期**
+
+生命周期 | 概念 | 类型 | 调用时机 | 调用次数 | 调用setState | 作用 | 最佳实践
+--- | --- | --- | --- | --- | --- | --- | --- 
+getSnapshotBeforeUpdate | 更新前获取快照 | 新增方法 | 
+componentDidUpdate | 新增方法 | 
+componentWillMount | 废弃方法 | 
+UNSAFE_componentWillMount | 废弃方法 |
+componentWillReceiveProps| 废弃方法 |
+UNSAFE_componentWillReceiveProps | 废弃方法 |
+componentWillUpdate | 废弃方法 |
+UNSAFE_componentWillUpdate | 废弃方法 |
+componentDidMount | 保留方法 |
+shouldComponentUpdate | 保留方法 |
+componentWillUnmount | 保留方法 |
+componentDidCatch | 保留方法 | 
+
+![]({{ site.url }}/assets/生命周期调用.png)
+
+[你真的懂React生命周期吗?](https://blog.csdn.net/WonderGlans/article/details/83479577)
+
+1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
+1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
+1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
+2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践
+
+{% highlight javascript linenos %}
+// 新生命周期
+interface NewLifecycle<P, S, SS> {
+    getSnapshotBeforeUpdate?(prevProps, prevState): SS | null;
+    componentDidUpdate?(prevProps, prevState, snapshot): void;
+}
+// 废弃生命周期
+interface DeprecatedLifecycle<P, S> {
+    componentWillMount?(): void;
+    UNSAFE_componentWillMount?(): void;
+    componentWillReceiveProps?(nextProps, nextContext): void;
+    UNSAFE_componentWillReceiveProps?(nextProps, nextContext): void;
+    componentWillUpdate?(nextProps, nextState, nextContext): void;
+    UNSAFE_componentWillUpdate?(nextProps, nextState, nextContext): void;
+}
+// 组件生命周期（继承新和废弃生命周期）
+interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
+    componentDidMount?(): void;
+    shouldComponentUpdate?(nextProps, nextState, nextContext): boolean;
+    componentWillUnmount?(): void;
+    componentDidCatch?(error, errorInfo): void;
+}
+{% endhighlight %}
+
+### 内核态（深水区）
+
 ![循序渐进](http://ddrvcn.oss-cn-hangzhou.aliyuncs.com/2019/7/7NJRve.jpg)
 
 终于到了压轴环节，上大海航术动图。
 
-![]({{ site.url }}/assets/大海航术动图.gif)
 
-![]({{ site.url }}/assets/大海航术动图2.gif)
 
 受限于屏幕大小，无法鸟瞰全貌，后续考虑直接生成一个网页。
 
