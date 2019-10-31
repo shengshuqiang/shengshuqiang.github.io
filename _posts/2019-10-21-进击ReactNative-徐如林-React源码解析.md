@@ -16,11 +16,14 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端跨平台的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个碉堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三张图--**Fiber双树图**、**Native View树图**、**React方法调用树图**，在上帝视角和时间旅行的引领下，冲破波诡云谲的算法迷航，日照大海现双龙。
+![](http://img.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg)
+
+![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个碉堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三张图--**Fiber双树图**、**Native View树图**、**React方法调用树图**，在上帝视角和时间旅行的引领下，冲破波诡云谲的算法迷航，日照大海现双龙。
 {:.success}
 <!--more-->
 
 // TODO 演进图
+
 本篇文章主要针对React源码分析，先说清楚开发者接触到的API，然后再深挖对应底层实现逻辑。如果有对ReactNative不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
 
 话说，做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼动一下。
@@ -73,6 +76,7 @@ class Component<P, S> {
 	forceUpdate(callBack): void;
 	render(): ReactNode;
 }
+
 {% endhighlight %}
 
 ### 生命周期
@@ -83,6 +87,10 @@ class Component<P, S> {
 2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践
 
 {% highlight javascript linenos %}
+// 静态生命周期
+interface StaticLifecycle {
+    getDerivedStateFromProps?: GetDerivedStateFromProps;
+}
 // 新生命周期
 interface NewLifecycle<P, S, SS> {
     getSnapshotBeforeUpdate?(prevProps, prevState): SS | null;
@@ -114,7 +122,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 ### Virtual DOM
 
-1. Virtual DOM遇到了哪些假问题，又解决了哪些真问题？([手写Virtual DOM带给我们的新思考](https://github.com/livoras/blog/issues/13))
+1. Virtual DOM遇到了哪些假问题，又解决了哪些真问题？
 2. React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
 
 ### Diff算法
@@ -147,7 +155,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **How Much：**纵享丝滑。
 
-**硬核资料：**程序媛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。<br>![](https://shengshuqiang.github.io/assets/CatonFiberTree.png)
+**硬核资料：**程序媛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。
 
 **术语**
 
@@ -205,7 +213,7 @@ React.createElement(
 	__proto__: Component
 }
 ```
-[***Element***](https://zh-hans.reactjs.org/docs/glossary.html#elements)：元素，描述了你在屏幕上想看到的内容。是DOM节点的一种纯对象描述，即虚拟DOM，对应组件render方法返回值。详见[React.createElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js#L753)。
+[***Element***](https://zh-hans.reactjs.org/docs/glossary.html#elements)：元素，描述了你在屏幕上想看到的内容。是DOM节点的一种纯对象描述，即虚拟DOM，对应组件render方法主要返回值。详见[React.createElement](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js#L753)。
 
 ```
 // App
@@ -254,7 +262,10 @@ React.createElement(
 	child: FiberNode {id: 12, tag: 11, key: null, elementType: {…}, type: {…}, …},
 	childExpirationTime: 0,
 	contextDependencies: null,
+	// 副作用，增删改操作。Placement=2;Update=4;PlacementAndUpdate=6;Deletion=8;
 	effectTag: 5,
+	// 描述了它对应的组件。对于复合组件，类型是函数或类组件本身。对于宿主组件（div，span等），类型是字符串。定义此 Fiber 节点的函数或类。对于类组件，它指向构造函数，对于 DOM 元素，它指定 HTML 标记。我经常使用这个字段来理解 Fiber 节点与哪个元素相关。
+	// ClassComponent对应为函数，如APPContainer()。ForwardRef、ContextConsumer、ContextProvider对应为对象，如{$$typeof: Symbol(react.forward_ref), render: ƒ, displayName: "View"}。HostComponent对应为字符串，如“RCTView”。HostText对应为null。
 	elementType: ƒ App(props),
 	expirationTime: 0,
 	// 用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构
@@ -264,6 +275,7 @@ React.createElement(
 	index: 0,
 	// 复用标识
 	key: null,
+	// 参考firstEffect
 	lastEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
 	// 在前一个渲染中用于创建输出的 Fiber 的 props
 	memoizedProps: {rootTag: 191},
@@ -285,6 +297,7 @@ React.createElement(
 	// 它在协调算法中用于确定需要完成的工作。如前所述，工作取决于React元素的类型
 	tag: 1,
 	treeBaseDuration: 155.36499999871012,
+	// 同elementType
 	type: ƒ App(props),
 	// state更新队列。状态更新、回调和 DOM 更新的队列
 	updateQueue: null,
@@ -295,7 +308,6 @@ React.createElement(
 	__proto__: Object
 }
 ```
-![](https://pic2.zhimg.com/80/v2-453e1f48a4f53356bee021c90ee00bed_hd.jpg)
 
 ***DOM***：文档对象模型（Document Object Model），简单说就是界面控件树（对应Html是DOM树，对应Native是View树）的节点。
 
@@ -310,18 +322,18 @@ UIManager.setChildren	[9,[7]]
 UIManager.setChildren	[1,[9]]
 ```
 
-![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
+[![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.png)]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
 
 
-## 运行
+## 运行（Playground）
 
 搭一个自己的专属实验室--本地可运行环境（开发平台macOS，目标平台Android）。
 
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染<br>![]({{ site.url }}/assets/简单demo.gif)
-5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br>![]({{ site.url }}/assets/简单demo.gif)
+5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
 
@@ -335,18 +347,34 @@ UIManager.setChildren	[1,[9]]
 #  源码目录/Users/shengshuqiang/dream/AdvanceOnReactNative/AwesomeProject/node_modules
 .
 ├── react
-│   └── cjs
-│       └── react.development.js # 纯JS侧React相关定义和简单实现
+│   └── cjs
+│       └── react.development.js # 纯JS侧React相关定义和简单实现
 └── react-native
-    ├── LICENSE
-    └── Libraries
-        ├── Components # 官方提供的各种组件，如View、ScrollView、Touchable等
-        └── Renderer
-            └── oss
-                ├── GreateNavigationArt.js # “大海航术”核心实现，主要hook调用，打印调用栈日志和dump Fiber双树信息，约600行
-                └── ReactNativeRenderer-dev.js # ReactNative上层JS代码核心实现，约2W行
+    ├── LICENSE
+    └── Libraries
+        ├── Components # 官方提供的各种组件，如View、ScrollView、Touchable等
+        └── Renderer
+            └── oss
+                ├── GreateNavigationArt.js # “大海航术”核心实现，主要hook调用，打印调用栈日志和dump Fiber双树信息，约600行
+                └── ReactNativeRenderer-dev.js # ReactNative上层JS代码核心实现，约2W行
 
 ```
+
+<pre>
+.
+├── react
+│   └── cjs
+│       └── react.development.js # 纯JS侧React相关定义和简单实现
+└── react-native
+    ├── LICENSE
+    └── Libraries
+        ├── Components # 官方提供的各种组件，如View、ScrollView、Touchable等
+        └── Renderer
+            └── oss
+                ├── GreateNavigationArt.js # “大海航术”核心实现，主要hook调用，打印调用栈日志和dump Fiber双树信息，约600行
+                └── ReactNativeRenderer-dev.js # ReactNative上层JS代码核心实现，约2W行
+                
+</pre>
 
 ## 迷航
 
@@ -358,7 +386,7 @@ UIManager.setChildren	[1,[9]]
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
-## 变数
+## 微光
 
 直到那一天，我终于等到了这个变数--如果能可视化Fiber双树在运行时的状态变化，是否有望突破React技术壁垒？
 
@@ -379,80 +407,59 @@ UIManager.setChildren	[1,[9]]
 “**海航术**”的大方向（日志、调试、想象）是正确的，这个想象操作空间太大，是个非标品。“**大海航术**”的大就在可视化放飞想象力。
 
 1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br>![]({{ site.url }}/assets/React方法调用树图.png)
-2. 以**Fiber双树图**为里程碑，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![]({{ site.url }}/assets/Fiber双树图.png)
-3. 以**Native View树图**为分界线，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![]({{ site.url }}/assets/NativeView树图.png)
+2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![]({{ site.url }}/assets/Fiber双树图.png)
+3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![]({{ site.url }}/assets/NativeView树图.png)
 
-粗略感受一下大海航术动图。
+让我们一起感受一下大海航术的视觉盛宴吧。
 
 
 [![]({{ site.url }}/assets/大海航术动图.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
 
 [![]({{ site.url }}/assets/大海航术动图2.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
 
-更多详见[Html Demo 页面]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+更多详见[Html Demo 页面]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)。
 
-### 用户态（浅水区）
+## 用户态（浅水区）
 
-**组件API**
+[React官方文档](https://zh-hans.reactjs.org/docs/getting-started.html)和简单Debug能解决大部分问题（前提你得知道问题是什么），剩下的交给时间（时间是一种解药，也是一种毒药）。
+
+[**组件API**](https://zh-hans.reactjs.org/docs/react-component.html#other-apis-1)
 
 组件变量/方法 | 概念 | 调用时机 | 作用 | 最佳实践
 --- | --- | --- | --- | --- 
-[props](https://zh-hans.reactjs.org/docs/glossary.html#props) | 属性，是 React 组件的输入。它们是从父组件向下传递给子组件的数据。 | 通过父组件的render方法\<SubComponent props={props}/>设置返回，通过this.props读取，，多用于页面刷新或逻辑计算 | 存储父组件传递到子组件的信息 | UI组件。根据属性纯展示，没有内部逻辑
-[state](https://zh-hans.reactjs.org/docs/glossary.html#state) | 状态，当组件中的一些数据在某些时刻发生变化时，这时就需要使用 state 来跟踪状态 | 通过setState设置，通过this.state读取，多用于页面刷新或逻辑计算 | 存储子组件自身维护的状态 | 容器组件。纯逻辑组件，通过组合UI组件完成渲染
-constructor | 构造函数 | ReactNative.constructClassInstance，生成虚拟DOM节点（FiberNode）时 | 创建组件实例，用于Fiber树计算出操作DOM指令 | 1. 初始化state<br>2. 注意这不是props传递的唯一入口，仅初始化调用该处，后续props刷新不再调用
-setState | 设置状态 | 用户主动调用，常见于按键或者生命周期方法中调用 | 设置状态，刷新页面 | 1. 控制影响组件粒度，避免大规模刷新（性能杀手）<br>2. 区分哪些生命周期中不能调用setState，避免死循环<br>3. 仅影响组件显示状态的数据放在state里面，其他数据可用组件成员变量存储
-forceUpdate | 强制更新 | 用户主动调用，强制页面刷新 | 调用后将不再调用shouldComponentUpdate方法，直接回重新render | 1. 谨慎使用<br>2. 数据内容改变但是浅（只比较state和props一级属性值是否相等）没有变化时
-render | 渲染 | ReactNative.finishClassComponent，Diff比较前 | 返回当前组件对应Virtual DOM树，描述当前组件的颜值 | 1. 合理通过函数组件或者类组件进行封装，提供可读性和可维护性<br>2. 养成良好的编程习惯（可扩展性、鲁棒性、可靠性、易用性、可移植性等）
+[props](https://zh-hans.reactjs.org/docs/glossary.html#props) | 属性 | 使用时设置属性<br>this.props读取 | 存储父组件传递的信息 | 1. UI组件，根据属性纯展示，没有内部逻辑
+[state](https://zh-hans.reactjs.org/docs/glossary.html#state) | 状态 | setState设置<br>this.state读取 | 存储自身维护的状态 | 1. 容器组件，纯逻辑处理，通过组合UI组件完成渲染<br>2. 构造函数直接this.state赋值。否则setState替代<br>3. [反面模式: 直接复制 prop 到 state](https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#anti-pattern-unconditionally-copying-props-to-state)
+[constructor](https://zh-hans.reactjs.org/docs/react-component.html#constructor) | 构造函数 | 在React组件挂载之前 | 用于创建组件实例 | 1. 初始化state或进行方法绑定，否则不需要实现<br>2. 不是props传递的唯一入口（仅初始化调用，后续props更新不调用）<br>3. super(props)必须在使用this.props之前调用
+[setState](https://zh-hans.reactjs.org/docs/react-component.html#setstate) | 设置状态 | 用户主动调用 | 将更改排入队列并通知重新渲染 | 1. 控制影响组件粒度，避免大规模刷新（性能杀手）<br>2. 区分哪些生命周期中不能调用setState，避免死循环<br>3. 仅影响组件显示状态的数据放在state里面，其他数据可用成员变量存储<br>4. 不总是立即更新组件，会批量推迟更新
+[forceUpdate](https://zh-hans.reactjs.org/docs/react-component.html#forceupdate) | 强制更新 | 用户主动调用 | 跳过shouldComponentUpdate直接触发render | 1. 谨慎使用<br>2. 如render方法依赖于其他数据，则可调用forceUpdate强制刷新
+[render](https://zh-hans.reactjs.org/docs/react-component.html#render) | 渲染<br>唯一必须实现| Diff比较前 | 描述当前组件的颜值 | 1. 合理通过组件进行封装，确保可读性和可维护性<br>2. 减少inline-function<br>3. 养成良好的编程习惯（可扩展性、鲁棒性、可靠性、易用性、可移植性等）
 
-**生命周期**
+[**生命周期**](https://zh-hans.reactjs.org/docs/react-component.html#the-component-lifecycle)
+
+每个组件都包含“生命周期方法”，你可以重写这些方法，以便于在运行过程中特定的阶段执行这些方法。
 
 生命周期 | 概念 | 类型 | 调用时机 | 调用次数 | 调用setState | 作用 | 最佳实践
 --- | --- | --- | --- | --- | --- | --- | --- 
-getSnapshotBeforeUpdate | 更新前获取快照 | 新增方法 | 
-componentDidUpdate | 新增方法 | 
-componentWillMount | 废弃方法 | 
-UNSAFE_componentWillMount | 废弃方法 |
-componentWillReceiveProps| 废弃方法 |
-UNSAFE_componentWillReceiveProps | 废弃方法 |
-componentWillUpdate | 废弃方法 |
-UNSAFE_componentWillUpdate | 废弃方法 |
-componentDidMount | 保留方法 |
-shouldComponentUpdate | 保留方法 |
-componentWillUnmount | 保留方法 |
-componentDidCatch | 保留方法 | 
+[static getDerivedStateFromProps](https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops) | 从属性获取状态 | 常规方法 | 在调用render方法之前调用（初始挂载及后续更新时都调用） | 多次 | 不支持（无法持有引用） | 返回一个对象来更新 state（返回null则不更新任何内容） | 适用于state值在任何时候都取决于props
+[getSnapshotBeforeUpdate](https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate) | 更新前获取快照回调 | 新增方法 | 在最近一次渲染输出（提交到 DOM 节点）之前调用 | 多次 | 支持 | 使得组件能在发生更改之前从 DOM 中捕获一些信息 | 不常见，可能出现在 UI 处理中（如滚动位置）
+[componentDidUpdate](https://zh-hans.reactjs.org/docs/react-component.html#componentdidupdate) | 组件已更新回调 | 新增方法 | 在更新后会被立即调用（首次渲染和shouldComponentUpdate返回false时不会调用） | 多次 | 支持 | 当组件更新后，可以在此处对 DOM 进行操作 | 对更新前后的 props 进行了比较判断后触发逻辑（props变化时触发网络请求）
+componentWillMount<br>[UNSAFE_componentWillMount](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillmount) | 组件待挂载回调 | 废弃方法 | 在挂载之前被调用 | 一次 | 支持 | 用于触发挂载前逻辑 | 避免在此方法中引入任何副作用或订阅（改用componentDidMount）
+componentWillReceiveProps<br>[UNSAFE_componentWillReceiveProps](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops) | 组件待接收属性回调 | 废弃方法 | 在已挂载的组件接收新的 props 之前被调用（初始渲染和setState不调用） | 多次 | 支持 | 用于触发接收属性前逻辑 | 1. 不建议用（使用通常会出现 bug 和不一致性）<br>2. 更新状态以响应 prop 更改
+componentWillUpdate<br>[UNSAFE_componentWillUpdate](https://zh-hans.reactjs.org/docs/react-component.html#unsafe_componentwillupdate) | 组件待更新回调 | 废弃方法 | 当组件收到新的 props 或 state 时，在渲染之前调用（初始渲染和shouldComponentUpdate返回false不会调用） | 多次 | 不支持（避免循环调用） | 用于触发组件更新前逻辑 | 不建议用（改用componentDidUpdate）
+[componentDidMount](https://zh-hans.reactjs.org/docs/react-component.html#componentdidmount) | 组件已挂载回调 | 常规方法 | 在组件挂载后（插入 DOM 树中）立即调用 | 一次 | 支持 | 用于触发挂载后逻辑 | 依赖于 DOM 节点的初始化（添加订阅、网络请求）应该放在这里
+[shouldComponentUpdate](https://zh-hans.reactjs.org/docs/react-component.html#shouldcomponentupdate) | 组件是否更新 | 常规方法 | 当props或state发生变化时，会在渲染执行之前被调用（首次渲染或使用forceUpdate时不会调用） | 多次 | 不支持（避免循环调用） | 减少不必要的渲染（性能优化） | 1.考虑使用内置的PureComponent组件 <br>2. 不建议深比较（性能杀手）
+[componentWillUnmount](https://zh-hans.reactjs.org/docs/react-component.html#componentwillunmount) | 组件待卸载回调 | 常规方法 | 在组件卸载及销毁之前直接调用 | 一次 | 不支持（该组件将永远不会重新渲染和挂载） | 用于触发卸载前逻辑 | 执行必要的清理操作（清除timer、取消网络请求、注销订阅等）
+[componentDidCatch](https://zh-hans.reactjs.org/docs/react-component.html#componentdidcatch) | 子组件出错回调 | 常规方法 | 在子组件抛出错误后被调用 | 多次 | 支持 | 用于记录错误 | 上报错误日志 
+
+[![]({{ site.url }}/assets/生命周期图谱.png)](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
 
 ![]({{ site.url }}/assets/生命周期调用.png)
 
-[你真的懂React生命周期吗?](https://blog.csdn.net/WonderGlans/article/details/83479577)
+**备注：**
 
-1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
-1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
-1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
-2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践
-
-{% highlight javascript linenos %}
-// 新生命周期
-interface NewLifecycle<P, S, SS> {
-    getSnapshotBeforeUpdate?(prevProps, prevState): SS | null;
-    componentDidUpdate?(prevProps, prevState, snapshot): void;
-}
-// 废弃生命周期
-interface DeprecatedLifecycle<P, S> {
-    componentWillMount?(): void;
-    UNSAFE_componentWillMount?(): void;
-    componentWillReceiveProps?(nextProps, nextContext): void;
-    UNSAFE_componentWillReceiveProps?(nextProps, nextContext): void;
-    componentWillUpdate?(nextProps, nextState, nextContext): void;
-    UNSAFE_componentWillUpdate?(nextProps, nextState, nextContext): void;
-}
-// 组件生命周期（继承新和废弃生命周期）
-interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
-    componentDidMount?(): void;
-    shouldComponentUpdate?(nextProps, nextState, nextContext): boolean;
-    componentWillUnmount?(): void;
-    componentDidCatch?(error, errorInfo): void;
-}
-{% endhighlight %}
+* 新增和废弃生命周期混用时，只会知悉新的生命周期
+* 生命周期中是调用setState的前提是：没有循环调用风险（shouldComponentUpdate和componentWillUpdate中调用会导致循环调用）、受限（必须包裹在条件语件里）条件下运行调用、有意义（componentWillUnmount调用无意义）、能调用（static getDerivedStateFromProps里面无法调用），详见[React setState 实现机制及循环调用风险](http://www.ptbird.cn/react-state-setState.html)
 
 ### 内核态（深水区）
 
@@ -530,6 +537,8 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 [![]({{ site.url }}/assets/React算法用户点击渲染时间线.png)]({{ site.url }}/assets/React算法用户点击渲染时间线-横版.png)
 
 ### 小结
+
+“render” 阶段生命周期和 “commit” 阶段生命周期
 
 #### 简约伪代码
 
@@ -1115,6 +1124,7 @@ function ReactNativeRenderer_render() {
 2. 天不生我李淳罡，剑道万古长如夜。剑来！--《雪中悍刀行》
 4. 在本帅眼里没有圣女，也无所谓蛊王。--《画江湖之不良人》
 5. 世间万事，风云变幻，苍黄翻覆，纵使波谲云诡，但制心一处，便无事不办，天定胜人，人定兮胜天！李淳风，霸道如何，天道又如何？我，不在乎。--《画江湖之不良人》
+6. 三界唯心，万法唯识。唯心所变，唯识所现。--《佛法》
 6. 谋逆？！哈哈哈哈哈！我陆危楼何惧谋逆叛教之说，不过从头再来罢了！--《圣焰暝影》
 6. 当其他人盲目追随真理的时候，记住，万物皆虚；当其他人被道德和法律束缚的时候，记住，万事皆允。我们躬耕于黑暗，服侍着光明。--《刺客信条》
 7. 天生万物以养人，世人犹怨天不仁。--《七杀碑》
