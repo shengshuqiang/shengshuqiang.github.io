@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e63add7-ca09-458a-be90-fc4fd19ca137" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/javascripts/react-dom.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javascripts/react.development.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_draft/2019-10-21-进击ReactNative-徐如林-React源码解析.md" beforeDir="false" afterPath="$PROJECT_DIR$/_draft/2019-10-21-进击ReactNative-徐如林-React源码解析.md" afterDir="false" />
     </list>
     <ignored path="shengshuqiang.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -535,12 +532,12 @@
       <workItem from="1571660699265" duration="409000" />
       <workItem from="1571996573552" duration="1838000" />
       <workItem from="1572753010006" duration="697000" />
-      <workItem from="1572754097427" duration="1397000" />
+      <workItem from="1572754097427" duration="1640000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4341000" />
+    <option name="totallyTimeSpent" value="4584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="797" extended-state="0" />

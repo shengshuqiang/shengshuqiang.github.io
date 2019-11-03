@@ -326,7 +326,7 @@ UIManager.setChildren	[9,[7]]
 UIManager.setChildren	[1,[9]]
 ```
 
-[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210409658.png?contentType=1&contentId=211293023&attachmentId=211256601&originUrl=https://km.meituan.net/210409658.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.svg"/>](https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.svg)
 
 ## 运行（Playground）
 
@@ -369,7 +369,7 @@ UIManager.setChildren	[1,[9]]
 
 对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
-[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>]({{ site.url }}/assets/深入ReactNative.xmind)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
@@ -379,13 +379,13 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210460288.png?contentType=1&contentId=211293023&attachmentId=211323368&originUrl=https://km.meituan.net/210460288.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210460288.png?contentType=1&contentId=211293023&attachmentId=211323368&originUrl=https://km.meituan.net/210460288.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
 本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，无法一蹴而就。能想到接入React Developer Tools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，表面上是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
 
-![]({{ site.url }}/assets/ReactDeveloperToolsDemo.png)
+![](https://shengshuqiang.github.io/assets/ReactDeveloperToolsDemo.png)
 
 这里必须给React Developer Tools点32个赞，这是我迄今见过最好的架构，我就一JS倔强青铜的水平，竟然看着文档能把源码跑起来（过程中编译相关小问题找大牛给解了），进一步把自己的脚本集成进去，模仿已有脚本一顿Ctrl+F、Ctrl+C、Ctrl+V就成了，延展性可见一斑，不服不行。
 
@@ -393,18 +393,18 @@ UIManager.setChildren	[1,[9]]
 
 “**海航术**”的大方向（日志、调试、想象）是正确的，这个想象操作空间太大，是个非标品。“**大海航术**”的大就在可视化放飞想象力。
 
-1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br>![]({{ site.url }}/assets/React方法调用树图.png)
-2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![]({{ site.url }}/assets/Fiber双树图.png)
-3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![]({{ site.url }}/assets/NativeView树图.png)
+1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br>![](https://shengshuqiang.github.io/assets/React方法调用树图.png)
+2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![](https://shengshuqiang.github.io/assets/Fiber双树图.png)
+3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![](https://shengshuqiang.github.io/assets/NativeView树图.png)
 
 让我们一起感受一下大海航术的视觉盛宴吧。
 
 
-[![]({{ site.url }}/assets/大海航术动图.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+[![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
 
-[![]({{ site.url }}/assets/大海航术动图2.gif)]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)
+[![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
 
-更多详见[Html Demo 页面]({{ site.url }}/DrawFiber/Drawfiber.2.0.html)。
+更多详见[Html Demo 页面](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)。
 
 ## 用户态（浅水区）
 
@@ -438,10 +438,10 @@ componentWillUpdate<br>[UNSAFE_componentWillUpdate](https://zh-hans.reactjs.org/
 [componentWillUnmount](https://zh-hans.reactjs.org/docs/react-component.html#componentwillunmount) | 组件待卸载回调 | 常规方法 | 在组件卸载及销毁之前直接调用 | 一次 | 不支持（该组件将永远不会重新渲染和挂载） | 用于触发卸载前逻辑 | 执行必要的清理操作（清除timer、取消网络请求、注销订阅等）
 [componentDidCatch](https://zh-hans.reactjs.org/docs/react-component.html#componentdidcatch) | 子组件出错回调 | 常规方法 | 在子组件抛出错误后被调用 | 多次 | 支持 | 用于记录错误 | 上报错误日志 
 
-[![]({{ site.url }}/assets/生命周期图谱.png)](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+[![](https://shengshuqiang.github.io/assets/生命周期图谱.png)](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
 
-![]({{ site.url }}/assets/生命周期调用.png)
+![](https://shengshuqiang.github.io/assets/生命周期调用.png)
 
 **备注：**
 
@@ -464,7 +464,7 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **初始化页面布局**(里面有一堆组件，远比我们写的要多)
 
-![]({{ site.url }}/assets/初始化页面布局.png)
+![](https://shengshuqiang.github.io/assets/初始化页面布局.png)
 
 **初始化JS2Native通信**(通信主要是通过桥UIManager调用createView创建、setChildren关联（增删改）和updateView更新)
 
@@ -484,21 +484,21 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **初始化Fiber树**
 
-![]({{ site.url }}/assets/初始化Fiber树.jpg)
+![](https://shengshuqiang.github.io/assets/初始化Fiber树.jpg)
 
 **初始化NativeView树**
 
-![]({{ site.url }}/assets/初始化NativeView树.png)
+![](https://shengshuqiang.github.io/assets/初始化NativeView树.png)
 
 **手机横过来看**
 
-[![]({{ site.url }}/assets/React算法初始渲染时间线.png)	]({{ site.url }}/assets/React算法初始渲染时间线-横版.png)
+[![](https://shengshuqiang.github.io/assets/React算法初始渲染时间线.png)	](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)
 
 ### 用户点击渲染时间线
 
 **用户点击页面组件布局**
 
-![]({{ site.url }}/assets/点击页面组件布局.png)
+![](https://shengshuqiang.github.io/assets/点击页面组件布局.png)
 
 **用户点击JS2Native通信**，
 
@@ -513,15 +513,15 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **用户点击Fiber树**
 
-![]({{ site.url }}/assets/用户点击渲染Fiber双树图.jpg)
+![](https://shengshuqiang.github.io/assets/用户点击渲染Fiber双树图.jpg)
 
 **用户点击NativeView树**
 
-![]({{ site.url }}/assets/用户点击NativeView树图.png)
+![](https://shengshuqiang.github.io/assets/用户点击NativeView树图.png)
 
 **手机横过来看**
 
-[![]({{ site.url }}/assets/React算法用户点击渲染时间线.png)]({{ site.url }}/assets/React算法用户点击渲染时间线-横版.png)
+[![](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线.png)](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线-横版.png)
 
 ### 小结
 
@@ -1014,7 +1014,7 @@ function ReactNativeRenderer_render() {
 
 #### 方法调用图
 
-[![]({{ site.url }}/assets/React源码解析.png)](./React源码解析.png)
+[![](https://shengshuqiang.github.io/assets/React源码解析.png)](./React源码解析.png)
 
 
 # 拿结果
@@ -1023,23 +1023,23 @@ function ReactNativeRenderer_render() {
 
 **问：**明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 
-**答：**查看View.js源码，发现里面会再次render出Context.Consumer。<br>![]({{ site.url }}/assets/view_render.png)<br>![]({{ site.url }}/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![]({{ site.url }}/assets/renderApplication.png)
+**答：**查看View.js源码，发现里面会再次render出Context.Consumer。<br>![](https://shengshuqiang.github.io/assets/view_render.png)<br>![](https://shengshuqiang.github.io/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![](https://shengshuqiang.github.io/assets/renderApplication.png)
 
 **问：**React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？
 
-**答：**只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![]({{ site.url }}/assets/fiber_tag.png)<br>![]({{ site.url }}/assets/get_fiber_tag.png)<br>![]({{ site.url }}/assets/text_fiber_tag.png)<br>![]({{ site.url }}/assets/allocateTag.png)
+**答：**只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。<br>![](https://shengshuqiang.github.io/assets/fiber_tag.png)<br>![](https://shengshuqiang.github.io/assets/get_fiber_tag.png)<br>![](https://shengshuqiang.github.io/assets/text_fiber_tag.png)<br>![](https://shengshuqiang.github.io/assets/allocateTag.png)
 
 **问：**Element、Instance、DOM之间关系？
 
-**答：**![]({{ site.url }}/assets/element_instance_dom_relation.png)<br>![]({{ site.url }}/assets/element_instance_dom.png)<br>![]({{ site.url }}/assets/element_instance_dom2.png)
+**答：**![](https://shengshuqiang.github.io/assets/element_instance_dom_relation.png)<br>![](https://shengshuqiang.github.io/assets/element_instance_dom.png)<br>![](https://shengshuqiang.github.io/assets/element_instance_dom2.png)
 
 **问：**都说React有个Diff算法，这个在代码哪里，怎么比较的，文案变了会设计Diff算法吗？
 
-**答：**Diff算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。<br>![]({{ site.url }}/assets/reconcileSingleElement.png)<br>文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
+**答：**Diff算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。<br>![](https://shengshuqiang.github.io/assets/reconcileSingleElement.png)<br>文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)。
 
 **问：**浅比较shouldComponentUpdate的正确姿势是啥？
 
-**答：**判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）<br>![]({{ site.url }}/assets/shouldComponentUpdate.png)<br>![]({{ site.url }}/assets/shallowEqual.png)
+**答：**判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）<br>![](https://shengshuqiang.github.io/assets/shouldComponentUpdate.png)<br>![](https://shengshuqiang.github.io/assets/shallowEqual.png)
 
 **问：**React有棵DOM树，树在哪，怎么看，怎么操作对应Native View树？
 
@@ -1089,7 +1089,7 @@ function ReactNativeRenderer_render() {
 
 ## 生命周期调用
 
-![]({{ site.url }}/assets/生命周期调用.png)
+![](https://shengshuqiang.github.io/assets/生命周期调用.png)
 
 ## 高性能实践
 
