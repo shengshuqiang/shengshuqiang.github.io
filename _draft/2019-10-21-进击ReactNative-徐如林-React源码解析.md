@@ -326,7 +326,7 @@ UIManager.setChildren	[9,[7]]
 UIManager.setChildren	[1,[9]]
 ```
 
-[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.svg"/>](https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.svg)
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.png"/>
 
 ## 运行（Playground）
 
@@ -335,7 +335,7 @@ UIManager.setChildren	[1,[9]]
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://km.meituan.net/210298964.gif?contentType=1&contentId=211293023&attachmentId=211323365&originUrl=https://km.meituan.net/210298964.gif&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/>
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
@@ -365,9 +365,11 @@ UIManager.setChildren	[1,[9]]
 
 ## 迷航
 
-我给自己的读码方法论命名为“**海航术**”，是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的术（套路）。
+我给自己的读码方法论命名为“**海航术**”：读博客➢跑Demo➢打日志➢打断点➢大猜想➢证因果➢得结论。是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的术（套路）。
 
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
+
+对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的属性，而且还用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
 [<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)
 
@@ -379,7 +381,7 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210460288.png?contentType=1&contentId=211293023&attachmentId=211323368&originUrl=https://km.meituan.net/210460288.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
