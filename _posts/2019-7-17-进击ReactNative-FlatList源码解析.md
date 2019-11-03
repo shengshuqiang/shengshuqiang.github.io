@@ -1,4 +1,4 @@
----
+<!-----
 layout: post
 title: 进击ReactNative-FlatList源码解析
 key: 20190717
@@ -20,7 +20,8 @@ $(document).ready(function() {
 
 <!--more-->
 
-☞[阅读原文](https://shengshuqiang.github.io/2019/07/17/%E8%BF%9B%E5%87%BBReactNative-FlatList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.html)
+☞[阅读原文](https://shengshuqiang.github.io/2019/07/17/%E8%BF%9B%E5%87%BBReactNative-FlatList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.html)-->
+
 # 考考你
 
 1. <blockquote>问：在数据项高度不确定情况下，js侧不具备直接计算组件大小的能力，是怎么知道首屏展示几个数据项？<br>答：js侧首屏几个不是直接计算出来的，而是先通过设置的属性估算出几个数据项，同时设置数据项和列表的布局监听回调onLayout，回调中修正数据项个数（如果还有数据项并且屏幕还有空间，则继续添加数据项）。</blockquote>

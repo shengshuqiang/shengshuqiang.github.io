@@ -16,7 +16,8 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-![](http://img.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg)
+<img style="border-radius: 15px;box-shadow: darkgrey 5px 5px 10px 5px" src="http://img.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/>
+
 
 ![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个碉堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三张图--**Fiber双树图**、**Native View树图**、**React方法调用树图**，在上帝视角和时间旅行的引领下，冲破波诡云谲的算法迷航，日照大海现双龙。
 {:.success}
@@ -34,7 +35,7 @@ $(document).ready(function() {
 
 近几年的移动互联网北漂生涯，给我结结实实的上了一课：人生，就是不断探索、抽象、践行、强化自己的方法论，过程呈螺旋式上升，成长快乐的秘诀在于**复盘**。
 
-我攻坚ReactNative的原动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），但这不重要，我能举一，必能反三，这就是道。我旨在强化出一套跨界喜剧王的方法论，如何从零将ReactNative技能练到比肩高阶Android的熟练度，并且同样适用于进击Flutter和小程序。
+我攻坚ReactNative的原动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），但这不重要，我能举一，必能反三，这就是道。我旨在强化出一套无界王者的方法论，如何从零将ReactNative技能练到比肩高阶Android的熟练度，并且同样适用于进击Flutter和小程序。
 
 ## 授业（懂算法）
 
@@ -45,14 +46,14 @@ $(document).ready(function() {
 本文和你分享的是如何通过**先进生产力**相对轻松地看懂代码，区别于呆板的流水式英文阅读，尽量做到：
 
 1. **承上**（用户态--上层API怎么用）
-	* 组件中方法（constructor、setState、forceUpdate、render）的作用是什么
-	* 生命周期调用时机是什么
-	* PureComponent比Component好在哪里，怎么能做得更好
+	* 组件中方法（constructor、setState、forceUpdate、render）的作用是什么？
+	* 生命周期调用时机是什么？
+	* PureComponent比Component好在哪里，怎么能做得更好？
 1. **启下**（内核态--底层原理怎么玩）
-	* 各种概念的含义，对应数据结构是什么
-	* 深入浅出Fiber双树算法
-	* Diff算法在哪
-	* Native操作指令从哪来
+	* 各种概念的含义，对应数据结构是什么？
+	* 深入浅出Fiber双树算法？
+	* Diff算法在哪？
+	* Native操作指令从哪来？
 
 ## 解惑（考考你）
 
@@ -62,7 +63,7 @@ $(document).ready(function() {
 
 1. 明明只写了几个组件，通过React Developer Tools看到的却是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 2. React组件和Native View看起来不是一一对应的，那么映射关系是什么？
-3. [组件API](https://reactjs.org/docs/react-component.html#other-apis)调用时机、作用和最佳实践
+3. [组件普通API](https://reactjs.org/docs/react-component.html#other-apis)调用时机、作用和最佳实践？
 
 {% highlight javascript linenos %}
 // 组件类
@@ -82,9 +83,9 @@ class Component<P, S> {
 ### 生命周期
 
 1. 区分哪些方法只会调用一次，哪些可能会调用多次？哪些方法中能使用setState，哪些不能？
-1. 区分每个方法调用条件，是props改变还是state，是初始化、更新还是都有？
+1. 区分每个方法调用条件，是props改变还是state，是初始化，更新还是都有？
 1. React16.3开始废弃和新增的方法是哪些，补位策略是什么？废弃方法现在还能不能用，新旧方法混用又怎样？
-2. [生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践
+2. [组件生命周期API](https://reactjs.org/docs/react-component.html#the-component-lifecycle)调用时机、作用和最佳实践？
 
 {% highlight javascript linenos %}
 // 静态生命周期
@@ -137,13 +138,14 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 8. 如何关联Native自定义组件？
 9. Fiber双树是干啥的？
 
-![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg)
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg"/>
+
 
 # 追过程
 
 ## 学习
 
-我们不是一个人在战斗，有必要站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发。
+我们不是一个人在战斗，有必要站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发财。
 
 本着[”**坚定看多，数量堆死力量**“](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，自己的方法论姿势见涨，比方说通过XMind自由缩放源码地图帮助理解、手写ReactNative寻求理论加实践、抽象伪代码表述助力说清楚等。
 
@@ -155,7 +157,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **How Much：**纵享丝滑。
 
-**硬核资料：**程序媛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个太棒啦，建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。
+**硬核资料：**Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个内容太棒啦，墙裂建议大家看一看。网上大部分Fiber算法分析都引用了她的卡通图。
 
 **术语**
 
@@ -184,7 +186,7 @@ const App = function () {
 }
 ```
 
-[*JSX*](https://zh-hans.reactjs.org/docs/glossary.html#jsx)：是类Html标签式写法转化为纯对象element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
+[*JSX*](https://zh-hans.reactjs.org/docs/glossary.html#jsx)：是类Html标签式写法转化为纯对象Element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
 
 ```
 React.createElement(
@@ -196,7 +198,7 @@ React.createElement(
 	"点击数0"
 );
 ```
-***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用 new Component() 创建。
+***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用new Component()创建。
 
 ```
 // App
@@ -260,6 +262,7 @@ React.createElement(
 	alternate: null,
 	// 第一个子节点
 	child: FiberNode {id: 12, tag: 11, key: null, elementType: {…}, type: {…}, …},
+	// TODO
 	childExpirationTime: 0,
 	contextDependencies: null,
 	// 副作用，增删改操作。Placement=2;Update=4;PlacementAndUpdate=6;Deletion=8;
@@ -267,6 +270,7 @@ React.createElement(
 	// 描述了它对应的组件。对于复合组件，类型是函数或类组件本身。对于宿主组件（div，span等），类型是字符串。定义此 Fiber 节点的函数或类。对于类组件，它指向构造函数，对于 DOM 元素，它指定 HTML 标记。我经常使用这个字段来理解 Fiber 节点与哪个元素相关。
 	// ClassComponent对应为函数，如APPContainer()。ForwardRef、ContextConsumer、ContextProvider对应为对象，如{$$typeof: Symbol(react.forward_ref), render: ƒ, displayName: "View"}。HostComponent对应为字符串，如“RCTView”。HostText对应为null。
 	elementType: ƒ App(props),
+	// TODO
 	expirationTime: 0,
 	// 用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构
 	firstEffect: FiberNode {id: 13, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
@@ -322,8 +326,7 @@ UIManager.setChildren	[9,[7]]
 UIManager.setChildren	[1,[9]]
 ```
 
-[![]({{ site.url }}/assets/Component-Instance-Element-FiberNode.png)]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
-
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210409658.png?contentType=1&contentId=211293023&attachmentId=211256601&originUrl=https://km.meituan.net/210409658.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>]({{ site.url }}/assets/Component-Instance-Element-FiberNode.svg)
 
 ## 运行（Playground）
 
@@ -332,7 +335,7 @@ UIManager.setChildren	[1,[9]]
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br>![]({{ site.url }}/assets/简单demo.gif)
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://km.meituan.net/210298964.gif?contentType=1&contentId=211293023&attachmentId=211323365&originUrl=https://km.meituan.net/210298964.gif&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
@@ -360,29 +363,13 @@ UIManager.setChildren	[1,[9]]
 
 ```
 
-<pre>
-.
-├── react
-│   └── cjs
-│       └── react.development.js # 纯JS侧React相关定义和简单实现
-└── react-native
-    ├── LICENSE
-    └── Libraries
-        ├── Components # 官方提供的各种组件，如View、ScrollView、Touchable等
-        └── Renderer
-            └── oss
-                ├── GreateNavigationArt.js # “大海航术”核心实现，主要hook调用，打印调用栈日志和dump Fiber双树信息，约600行
-                └── ReactNativeRenderer-dev.js # ReactNative上层JS代码核心实现，约2W行
-                
-</pre>
-
 ## 迷航
 
-我给自己的读码方法论命名为“**海航术**”，是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟性），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的方法论（套路）。
+我给自己的读码方法论命名为“**海航术**”，是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的术（套路）。
 
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的树数据结构，还是双树。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，我都找不到北。
+对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
-[![]({{ site.url }}/assets/ReactNativeRenderer.render.png)]({{ site.url }}/assets/深入ReactNative.xmind)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>]({{ site.url }}/assets/深入ReactNative.xmind)
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
@@ -392,7 +379,7 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-[![]({{ site.url }}/assets/绘制Fiber树Demo.png)]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
+[<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/210460288.png?contentType=1&contentId=211293023&attachmentId=211323368&originUrl=https://km.meituan.net/210460288.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=true"/>]({{ site.url }}/DrawFiber/Drawfiber.1.1.html)
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
