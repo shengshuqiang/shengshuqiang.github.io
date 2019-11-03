@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e63add7-ca09-458a-be90-fc4fd19ca137" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/FiberTree.2.0.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/FiberTreeInfos.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.0.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/DrawFiber/fibertree.1.0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_draft/2019-10-21-进击ReactNative-徐如林-React源码解析.md" beforeDir="false" afterPath="$PROJECT_DIR$/_draft/2019-10-21-进击ReactNative-徐如林-React源码解析.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2019-7-17-进击ReactNative-FlatList源码解析.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2019-7-17-进击ReactNative-FlatList源码解析.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/ReactNativeRenderer.render.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/ReactNativeRenderer.render.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/flatlist-demo.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/flatlist-demo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html" afterDir="false" />
     </list>
     <ignored path="shengshuqiang.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,47 +22,48 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_site/all.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4725">
-              <caret line="315" column="14" selection-start-line="315" selection-start-column="14" selection-end-line="315" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-435" />
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/DrawFiber/fibertree.1.0.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.1.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.0.tsx">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="53" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_site/DrawFiber/fibertree.1.0.js">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="180">
+                <caret line="12" column="26" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="26" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -172,6 +163,8 @@
         <option value="$PROJECT_DIR$/_site/all.html" />
         <option value="$PROJECT_DIR$/_site/index.html" />
         <option value="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉.html" />
+        <option value="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html" />
+        <option value="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html" />
       </list>
     </option>
   </component>
@@ -189,6 +182,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -204,13 +198,34 @@
             <path>
               <item name="shengshuqiang.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="~/dream/shengshuqiang.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="_site" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shengshuqiang.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/dream/shengshuqiang.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="_site" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="DrawFiber" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shengshuqiang.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/dream/shengshuqiang.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shengshuqiang.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/dream/shengshuqiang.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="DrawFiber" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="shengshuqiang.github.io" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/dream/shengshuqiang.github.io" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="javascripts" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
@@ -223,6 +238,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/android-sdk-macosx" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -514,11 +530,12 @@
       <workItem from="1571660699265" duration="409000" />
       <workItem from="1571996573552" duration="1838000" />
       <workItem from="1572753010006" duration="697000" />
+      <workItem from="1572754097427" duration="449000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2944000" />
+    <option name="totallyTimeSpent" value="3393000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="797" extended-state="0" />
@@ -531,6 +548,7 @@
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3291714" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -575,15 +593,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/images/logo/icon-16x16.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/logo/icon-120x120.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/logo/icon-167x167.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/images/logo/icon-310x310.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -730,9 +739,6 @@
     <entry file="file://$PROJECT_DIR$/_site/DrawFiber/Drawfiber.2.0.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/_site/about.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4725">
@@ -750,6 +756,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_site/all.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4725">
+          <caret line="315" column="14" selection-start-line="315" selection-start-column="14" selection-end-line="315" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="137" column="22" selection-start-line="137" selection-start-column="7" selection-end-line="137" selection-end-column="22" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_site/DrawFiber/fibertree.1.0.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/about.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="74" selection-start-line="12" selection-start-column="74" selection-end-line="12" selection-end-column="74" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/all.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/_site/feed.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -760,47 +808,11 @@
     <entry file="file://$PROJECT_DIR$/_site/favicon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/_site/all.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4725">
-          <caret line="315" column="14" selection-start-line="315" selection-start-column="14" selection-end-line="315" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_site/DrawFiber/fibertree.1.0.js">
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.1.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/about.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="74" selection-start-line="12" selection-start-column="74" selection-end-line="12" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/all.html">
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.0.tsx">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-435" />
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="137" column="22" selection-start-line="137" selection-start-column="7" selection-end-line="137" selection-end-column="22" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/DrawFiber/fibertree.1.0.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -808,8 +820,24 @@
     <entry file="file://$PROJECT_DIR$/_posts/2018-02-10-Android事件分发-来龙去脉.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor />
+          <first_editor relative-caret-position="180">
+            <caret line="12" column="26" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="26" />
+          </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
