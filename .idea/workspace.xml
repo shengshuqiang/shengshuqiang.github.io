@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e63add7-ca09-458a-be90-fc4fd19ca137" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.2.0.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/FiberTree.2.0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/FiberTreeInfos.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/FiberTreeTab.2.0.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/FiberTreeTab.2.1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/DrawFiber/fibertree.1.0.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" afterDir="false" />
     </list>
     <ignored path="shengshuqiang.github.io.iws" />
@@ -35,9 +27,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTree.2.0.js">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -75,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="315">
+              <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -180,8 +176,8 @@
         <option value="$PROJECT_DIR$/_site/2018/02/10/Android事件分发-来龙去脉.html" />
         <option value="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.1.1.html" />
         <option value="$PROJECT_DIR$/_site/DrawFiber/Drawfiber.1.1.html" />
-        <option value="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" />
         <option value="$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.0.tsx" />
+        <option value="$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html" />
       </list>
     </option>
   </component>
@@ -541,12 +537,12 @@
       <workItem from="1571660699265" duration="409000" />
       <workItem from="1571996573552" duration="1838000" />
       <workItem from="1572753010006" duration="697000" />
-      <workItem from="1572754097427" duration="727000" />
+      <workItem from="1572754097427" duration="923000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3671000" />
+    <option name="totallyTimeSpent" value="3867000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="797" extended-state="0" />
@@ -838,25 +834,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeInfos.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5203" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html">
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTree.2.0.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="480">
+          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTree.2.0.js">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/FiberTreeTab.2.1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/DrawFiber/Drawfiber.2.0.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
