@@ -19,31 +19,33 @@ $(document).ready(function() {
 <img style="border-radius: 15px;box-shadow: darkgrey 5px 5px 10px 5px" src="http://img.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/>
 
 
-![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是一个碉堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三张图--**Fiber双树图**、**Native View树图**、**React方法调用树图**，在上帝视角和时间旅行的引领下，冲破波诡云谲的算法迷航，日照大海现双龙。
+![进击ReactNative疾如风](https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png)<br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，ReactNative首当其冲。<br>纵观行业风向，有磨刀霍霍者，有作壁上观者，有从入门到放弃者，有一把梭者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于react-devtools扩展**插件**，实时绘制运行时三棵树--**Fiber双树**、**Virtual DOM树**、**React方法调用树**，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber迷航，日照大海现双龙。
 {:.success}
 <!--more-->
 
 // TODO 演进图
 
-本篇文章主要针对React源码分析，先说清楚开发者接触到的API，然后再深挖对应底层实现逻辑。如果有对ReactNative不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代ReactNative，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
+本文主要针对ReactNative（以下简称 RN）的React.js源码进行分析，先说清楚开发者接触到的API，然后再深挖对应底层实现逻辑，最后找找微操的空间。如果有对RN不太熟悉的朋友，建议看一下[[译] 图解 React](https://juejin.im/post/5b481f6b51882519ad6175c2)、[[译] 图解 React Native](https://juejin.im/post/5b55cff3e51d453509561214)、[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)散散心，该文从“原理+实践，现学现做”的角度手写石器时代RN，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
 
-话说，做大事，就要用大斧头。先用[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼动一下。
+话说，做大事，就要用大斧头。先耍耍[阿里“三板斧”](https://baijiahao.baidu.com/s?id=1609462546639223406&wfr=spider&for=pc)撼动一下。
 
 # 定目标
 
 ## 传道（攻坚方法论）
 
-近几年的移动互联网北漂生涯，给我结结实实的上了一课：人生，就是不断探索、抽象、践行、强化自己的方法论，过程呈螺旋式上升，成长快乐的秘诀在于**复盘**。
+路漫漫其修远兮，吾将上下而求索。除了物质财富，就是不断探索、抽象、践行、强化自己的方法论和价值观，只要把握住**总结复盘**的秘诀，成长就很快乐。
 
-我攻坚ReactNative的原动力，就是借假修真，跨平台技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），但这不重要，我能举一，必能反三，这就是道。我旨在强化出一套无界王者的方法论，如何从零将ReactNative技能练到比肩高阶Android的熟练度，并且同样适用于进击Flutter和小程序。
+我攻坚RN的原动力，是借假修真。平台化技术最终王者也许花落Flutter或者小程序（还有很多人在纠结到底哪家强，耽误了学习，其实这好比考清华还是考北大，Top2高校有那么难选么，真正难选的是Top3高校），但这不重要，我能举一，必能反三，这就是霸道。我旨在强化出一套王者无界的方法论，如何从零将RN技能练到比肩高阶Android的熟练度，并且同样适用于进击Flutter和小程序。
 
 ## 授业（懂算法）
 
-现在市面上高水准解析ReactNative文章太少（老外写的硬核文章居多），而且大多停留在理论层面，只给出源代码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。也罢，唯一的出路只有自力更生啃源码了。
+现在市面上高水准的RN解析文章太少了（老外写的硬核文章居多），而且大多停留在理论层面，只给出算法理论和源码片段，根本无法深入实操，只能作者说啥就是啥，反正不明觉厉。也罢，自力更生啃源码必须提上日程。
 
-我一直坚信，只有源码才是唯一的真相，不二的注释，思想的火花，王者的农药。后来，终于在眼泪中明白，源码大法好啊，得到的比想要的多得多（贫穷限制了我的想象）。往小的说，技术成长。往大的说，核心竞争力。
+我始终相信，只有源码才是唯一的真相，不二的注释，思想的火花，王者的农药。
 
-本文和你分享的是如何通过**先进生产力**相对轻松地看懂代码，区别于呆板的流水式英文阅读，尽量做到：
+后来，终于在眼泪中明白，源码大法好啊，得到的比想要的多得多（贫穷限制了我的想象）。往小的说，技术成长（自嗨）。往大的说，核心竞争力（钱）。
+
+本文和你分享的是如何通过**先进生产力**相对轻松地看懂代码，区别于盲人摸象式的英文阅读，挑战一下：
 
 1. **承上**（用户态--上层API怎么用）
 	* 组件中方法（constructor、setState、forceUpdate、render）的作用是什么？
@@ -57,11 +59,14 @@ $(document).ready(function() {
 
 ## 解惑（考考你）
 
-聪明的童靴往往都会有一些亟需亲自操刀的疑问，我也不能免俗。问题来了，现在就差一个满意的答案。
+// TODO React常见问题和最佳实践
+// TODO 简单直接提出犀利问题
+
+聪明的童靴往往都会有一些亟需亲自操刀的疑问，我也不能免俗。问题有了，那答案呢？
 
 ### 组件
 
-1. 明明只写了几个组件，通过React Developer Tools看到的却是一堆布局，而且还有Context.Consumer，这些都是干啥的？
+1. 明明只写了几个组件，通过react-devtools看到的却是一堆布局，而且还有Context.Consumer，这些啥时候冒出来的，干啥的？
 2. React组件和Native View看起来不是一一对应的，那么映射关系是什么？
 3. [组件普通API](https://reactjs.org/docs/react-component.html#other-apis)调用时机、作用和最佳实践？
 
@@ -133,10 +138,9 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 ### 原理
 
-4. React高效在哪？
-7. React工作流程？
-8. 如何关联Native自定义组件？
-9. Fiber双树是干啥的？
+4. React高效在哪？怎么做到的？
+8. React和Native的关联关系是什么？
+9. Fiber双树是啥？凭什么这么牛？
 
 <img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg"/>
 
@@ -145,15 +149,21 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 ## 学习
 
-我们不是一个人在战斗，有必要站在巨人的肩膀上，集思广益，事半功倍。网上一顿关键字搜索，给点耐心，妥妥滴数十篇深度文章以上，你的感觉才能上来。这里给大家安利我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发财。
+我们不是一个人在战斗（想发财），切忌闭门造车，只有集思广益，站在在巨人的肩膀上才能事半功倍。
 
-本着[”**坚定看多，数量堆死力量**“](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，自己的方法论姿势见涨，比方说通过XMind自由缩放源码地图帮助理解、手写ReactNative寻求理论加实践、抽象伪代码表述助力说清楚等。
+网上一顿关键字索引，找点时间，给点耐心，泛读 + 精读数十篇后，你的感觉才能慢慢滴上来。
+
+本着[**坚定看多，数量堆死力量**](https://new.qq.com/omn/20191006/20191006A0FQJK00.html)，经过不间断的阅读输出，姿势见涨，比方说通过XMind自由缩放源码地图帮助理解、手写RN寻求理论加实践、抽象伪代码表述助力说清楚等。
+
+硬广时间，安利一下我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，欢迎相互切磋，共同进步。
+
+<img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/>
 
 **Fiber架构里程碑**
 
 **Why：**一路狂奔式地更新，无暇处理用户响应，引发界面咔咔咔。
 
-**What：**Fiber，纤维，是比线程控制得更精密的并发处理机制。更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。本质上，它还是一个工具，用来帮助开发者操纵 DOM ，从而构建出页面。
+**What：**Fiber（纤维），是比线程控制更精密的并发处理机制。支持更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。本质上，它还是一个工具，用来帮助开发者操纵DOM API，从而构建出页面。
 
 **How Much：**纵享丝滑。
 
@@ -161,7 +171,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **术语**
 
-[***Component***](https://zh-hans.reactjs.org/docs/glossary.html#components)：组件，是可复用的小的代码片段，它们返回要在页面中渲染的 React 元素。分为[类组件](https://reactjs.org/docs/react-api.html#components)（继承[Component](https://reactjs.org/docs/react-api.html#reactcomponent)的普通组件和继承[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)的纯组件）和函数式组件（返回Element的函数）。
+[***Component***](https://zh-hans.reactjs.org/docs/glossary.html#components)：组件，是可复用的小的代码片段，它们返回要在页面中渲染的React元素。分为[类组件](https://reactjs.org/docs/react-api.html#components)（继承[Component](https://reactjs.org/docs/react-api.html#reactcomponent)的普通组件和继承[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)的纯组件）和函数式组件（直接返回Element的函数）。
 
 ```
 // 普通组件
@@ -186,17 +196,22 @@ const App = function () {
 }
 ```
 
-[*JSX*](https://zh-hans.reactjs.org/docs/glossary.html#jsx)：是类Html标签式写法转化为纯对象Element函数调用式写法的语法糖。Babel 会把 JSX 转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
+[*JSX*](https://zh-hans.reactjs.org/docs/glossary.html#jsx)：是类Html标签式写法转化为纯对象Element函数调用式写法的语法糖。Babel会把JSX转译成一个名为 [React.createElement](https://reactjs.org/docs/react-api.html#createelement) 函数调用.
 
 ```
-React.createElement(
-	// 类型type
-	{$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
-	// 属性props
-	{style: {color: "black"}, __source: {…}},
-	// 子节点children
-	"点击数0"
-);
+class App extends React.Component {
+	render() {
+		// Babel转换JSX后
+		return React.createElement(
+			// 类型type
+			{$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+			// 属性props
+			{style: {color: "black"}, __source: {…}},
+			// 子节点children
+			"点击数0"
+		);
+	}
+}
 ```
 ***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用new Component()创建。
 
@@ -330,19 +345,19 @@ UIManager.setChildren	[1,[9]]
 
 ## 运行（Playground）
 
-搭一个自己的专属实验室--本地可运行环境（开发平台macOS，目标平台Android）。
+搭一个自己的专属游乐场--本地可运行环境（我的是macOS电脑 + Android手机）。
 
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
-2. 安装依赖：安装XCode（iOS开发环境，送iPhone模拟器）就顺带解决了。
+2. 安装依赖：安装Xcode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)(页面一个红色按钮，初始显示点击数n，点击切换为“汽车”图标)测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/>
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)（页面一个红色按钮，初始显示点击数0，点击切换为“汽车”图标）测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/>
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
 
 我们来读源码（16.8.3 react，0.59.8 react-native）吧！
 
-* ReactNative上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数21194（区区2W，好像压力也没辣么大）。
+* RN上层JS代码主要实现在[ReactNativeRenderer-dev.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react-native/Libraries/Renderer/oss/ReactNativeRenderer-dev.js)这一个文件，代码行数2W出头（区区2W，好像压力也没辣么大）。
 * [react.development.js](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/node_modules/react/cjs/react.development.js)：纯JS侧React相关定义和简单实现。
 * [react.d.ts](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/react.d.ts)：接口定义，详见本地目录/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts。
 
@@ -365,11 +380,24 @@ UIManager.setChildren	[1,[9]]
 
 ## 迷航
 
-我给自己的读码方法论命名为“**海航术**”：读博客➢跑Demo➢打日志➢打断点➢大猜想➢证因果➢得结论。是通过运行时日志分析为辅，断点调试分析为主，匹配自己野兽般的想象力（悟），努力做到自圆其说，能唬住不懂的人（包括我自己），假装懂了的术（套路）。
+我的读码套路：读博客➢跑Demo➢打日志➢打断点➢大猜想➢证因果➢得结论。
+
+1. 开局大量读技术博客，建立一个知识地图。
+2. 写个Demo先爽一把，敲敲打打找点感觉。
+3. 为了避免从入门到放弃，一定要先日志抬头看路，后断点埋头搬砖。稍微复杂点的算法，通常上来就是一顿大循环和深递归，没有强目标导向，只能GG。
+4. 到了尽情发挥你野兽般的想象力（悟）的时候了，Why？What？How？
+5. 带着问题找答案，追根溯源。
+6. 再回首，总结复盘。回答有啥用，能不能自圆其说，可不可以唬住不懂的人（包括我自己），是不是假装懂了。
+
+说了这么多，我也记不住。抽象一下，这不就是在茫茫大海航行的技术么，就叫“**航海术**”吧。
 
 <img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
 
-对付简单的算法，这招基本够用，否则我也混不下去了。但是，Fiber算法，。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的属性，而且还用到了复杂的双树数据结构。这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
+对付简单的算法，这招基本够用，否则就真的钱难挣了。但是，Fiber算法，真的难。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的属性，而且还用到了复杂的双树数据结构。
+
+
+
+这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
 [<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)
 
@@ -385,11 +413,11 @@ UIManager.setChildren	[1,[9]]
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
-本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，无法一蹴而就。能想到接入React Developer Tools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，表面上是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
+本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，无法一蹴而就。能想到接入react-devtools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，表面上是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
 
 ![](https://shengshuqiang.github.io/assets/ReactDeveloperToolsDemo.png)
 
-这里必须给React Developer Tools点32个赞，这是我迄今见过最好的架构，我就一JS倔强青铜的水平，竟然看着文档能把源码跑起来（过程中编译相关小问题找大牛给解了），进一步把自己的脚本集成进去，模仿已有脚本一顿Ctrl+F、Ctrl+C、Ctrl+V就成了，延展性可见一斑，不服不行。
+这里必须给react-devtools点32个赞，这是我迄今见过最好的架构，我就一JS倔强青铜的水平，竟然看着文档能把源码跑起来（过程中编译相关小问题找大牛给解了），进一步把自己的脚本集成进去，模仿已有脚本一顿Ctrl+F、Ctrl+C、Ctrl+V就成了，延展性可见一斑，不服不行。
 
 ## 大海航术
 
@@ -1023,7 +1051,7 @@ function ReactNativeRenderer_render() {
 
 ## QA
 
-**问：**明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
+**问：**明明只写了几个组件，通过react-devtools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 
 **答：**查看View.js源码，发现里面会再次render出Context.Consumer。<br>![](https://shengshuqiang.github.io/assets/view_render.png)<br>![](https://shengshuqiang.github.io/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![](https://shengshuqiang.github.io/assets/renderApplication.png)
 
@@ -1125,7 +1153,7 @@ function ReactNativeRenderer_render() {
 
 曾经在知乎看到一个问题，“[能魔改react-native源码的是什么水平的前端？](https://www.zhihu.com/question/269731127)”我挑战了这个水平。
 
-Airbnb摇了摇头，说“ ReactNative太难了”，然后倒下了。但是我们，必须，站到台前，领导大家～
+Airbnb摇了摇头，说“ RN太难了”，然后倒下了。但是我们，必须，站到台前，领导大家～
 
 谨以此文，献给(那些)曾经热爱互联网技术，并和并肩作战的伙伴们一同度过时光的人们，呈现这重逢的此刻。
 
@@ -1148,3 +1176,4 @@ Airbnb摇了摇头，说“ ReactNative太难了”，然后倒下了。但是�
 6. [如何理解 React Fiber 架构？](https://www.zhihu.com/question/49496872)
 7. [React 16 架构研究记录（文末有彩蛋）](https://zhuanlan.zhihu.com/p/36926155)
 8. [对React生命周期的理解](https://blog.csdn.net/WonderGlans/article/details/83479577)
+9. [react-devtools](https://github.com/facebook/react/tree/master/packages/react-devtools)
