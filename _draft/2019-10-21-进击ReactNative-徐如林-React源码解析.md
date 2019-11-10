@@ -429,13 +429,12 @@ UIManager.setChildren	[1,[9]]
 3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br><!--![](https://shengshuqiang.github.io/assets/NativeView树图.png)<!---->
 
 让我们一起感受一下大海航术的视觉盛宴吧。
-<!--
-[![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
+<!--[![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)-->
 
-[![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
+<!--[![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)-->
 
 更多详见[Html Demo 页面](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)。
-<!---->
+
 
 ## 用户态（浅水区）
 
