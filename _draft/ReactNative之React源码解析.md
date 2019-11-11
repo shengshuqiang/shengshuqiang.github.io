@@ -20,11 +20,123 @@
 
 # 是什么（What）
 
-## 当我们谈论XX的时候,我们在谈论什么
+让我们来看看官方文档的定义。
 
-[React](https://react.docschina.org/)：用于构建用户界面的 JavaScript 库。
+[**React**](https://www.reactjscn.com/)：用于构建用户界面的 JavaScript 库。
 
-[React Native](https://reactnative.cn/)：使用JavaScript和React编写原生移动应用。
+[**React Native**](https://reactnative.cn/)：使用JavaScript和React编写原生移动应用。
+
+[**Component**](https://www.reactjscn.com/docs/react-api.html#components)：React 组件可以让你把UI分割为独立、可复用的片段，并将每一片段视为相互独立的部分。组件从概念上看就像是函数，它可以接收任意的输入值props，并返回一个需要在页面上展示的React元素。
+
+```
+// 普通组件（继承React.Component的类组件）
+class App extends React.Component {
+    render() {
+        return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+    }
+}
+
+// 纯组件（继承React.PureComponent的类组件）
+class App extends React.PureComponent {
+    render() {
+        return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+    }
+}
+
+// 函数式组件（直接返回Element的函数）
+const App = function () {
+    return <Text style={{color: 'black'}}>{'点击数0'}</Text>;
+}
+```
+
+[*JSX*](https://www.reactjscn.com/docs/introducing-jsx.html)：类似`<h1>Hello, world!</h1>`这种是看起来可能有些奇怪的标签语法既不是字符串也不是 HTML。它被称为 JSX， 一种 JavaScript 的语法扩展。JSX 用来声明 React 当中的元素。Babel 转译器会把 JSX 转换成一个名为 [React.createElement()](https://www.reactjscn.com/docs/react-api.html#createelement) 的方法调用。
+
+```
+// 上述JSX写法的普通组件转换如下
+class App extends React.Component {
+	render() {
+		// Babel转换JSX后
+		return React.createElement(
+			// 类型type
+			{$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+			// 属性props
+			{style: {color: "black"}, __source: {…}},
+			// 子节点children
+			"点击数0"
+		);
+	}
+}
+```
+
+***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用new Component()创建。
+
+```
+// App
+{
+	forceUpdate: ƒ (),
+	isReactComponent: ƒ (),
+	setState: ƒ (),
+	componentDidMount: ƒ (),
+	componentWillUnmount: ƒ (),
+	constructor: ƒ App(props),
+	isMounted: (...),
+	render: ƒ (),
+	replaceState: (...),
+	__proto__: Component
+}
+```
+[**Element**](https://www.reactjscn.com/docs/rendering-elements.html)：元素是构成 React 应用的最小单位，用来描述界面上的任何东西。
+
+```
+// App
+{
+	// React Element唯一标识
+	$$typeof: Symbol(react.element),
+	// 开发者指定唯一标识，用于复用
+	key: null,
+	// 属性
+	props: {rootTag: 241},
+	// 引用
+	ref: null,
+	// 类型
+	type: ƒ App(props),
+	_owner: null,
+	_store: {validated: true},
+	_self: null,
+	_source: {fileName: "/Users/shengshuqiang/dream/AdvanceOnReactNative/Aw…native/Libraries/ReactNative/renderApplication.js", lineNumber: 38},
+	__proto__: Object
+}
+// Text
+{
+	$$typeof: Symbol(react.element),
+	key: null,
+	props: {style: {color: "black"}, children: "点击数0"},
+	ref: null,
+	type: {$$typeof: Symbol(react.forward_ref), displayName: "Text", propTypes: {…}, render: ƒ},
+	_owner: FiberNode {id: 11, tag: 1, key: null, elementType: ƒ, type: ƒ, …},
+	_store: {validated: false},
+	_self: null,
+	_source: {fileName: "/Users/shengshuqiang/dream/AdvanceOnReactNative/AwesomeProject/App.js", lineNumber: 213},
+	__proto__: Object
+}
+```
+
+[**虚拟DOM**](https://www.reactjscn.com/docs/faq-internals.html#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9Fdom%EF%BC%88virtual-dom%EF%BC%89)：Virtual DOM，简写VDOM。是一种编程概念，是指虚拟的视图被保存在内存中，并通过诸如ReactDOM这样的库与“真实”的DOM保持同步。
+
+[**ReactFiber**](https://www.reactjscn.com/docs/faq-internals.html#%E4%BB%80%E4%B9%88%E6%98%AFreact-fiber%EF%BC%9F)
+
+[React Fiber Architecture (原文)](https://github.com/xxn520/react-fiber-architecture-cn)
+
+![](https://learnreact.design/static/06-middleman-cecc053c8ade6d7012817193ce68b690-c86e7.png)
+![](https://learnreact.design/static/rn-2e243f87a6a3bcfc143739ba8c6f90db-9160a.png)
+![](https://learnreact.design/static/1-react-summary-28be1df2fed9962a09c159ded7e14881-d47ca.png)
+
+[What Is React?](https://learnreact.design/2017/06/08/what-is-react)
+[What Is React Native?](https://learnreact.design/2017/06/20/what-is-react-native/)
+
+## 当我们在谈论RN原理时，到底在说什么
+
+
 
 Fiber（纤维）算法：是比线程控制更精密的并发处理机制。支持更新过程碎片化，化整为零，允许紧急任务插队，可中断恢复。为解决一路狂奔式地更新，无暇处理用户响应，引发界面咔咔咔。
 
@@ -32,9 +144,16 @@ Fiber（纤维）算法：是比线程控制更精密的并发处理机制。支
 
 # 怎么做（How）
 
+# 价值
+
+## [不可变数据的力量](https://zh-hans.reactjs.org/docs/optimizing-performance.html)
+
+
 # 参考
 
-1. [Virtual DOM 的实现和 React Fiber 简介](https://www.jianshu.com/p/b189b2949b33)
+1. [React](https://www.reactjscn.com/)
+2. [ReactNative](https://reactnative.cn/)
+2. [Virtual DOM 的实现和 React Fiber 简介](https://www.jianshu.com/p/b189b2949b33)
 2. [](https://react.docschina.org/docs/reconciliation.html)
 2. [GETTING STARTED WITH REACT](https://ryanclark.me/getting-started-with-react/)
 3. [diff之React:Virtual DOM](https://www.jianshu.com/p/278fcd3e9301)
