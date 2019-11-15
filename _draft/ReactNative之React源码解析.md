@@ -26,6 +26,8 @@
 
 [**React Native**](https://reactnative.cn/)：使用JavaScript和React编写原生移动应用。
 
+![](https://pic1.zhimg.com/80/v2-152a1797b7ee8c4f0f04b1d81c7eb81c_hd.jpg)
+
 [**Component**](https://www.reactjscn.com/docs/react-api.html#components)：React 组件可以让你把UI分割为独立、可复用的片段，并将每一片段视为相互独立的部分。组件从概念上看就像是函数，它可以接收任意的输入值props，并返回一个需要在页面上展示的React元素。
 
 ```
@@ -68,7 +70,7 @@ class App extends React.Component {
 }
 ```
 
-***Instance***：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用new Component()创建。
+**Instance**：组件实例，组件类实例化的结果，ref指向组件实例（函数式组件不能实例化）。在生成Fiber节点时会调用new Component()创建。
 
 ```
 // App
@@ -85,6 +87,7 @@ class App extends React.Component {
 	__proto__: Component
 }
 ```
+
 [**Element**](https://www.reactjscn.com/docs/rendering-elements.html)：元素是构成 React 应用的最小单位，用来描述界面上的任何东西。
 
 ```
@@ -134,6 +137,25 @@ class App extends React.Component {
 [What Is React?](https://learnreact.design/2017/06/08/what-is-react)
 [What Is React Native?](https://learnreact.design/2017/06/20/what-is-react-native/)
 
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/DOM-model.svg/1920px-DOM-model.svg.png)
+[文档对象模型](https://zh.wikipedia.org/wiki/%E6%96%87%E6%A1%A3%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B)
+
+![XML DOM 教程](https://www.w3school.com.cn/i/ct_nodetree1.gif)
+
+[XML DOM 教程](https://www.w3school.com.cn/xmldom/index.asp)
+
+[网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么？](https://www.zhihu.com/question/31809713)
+
+[React Virtual DOM、Ember Glimmer和Incremental DOM技术哪家强](https://www.w3ctech.com/topic/1609)
+[DOM概述](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model/Introduction)
+
+![](https://www.zendevs.xyz/wp-content/uploads/2019/03/dom-html-2-render.png)
+
+[理解DOM到底是什么](https://juejin.im/post/5c01e2b051882518eb1f785a)
+
+![](http://storage.360buyimg.com/mtd/home/sdsdsd1514185541265.jpg)
+[virtual-dom](https://nervjs.github.io/docs/guides/virtual-dom.html)
+
 ## 当我们在谈论RN原理时，到底在说什么
 
 
@@ -151,7 +173,7 @@ Fiber（纤维）算法：是比线程控制更精密的并发处理机制。支
 
 # 参考
 
-1. [React](https://www.reactjscn.com/)
+1. [React](https://zh-hans.reactjs.org/)
 2. [ReactNative](https://reactnative.cn/)
 2. [Virtual DOM 的实现和 React Fiber 简介](https://www.jianshu.com/p/b189b2949b33)
 2. [](https://react.docschina.org/docs/reconciliation.html)

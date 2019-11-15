@@ -1,4 +1,4 @@
-<!-----
+---
 layout: post
 title: 进击ReactNative-FlatList源码解析
 key: 20190717
@@ -19,8 +19,6 @@ $(document).ready(function() {
 {:.info}
 
 <!--more-->
-
-☞[阅读原文](https://shengshuqiang.github.io/2019/07/17/%E8%BF%9B%E5%87%BBReactNative-FlatList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.html)-->
 
 # 考考你
 
