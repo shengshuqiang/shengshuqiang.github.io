@@ -124,6 +124,87 @@ class App extends React.Component {
 }
 ```
 
+1. An element is a plain object describing a component instance or DOM node and its desired properties. 元素是描述对象实例或DOM节点及其所需属性的普通对象。
+2. 元素不是实际实例。相反，这是一种告诉React您想要在屏幕上看到的内容的方法。您不能在元素上调用任何方法。它只是一个不可变的描述对象，具有两个字段：type ：（字符串| ReactClass）和props：Object1。
+3. 该元素只是将以下HTML表示为纯对象的一种方式
+4. 但是，元素的类型也可以是与React组件相对应的函数或类。这是React的核心思想。
+5. 只有声明为类的组件才具有实例
+6. 类和函数的区别
+7. 元素是一个普通的对象，它描述了您想在DOM节点或其他组件上显示在屏幕上的内容。元素可以在其道具中包含其他元素。创建一个React元素很便宜。创建元素后，就永远不会对其进行突变。
+8. 组件可以通过几种不同的方式声明。它可以是带有render（）方法的类。或者，在简单情况下，可以将其定义为函数。无论哪种情况，它都将props作为输入，并返回一个元素树作为输出。
+9. 功能组件根本没有实例。类组件具有实例，但是您无需直接创建组件实例，React会负责。
+10. 最后，要创建元素，请使用React.createElement（），JSX或元素工厂助手。不要在实际代码中将元素写为普通对象，只要知道它们是底层的普通对象即可。
+11. devtools对应dom 树
+12. [Element 和 Component 的区别](https://thoamsy.github.io/blogs/react-component-and-element/)
+	12. 这就是 Element 的真面目了。所以可以看到，JSX 也好，createElement 也好，不过是提供一种抽象帮我们不要写这个无聊的对象定义，要知道，如果再多几个 children 的话，整个对象定义应该就有几十行(当然，这个对象还会有其他作用，这里不展开)
+	13. 所以，一个 Element 出现的步骤此时是，
+		14. const instance = new type(props); // type 就是该组件的 type
+		14. const Element = instance.render(); // render 不就是 React.Component.prototype 的方法吗
+	15. host 类型，React 会根据对应 type，生成真正的 DOM node，并将它所带的 props 写入 node 的 attribute 中，而对 children 继续递归，直到碰到没有 children 的 host Element 为止。
+	16. <A /> 整个表达式是一个 Element，而 A 是一个 Component， Component 要么是 function（class 也是 function），要么是纯 DOM
+
+TODO
+
+1. [React 深入系列１：React 中的元素、组件、实例和节点](https://zhuanlan.zhihu.com/p/35286087)
+2. [如何理解React框架中的element、component以及instance？](https://blog.yanfangyao.guru/notes/20190331140214/)
+3. [理解DOM到底是什么](https://juejin.im/post/5c01e2b051882518eb1f785a)
+4. [网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么？](https://www.zhihu.com/question/31809713)
+
+组件如何构成DOM树
+```
+// 1) As a function of props
+const Button = ({ children, color }) => ({
+  type: 'button',
+  props: {
+    className: 'button button-' + color,
+    children: {
+      type: 'b',
+      props: {
+        children: children
+      }
+    }
+  }
+});
+
+// 2) Using the React.createClass() factory
+const Button = React.createClass({
+  render() {
+    const { children, color } = this.props;
+    return {
+      type: 'button',
+      props: {
+        className: 'button button-' + color,
+        children: {
+          type: 'b',
+          props: {
+            children: children
+          }
+        }
+      }
+    };
+  }
+});
+
+// 3) As an ES6 class descending from React.Component
+class Button extends React.Component {
+  render() {
+    const { children, color } = this.props;
+    return {
+      type: 'button',
+      props: {
+        className: 'button button-' + color,
+        children: {
+          type: 'b',
+          props: {
+            children: children
+          }
+        }
+      }
+    };
+  }
+}
+```
+
 [**虚拟DOM**](https://www.reactjscn.com/docs/faq-internals.html#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9Fdom%EF%BC%88virtual-dom%EF%BC%89)：Virtual DOM，简写VDOM。是一种编程概念，是指虚拟的视图被保存在内存中，并通过诸如ReactDOM这样的库与“真实”的DOM保持同步。
 
 [**ReactFiber**](https://www.reactjscn.com/docs/faq-internals.html#%E4%BB%80%E4%B9%88%E6%98%AFreact-fiber%EF%BC%9F)
@@ -186,4 +267,5 @@ Fiber（纤维）算法：是比线程控制更精密的并发处理机制。支
 3. [深入浅出 React（四）：虚拟 DOM Diff 算法解析](https://www.infoq.cn/article/react-dom-diff/)
 4. [图解 React Virtual DOM](https://segmentfault.com/a/1190000010924023)
 5. [深入理解react中的虚拟DOM、diff算法](https://www.cnblogs.com/zhuzhenwei918/p/7271305.html)
+6. [React Components, Elements, and Instances](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html)
 
