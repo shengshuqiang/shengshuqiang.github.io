@@ -16,7 +16,7 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-<!--<div><TODOimg style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://TODOimg.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/><TODOimg style="position:absolute; width: 200px; border-radius: 500px; box-shadow: darkgrey 0px 0px 10px 5px; left: 80px; top: 200px;" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png"/></div>-->
+<div><TODOimg style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://TODOimg.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/><TODOimg style="position:absolute; width: 200px; border-radius: 500px; box-shadow: darkgrey 0px 0px 10px 5px; left: 80px; top: 200px;" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png"/></div>
 
 <br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，ReactNative首当其冲。<br>纵观行业风向，有磨刀霍霍者，有作壁上观者，有从入门到放弃者，有一把梭者，但是缺乏深潜微操者。<br>哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于react-devtools扩展**插件**，实时绘制运行时三棵树--**Fiber双树**、**Virtual DOM树**、**React方法调用树**，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber迷航，日照大海现双龙。
 {:.success}
@@ -143,7 +143,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 8. React和Native的关联关系是什么？
 9. Fiber双树是啥？凭什么这么牛？
 
-<!--<TODOimg style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&TODOimgtype=jpg&src=http%3A%2F%2FTODOimg0.TODOimgtn.bdTODOimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg"/><!---->
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&TODOimgtype=jpg&src=http%3A%2F%2FTODOimg0.TODOimgtn.bdTODOimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg"/>
 
 
 # 追过程
@@ -158,7 +158,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 硬广时间，安利一下我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，欢迎相互切磋，共同进步。
 
-<!--<TODOimg style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/><!---->
+<img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/>
 
 **Fiber架构里程碑**
 
@@ -351,7 +351,7 @@ UIManager.setChildren	[1,[9]]
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装Xcode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)（页面一个红色按钮，初始显示点击数0，点击切换为“汽车”图标）测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<!--<br><TODOimg style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/><!---->
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)（页面一个红色按钮，初始显示点击数0，点击切换为“汽车”图标）测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/>
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
@@ -392,7 +392,7 @@ UIManager.setChildren	[1,[9]]
 
 说了这么多，我也记不住。抽象一下，这不就是在茫茫大海航行的技术么，就叫“**航海术**”吧。
 
-<!--<TODOimg style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&TODOimgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>-->
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&TODOimgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
 
 对付简单的算法，这招基本够用，否则就真的钱难挣了。但是，Fiber算法，真的难。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的属性，而且还用到了复杂的双树数据结构。
 
@@ -400,7 +400,7 @@ UIManager.setChildren	[1,[9]]
 
 这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
-<!--[<TODOimg style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)<!---->
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
@@ -410,13 +410,13 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-<!--[<TODOimg style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)<!---->
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
 本着**DRY（Dont Repeat Yourself）**原则，一步步迭代插件。当然，过程是艰辛的，无法一蹴而就。能想到接入react-devtools插件，是因为李阳大牛推荐过该工具帮助分析Virtual DOM树，恰巧彼时团队内部也有童靴在扩展该工具。接入插件当时并没有把握，表面上是扩大战果，但也可能被拖入新的泥潭，舍本逐末。幸好运气不错，在瓶颈期通过董思文和陈卓双大牛的点拨下，灰常顺利的搞出来了。
 
-<!--![](https://shengshuqiang.github.io/assets/ReactDeveloperToolsDemo.png)<!---->
+![](https://shengshuqiang.github.io/assets/ReactDeveloperToolsDemo.png)
 
 这里必须给react-devtools点32个赞，这是我迄今见过最好的架构，我就一JS倔强青铜的水平，竟然看着文档能把源码跑起来（过程中编译相关小问题找大牛给解了），进一步把自己的脚本集成进去，模仿已有脚本一顿Ctrl+F、Ctrl+C、Ctrl+V就成了，延展性可见一斑，不服不行。
 
@@ -424,14 +424,14 @@ UIManager.setChildren	[1,[9]]
 
 “**海航术**”的大方向（日志、调试、想象）是正确的，这个想象操作空间太大，是个非标品。“**大海航术**”的大就在可视化放飞想象力。
 
-1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br><!--![](https://shengshuqiang.github.io/assets/React方法调用树图.png)<!---->
-2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br><!--![](https://shengshuqiang.github.io/assets/Fiber双树图.png)<!---->
-3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br><!--![](https://shengshuqiang.github.io/assets/NativeView树图.png)<!---->
+1. 以**React方法调用树图**为主线，监控每一个方法调用，不轻易放过任何一个细节，弄清楚他是谁、从哪来、到哪去。同时以Fiber节点操作为里程碑，dump出当前Fiber树（Fiber双树图数据源），衍生出可供**时间旅行**的慢动作回放，便于步步为营式探索。<br>![](https://shengshuqiang.github.io/assets/React方法调用树图.png)
+2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![](https://shengshuqiang.github.io/assets/Fiber双树图.png)
+3. 以**Native View树图**为大因果，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![](https://shengshuqiang.github.io/assets/NativeView树图.png)
 
 让我们一起感受一下大海航术的视觉盛宴吧。
-<!--[![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)-->
+[![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
 
-<!--[![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)-->
+[![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
 
 更多详见[Html Demo 页面](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)。
 
@@ -468,10 +468,10 @@ componentWillUpdate<br>[UNSAFE_componentWillUpdate](https://zh-hans.reactjs.org/
 [componentWillUnmount](https://zh-hans.reactjs.org/docs/react-component.html#componentwillunmount) | 组件待卸载回调 | 常规方法 | 在组件卸载及销毁之前直接调用 | 一次 | 不支持（该组件将永远不会重新渲染和挂载） | 用于触发卸载前逻辑 | 执行必要的清理操作（清除timer、取消网络请求、注销订阅等）
 [componentDidCatch](https://zh-hans.reactjs.org/docs/react-component.html#componentdidcatch) | 子组件出错回调 | 常规方法 | 在子组件抛出错误后被调用 | 多次 | 支持 | 用于记录错误 | 上报错误日志 
 
-<!--[![](https://shengshuqiang.github.io/assets/生命周期图谱.png)](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)<!---->
+[![](https://shengshuqiang.github.io/assets/生命周期图谱.png)](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
 
-<!--![](https://shengshuqiang.github.io/assets/生命周期调用.png)<!---->
+![](https://shengshuqiang.github.io/assets/生命周期调用.png)
 
 **备注：**
 
@@ -480,7 +480,7 @@ componentWillUpdate<br>[UNSAFE_componentWillUpdate](https://zh-hans.reactjs.org/
 
 ### 内核态（深水区）
 
-<!--![循序渐进](http://ddrvcn.oss-cn-hangzhou.aliyuncs.com/2019/7/7NJRve.jpg)<!---->
+![循序渐进](http://ddrvcn.oss-cn-hangzhou.aliyuncs.com/2019/7/7NJRve.jpg)
 
 终于到了压轴环节，上大海航术动图。
 
@@ -493,7 +493,7 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **初始化页面布局**(里面有一堆组件，远比我们写的要多)
 
-<!--![](https://shengshuqiang.github.io/assets/初始化页面布局.png)<!---->
+![](https://shengshuqiang.github.io/assets/初始化页面布局.png)
 
 **初始化JS2Native通信**(通信主要是通过桥UIManager调用createView创建、setChildren关联（增删改）和updateView更新)
 
@@ -513,21 +513,21 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **初始化Fiber树**
 
-<!--![](https://shengshuqiang.github.io/assets/初始化Fiber树.jpg)<!---->
+![](https://shengshuqiang.github.io/assets/初始化Fiber树.jpg)
 
 **初始化NativeView树**
 
-<!--![](https://shengshuqiang.github.io/assets/初始化NativeView树.png)<!---->
+![](https://shengshuqiang.github.io/assets/初始化NativeView树.png)
 
 **手机横过来看**
 
-<!--[![](https://shengshuqiang.github.io/assets/React算法初始渲染时间线.png)	](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)<!---->
+[![](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)	](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)
 
 ### 用户点击渲染时间线
 
 **用户点击页面组件布局**
 
-<!--![](https://shengshuqiang.github.io/assets/点击页面组件布局.png)<!---->
+![](https://shengshuqiang.github.io/assets/点击页面组件布局.png)
 
 **用户点击JS2Native通信**，
 
@@ -542,15 +542,15 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **用户点击Fiber树**
 
-<!--![](https://shengshuqiang.github.io/assets/用户点击渲染Fiber双树图.jpg)<!---->
+![](https://shengshuqiang.github.io/assets/用户点击渲染Fiber双树图.jpg)
 
 **用户点击NativeView树**
 
-<!--![](https://shengshuqiang.github.io/assets/用户点击NativeView树图.png)<!---->
+![](https://shengshuqiang.github.io/assets/用户点击NativeView树图.png)
 
 **手机横过来看**
 
-<!--[![](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线.png)](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线-横版.png)<!---->
+[![](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线-横版.png)](https://shengshuqiang.github.io/assets/React算法用户点击渲染时间线-横版.png)
 
 ### 小结
 
@@ -1049,7 +1049,7 @@ function ReactNativeRenderer_render() {
 # 拿结果
 
 ## QA
-<!--
+
 **问：**明明只写了几个组件，通过react-devtools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？
 
 **答：**查看View.js源码，发现里面会再次render出Context.Consumer。<br>![](https://shengshuqiang.github.io/assets/view_render.png)<br>![](https://shengshuqiang.github.io/assets/text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的。<br>![](https://shengshuqiang.github.io/assets/renderApplication.png)
@@ -1115,7 +1115,7 @@ function ReactNativeRenderer_render() {
 11. effectTag：副作用，增删改操作。
 12. alternate：在调用render或setState后，会克隆出一个镜像fiber，Diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复。workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list。
 
-<!---->
+
 ## 生命周期调用
 
 ![](https://shengshuqiang.github.io/assets/生命周期调用.png)

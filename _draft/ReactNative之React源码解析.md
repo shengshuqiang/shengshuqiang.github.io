@@ -251,13 +251,22 @@ Fiber（纤维）算法：是比线程控制更精密的并发处理机制。支
 
 ## [不可变数据的力量](https://zh-hans.reactjs.org/docs/optimizing-performance.html)
 
+## QA
+
+1. 简单数据模型说明问题，<A><B><C></C></B></A>，A的属性最终传到了C，但是B渲染不需要，那么如何引起C改变，哪些树会刷新。组件嵌套是怎么理解？（如果顶层组件的某个prop改变了，React会递归地向下遍历整棵组件数，重新渲染所有使用这个属性的组件。）
+
+
+
 
 # 参考
+
 
 1. [React](https://zh-hans.reactjs.org/)
 2. [ReactNative](https://reactnative.cn/)
 2. [Virtual DOM 的实现和 React Fiber 简介](https://www.jianshu.com/p/b189b2949b33)
 2. [](https://react.docschina.org/docs/reconciliation.html)
+1. [Virtual DOM 的实现和 React Fiber 简介](https://www.jianshu.com/p/b189b2949b33)
+2. [reconciliation](https://react.docschina.org/docs/reconciliation.html)
 2. [GETTING STARTED WITH REACT](https://ryanclark.me/getting-started-with-react/)
 3. [diff之React:Virtual DOM](https://www.jianshu.com/p/278fcd3e9301)
 2. [颠覆式前端 UI 开发框架：React](https://www.infoq.cn/article/subversion-front-end-ui-development-framework-react/)
