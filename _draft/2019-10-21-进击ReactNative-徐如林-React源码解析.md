@@ -521,7 +521,7 @@ React源码解析，需要牢记：React组件是数据的函数，v = f(d)。�
 
 **手机横过来看**
 
-[![](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)	](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)
+[![](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)](https://shengshuqiang.github.io/assets/React算法初始渲染时间线-横版.png)
 
 ### 用户点击渲染时间线
 
