@@ -16,8 +16,7 @@ $(document).ready(function() {
 }); </script>
 <div id="toc"></div>
 
-<div><TODOimg style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://TODOimg.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/><TODOimg style="position:absolute; width: 200px; border-radius: 500px; box-shadow: darkgrey 0px 0px 10px 5px; left: 80px; top: 200px;" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png"/></div>
-
+<div><img style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://img.mp.itc.cn/upload/20170718/89520d891b0441a885f129366a70d190_th.jpg"/><img style="position:absolute; width: 200px; border-radius: 500px; box-shadow: darkgrey 0px 0px 10px 5px; left: 80px; top: 200px;" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97logo.png"/></div>
 <br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是横亘在中间的桥头堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有从入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>啊哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三棵树--**Fiber双树**、**Native View树**、**React方法调用树**，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber算法迷航，日照大海现双龙。
 {:.success}
 <!--more-->
@@ -58,9 +57,8 @@ $(document).ready(function() {
 
 ## 解惑（考考你）
 
-// TODO React常见问题和最佳实践
-// TODO 简单直接提出犀利问题
-
+<!--// TODO React常见问题和最佳实践
+// TODO 简单直接提出犀利问题-->
 聪明的童靴往往都会有一些亟需亲自操刀的疑问，我也不能免俗。问题有了，那满意的答案呢？
 
 ### 组件
@@ -142,7 +140,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 9. 如何关联Native自定义组件？
 9. Fiber双树是啥？凭什么这么牛？
 
-<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1571497262025&di=4ae4817071de66ff8d666ece3b484ece&TODOimgtype=jpg&src=http%3A%2F%2FTODOimg0.TODOimgtn.bdTODOimg.com%2Fit%2Fu%3D3424028830%2C393276537%26fm%3D214%26gp%3D0.jpg"/>
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://pic.pimg.tw/kimdaco/a4fd5caeb15fa7a598011356a0f7909b.jpg"/>
 
 
 # 追过程
@@ -157,7 +155,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 硬核带货时间，安利一下我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发。欢迎相互切磋，共同进步。
 
-<img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/>
+<img style="width: 30%; height: 30%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/>
 
 **Fiber架构里程碑**
 
@@ -169,7 +167,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **硬核资料：**业界大牛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个内容太棒啦，墙裂建议大家看一看（没有字幕，英文流利的同学可以挑战一下，或者像我一样发挥暴躁的想象力假装听懂了）。网上大部分Fiber算法分析都引用了她的[卡通图](https://shengshuqiang.github.io/assets/LinClark-A_Cartoon_Intro_to_Fiber-React_Conf_2017.zip)。
 
-<img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/LinClark-2017-React.png"/>
+<a href="https://www.bilibili.com/video/av40427580/"><img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/LinClark-2017-React.png"/></a>
 
 **术语**
 
@@ -393,13 +391,13 @@ UIManager.setChildren	[1,[9]]
 
 说了这么多，我也记不住。抽象一下，这不就是在茫茫大海航行的技术么，就叫“**航海术**”吧。
 
-<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://tTODOimgsa.baidu.com/tTODOimg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&TODOimgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
 
 对付简单的算法，这招基本够用，否则就真的钱难挣了。<br>但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的树数据结构，还是双树。
 
 这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图，大家看个意思），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
-<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://km.meituan.net/212321734.png?contentType=1&contentId=207390791&attachmentId=212321735&originUrl=https://km.meituan.net/212321734.png&token=eAHjYBRYt4xZYeu5RZ8f6xpJJefn6hUn5mWXJmbqZZbopSam6CVnliSmpOZYKRgaGacYmiUmJltaGJkkW5haWqaaaCWZmhgbpaWYmxomOVkorLmype-5rgaTEUHFFkBbHVg8bi-4cPaRbpRCcpKxkaF5ipmJqZahiUGqAdASc8tUC5PENAMTgxTDJAAVXzT2**eAEVyMkRwDAIBLCWzHKZcsBA_yVkoqfoSTq1McojcRbPLQMqZ_8jcO1Oj01JdvHG3JFtvQZW_QA8NhHl&template=0&isDownload=false&isNewContent=false"/>](https://shengshuqiang.github.io/assets/深入ReactNative.xmind)
+<a href="https://shengshuqiang.github.io/assets/深入ReactNative.xmind"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/ReactNativeRenderer.render.png"/>]</a>
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
@@ -409,7 +407,7 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/>](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html)
+<a href="https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/></a>
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
@@ -427,7 +425,7 @@ UIManager.setChildren	[1,[9]]
 2. 以**Fiber双树图**为小因果，讲清楚Fiber树的每次变化。Fiber算法的核心就是分段式操作Fiber树计算出副作用（DOM操作），然后一次提交（刷新页面）。带着问题去阅读是一种怎样的体验？<br>![](https://shengshuqiang.github.io/assets/Fiber双树图.png)
 3. 以**Native View树图**为分水岭，说明白Native View树的每次变化。Fiber算法的目标就是生成操作Native View树的一系列指令。<br>![](https://shengshuqiang.github.io/assets/NativeView树图.png)
 
-让我们一起欣赏一下大海航术的视觉盛宴：◥◤
+让我们一起欣赏一下大海航术的视觉盛宴▼：
 [![](https://shengshuqiang.github.io/assets/大海航术动图.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
 
 [![](https://shengshuqiang.github.io/assets/大海航术动图2.gif)](https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.2.0.html)
@@ -439,7 +437,7 @@ UIManager.setChildren	[1,[9]]
 
 [React官方文档](https://zh-hans.reactjs.org/docs/getting-started.html)和简单Debug能解决大部分问题（前提你得知道问题是什么），剩下的交给时间（时间是一种解药，也是一种毒药）。
 
-[**组件API**](https://zh-hans.reactjs.org/docs/react-component.html#other-apis-1)
+### [组件API](https://zh-hans.reactjs.org/docs/react-component.html#other-apis-1)
 
 组件变量/方法 | 概念 | 调用时机 | 作用 | 最佳实践
 --- | --- | --- | --- | --- 
@@ -450,7 +448,7 @@ UIManager.setChildren	[1,[9]]
 [forceUpdate](https://zh-hans.reactjs.org/docs/react-component.html#forceupdate) | 强制更新 | 用户主动调用 | 跳过shouldComponentUpdate直接触发render | 1. 谨慎使用<br>2. 如render方法依赖于其他数据，则可调用forceUpdate强制刷新
 [render](https://zh-hans.reactjs.org/docs/react-component.html#render) | 渲染<br>唯一必须实现| Diff比较前 | 描述当前组件的颜值 | 1. 合理通过组件进行封装，确保可读性和可维护性<br>2. 减少inline-function<br>3. 养成良好的编程习惯（可扩展性、鲁棒性、可靠性、易用性、可移植性等）
 
-[**生命周期**](https://zh-hans.reactjs.org/docs/react-component.html#the-component-lifecycle)
+### [生命周期](https://zh-hans.reactjs.org/docs/react-component.html#the-component-lifecycle)
 
 每个组件都包含“生命周期方法”，你可以重写这些方法，以便于在运行过程中特定的阶段执行这些方法。
 
@@ -474,10 +472,10 @@ componentWillUpdate<br>[UNSAFE_componentWillUpdate](https://zh-hans.reactjs.org/
 
 **备注：**
 
-* 新增和废弃生命周期混用时，只会知悉新的生命周期
-* 生命周期中是调用setState的前提是：没有循环调用风险（shouldComponentUpdate和componentWillUpdate中调用会导致循环调用）、受限（必须包裹在条件语件里）条件下运行调用、有意义（componentWillUnmount调用无意义）、能调用（static getDerivedStateFromProps里面无法调用），详见[React setState 实现机制及循环调用风险](http://www.ptbird.cn/react-state-setState.html)
+* 新增和废弃生命周期混用时，只会知悉新的生命周期。
+* 生命周期中是调用setState的前提是：没有循环调用风险（shouldComponentUpdate和componentWillUpdate中调用会导致循环调用）、受限（必须包裹在条件语件里）条件下运行调用、有意义（componentWillUnmount调用无意义）、能调用（static getDerivedStateFromProps里面无法调用），详见[React setState 实现机制及循环调用风险](http://www.ptbird.cn/react-state-setState.html)。
 
-### 内核态（深水区）
+## 内核态（深水区）
 
 <!--![循序渐进](http://ddrvcn.oss-cn-hangzhou.aliyuncs.com/2019/7/7NJRve.jpg)
 终于到了压轴环节，上大海航术动图。
@@ -1044,22 +1042,27 @@ function ReactNativeRenderer_render() {
 
 ## QA
 
-1. <blockquote>问：明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？<br>答：查看View.js源码，发现里面会再次render出Context.Consumer。也就是我们写的<View/>最终生成的树是<blockquote>\<View><blockquote>\<Context.Consumer><br>\</Context.Consumer></blockquote>\</View></blockquote>![](view_render.png)。<br>同样，\<Text>\</Text>对应<blockquote>\<Text><blockquote>\<TouchableText><blockquote>\<Context.Consumer>\</Context.Consumer></blockquote>\</TouchableText></blockquote>\</Text></blockquote>![](text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的![](renderApplication.png)</blockquote>
-2. <blockquote>问：React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？<br>答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。<blockquote>1. 我们通过react-devtools看到的reactdom树不是完全的。下面是react-devtools上显示的：![](devtools_react_dom_tree.png)，文本节点没有，实际最外层还有一个HostRoot节点。</blockquote><blockquote>2. reactdom树中只有部分dom节点(宿主节点，对应文本和Native组件)是显示在界面上的，其他的并不展示。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。</blockquote>![](fiber_tag.png)![](get_fiber_tag.png)![](text_fiber_tag.png)![](allocateTag.png)。</blockquote>
-2. <blockquote>问：Element、Instance、DOM之间关系？<br>答：![](./element_instance_dom_relation.png)![](element_instance_dom.png)![](element_instance_dom2.png)</blockquote>
-2. <blockquote>问：都说React有个diffing算法，这个在代码哪里，怎么比较的，文案变了会设计diff算法吗？<br>答：diffing算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。![](reconcileSingleElement.png)，文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)</blockquote>
-3. <blockquote>问：浅比较shouldComponentUpdate说的是什么，到底应该怎么用？<br>答：判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）![](shouldComponentUpdate.png)![](shallowEqual.png)。</blockquote>
-4. <blockquote>问：React有棵DOM树，树在哪，怎么看，怎么操作Native的DOM树？<br>答：在我扩展的插件上看。</blockquote>
-5. <blockquote>问：setState到底干啥了？<br>答：触发Fiber双树重新diff渲染，具体调用可以使用方法调用树追踪。</blockquote>
-6. <blockquote>问：React高效在哪？<br>答：基于优先级的可中断的树遍历算法，且diff算法复杂度O（n）。</blockquote>
-7. <blockquote>问：React工作流程？<br>答：文章中有。</blockquote>
-8. <blockquote>问：如何关联Native自定义组件？<br>答：这是个好问题，留给读者自行解答。</blockquote>
-9. <blockquote>问：Fiber节点数据结构中各属性含义？<br>答：<blockquote>1. return, child, sibling：<br>![](https://pic2.zhimg.com/80/v2-453e1f48a4f53356bee021c90ee00bed_hd.jpg)<br>2. key: 复用标识。<br>3. tag：它在协调算法中用于确定需要完成的工作。如前所述，工作取决于React元素的类型。<br>4. stateNode：保存组件的类实例、DOM 节点或与 Fiber 节点关联的其他 React 元素类型的引用。总的来说，我们可以认为该属性用于保持与一个 Fiber 节点相关联的局部状态。<blockquote>1. HostRoot对应{containerInfo}。<br>2. ClassComponent对应为new的函数对象实例。<br>3. HostComponent对应为ReactNativeFiberHostComponent，包含_children和_nativeTag。<br>4. HostText对应为nativeTag。</blockquote>5. elementType/type: 描述了它对应的组件。对于复合组件，类型是函数或类组件本身。对于宿主组件（div，span等），类型是字符串。定义此 Fiber 节点的函数或类。对于类组件，它指向构造函数，对于 DOM 元素，它指定 HTML 标记。我经常使用这个字段来理解 Fiber 节点与哪个元素相关。<blockquote>1. ClassComponent对应为函数，如APPContainer()。<br>2. ForwardRef、ContextConsumer、ContextProvider对应为对象，如{$$typeof: Symbol(react.forward_ref), render: ƒ, displayName: "View"}。<br>3. HostComponent对应为字符串，如“RCTView”。<br>4. HostText对应为null。</blockquote>6. memoizedProps：在前一个渲染中用于创建输出的 Fiber 的 props。<br>7. memoizedState：用于创建输出的 Fiber 状态。处理更新时，它会反映当前在屏幕上呈现的状态。<br>8. pendingProps：props是函数的参数。一个 fiber 的pendingProps在执行开始时设置，并在结束时设置memoizedProps。已从 React 元素中的新数据更新并且需要应用于子组件或 DOM 元素的 props。<br>9. updateQueue: state更新队列。状态更新、回调和 DOM 更新的队列。<br>10. firstEffect 、lastEffect 等玩意是用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构。<br>11. effectTag：副作用，增删改操作。<br>12. alternate：在调用render或setState后，会克隆出一个镜像fiber，diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复。workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list。</blockquote></blockquote>
+1.问：明明只写了几个组件，通过React Developer Tools看到的是一堆布局，而且还有Context.Consumer，这些都是干啥的？<br>答：查看View.js源码，发现里面会再次render出Context.Consumer。也就是我们写的<View/>最终生成的树是<blockquote>\<View><blockquote>\<Context.Consumer><br>\</Context.Consumer></blockquote>\</View></blockquote>![](view_render.png)。<br>同样，\<Text>\</Text>对应<blockquote>\<Text><blockquote>\<TouchableText><blockquote>\<Context.Consumer>\</Context.Consumer></blockquote>\</TouchableText></blockquote>\</Text></blockquote>![](text_render.png)<br>我们写的组件其实外面会被包裹一层，比方显示yellowbox提示啥的![](renderApplication.png)
 
+2.问：React的组件和Native看起来好像不是一一对应的，这个映射策略是什么？<br>答：只有HostComponent和HostText会映射到Native View，其他类型不会，只是用于运算和记录状态。<blockquote>1. 我们通过react-devtools看到的reactdom树不是完全的。下面是react-devtools上显示的：![](devtools_react_dom_tree.png)，文本节点没有，实际最外层还有一个HostRoot节点。</blockquote><blockquote>2. reactdom树中只有部分dom节点(宿主节点，对应文本和Native组件)是显示在界面上的，其他的并不展示。Fiber中的tag表示类型，创建NativeView时（createInstance和createTextInstance）的tag是组件唯一标识，从数字3开始累积2生成。</blockquote>![](fiber_tag.png)![](get_fiber_tag.png)![](text_fiber_tag.png)![](allocateTag.png)。
 
-## 生命周期调用
+3.问：Element、Instance、DOM之间关系？<br>答：![](./element_instance_dom_relation.png)![](element_instance_dom.png)![](element_instance_dom2.png)
 
-![](https://shengshuqiang.github.io/assets/生命周期调用.png)
+4.问：都说React有个diffing算法，这个在代码哪里，怎么比较的，文案变了会设计diff算法吗？<br>答：diffing算法在[reconciliation模块](https://zh-hans.reactjs.org/docs/reconciliation.html)里面，对应函数为ChildReconciler。![](reconcileSingleElement.png)，文本节点和数组见reconcileSingleTextNode和reconcileChildrenArray。更多可以参考[React 源码剖析系列 － 不可思议的 react diff](https://zhuanlan.zhihu.com/p/20346379)
+
+5.问：浅比较shouldComponentUpdate说的是什么，到底应该怎么用？<br>答：判断组件是否更新时调用，优先调用shouldComponentUpdate方法，无该该方法是判断是否是纯组件，是则浅比较（判断对象props和state前后是否改变，只对比一级属性是否严格相等===）![](shouldComponentUpdate.png)![](shallowEqual.png)。
+
+6.问：React有棵DOM树，树在哪，怎么看，怎么操作Native的DOM树？<br>答：在我扩展的插件上看。
+
+7.问：setState到底干啥了？<br>答：触发Fiber双树重新diff渲染，具体调用可以使用方法调用树追踪。
+
+8.问：React高效在哪？<br>答：基于优先级的可中断的树遍历算法，且diff算法复杂度O（n）。
+
+9.问：React工作流程？<br>答：文章中有。
+
+10.问：如何关联Native自定义组件？<br>答：这是个好问题，留给读者自行解答。
+
+11.问：Fiber节点数据结构中各属性含义？<br>答：<blockquote>1. return, child, sibling：<br>![](https://pic2.zhimg.com/80/v2-453e1f48a4f53356bee021c90ee00bed_hd.jpg)<br>2. key: 复用标识。<br>3. tag：它在协调算法中用于确定需要完成的工作。如前所述，工作取决于React元素的类型。<br>4. stateNode：保存组件的类实例、DOM 节点或与 Fiber 节点关联的其他 React 元素类型的引用。总的来说，我们可以认为该属性用于保持与一个 Fiber 节点相关联的局部状态。<blockquote>1. HostRoot对应{containerInfo}。<br>2. ClassComponent对应为new的函数对象实例。<br>3. HostComponent对应为ReactNativeFiberHostComponent，包含_children和_nativeTag。<br>4. HostText对应为nativeTag。</blockquote>5. elementType/type: 描述了它对应的组件。对于复合组件，类型是函数或类组件本身。对于宿主组件（div，span等），类型是字符串。定义此 Fiber 节点的函数或类。对于类组件，它指向构造函数，对于 DOM 元素，它指定 HTML 标记。我经常使用这个字段来理解 Fiber 节点与哪个元素相关。<blockquote>1. ClassComponent对应为函数，如APPContainer()。<br>2. ForwardRef、ContextConsumer、ContextProvider对应为对象，如{$$typeof: Symbol(react.forward_ref), render: ƒ, displayName: "View"}。<br>3. HostComponent对应为字符串，如“RCTView”。<br>4. HostText对应为null。</blockquote>6. memoizedProps：在前一个渲染中用于创建输出的 Fiber 的 props。<br>7. memoizedState：用于创建输出的 Fiber 状态。处理更新时，它会反映当前在屏幕上呈现的状态。<br>8. pendingProps：props是函数的参数。一个 fiber 的pendingProps在执行开始时设置，并在结束时设置memoizedProps。已从 React 元素中的新数据更新并且需要应用于子组件或 DOM 元素的 props。<br>9. updateQueue: state更新队列。状态更新、回调和 DOM 更新的队列。<br>10. firstEffect 、lastEffect 等玩意是用来保存中断前后 effect 的状态，用户中断后恢复之前的操作。这个意思还是很迷糊的，因为 Fiber 使用了可中断的架构。<br>11. effectTag：副作用，增删改操作。<br>12. alternate：在调用render或setState后，会克隆出一个镜像fiber，diff产生出的变化会标记在镜像fiber上。而alternate就是链接当前fiber tree和镜像fiber tree, 用于断点恢复。workInProgress tree上每个节点都有一个effect list，用来存放需要更新的内容。此节点更新完毕会向子节点或邻近节点合并 effect list。</blockquote>
 
 ## 高性能实践
 
