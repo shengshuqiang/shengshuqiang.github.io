@@ -1,6 +1,6 @@
-# 进击ReactNative-徐如林-React源码解析
-
-<img style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97-biglogo.png"/><br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是横亘在中间的桥头堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有从入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>啊哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三棵树--**Fiber双树**、**Native View树**、**React方法调用树**，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber算法迷航，日照大海现双龙。
+<!--# 进击ReactNative-徐如林-React源码解析-->
+☞[阅读原文](https://shengshuqiang.github.io/2019/10/21/%E8%BF%9B%E5%87%BBReactNative-%E5%BE%90%E5%A6%82%E6%9E%97-React%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.html)
+<img style="border-radius: 15px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/%E5%BE%90%E5%A6%82%E6%9E%97-biglogo.png" /><br>有的人可能会不理解，大前端平台化的战火为谁而燃，吾辈何以为战？<br>专注于移动互联网大前端致富，一直是我们最崇高的理想，而ReactNative是横亘在中间的桥头堡。<br>纵观行业风向，有作壁上观者，有磨刀霍霍者，有从入门到放弃者，有大刀阔斧者，但是缺乏深潜微操者。<br>啊哈，是时候该我出手了。<br>祭出“**大海航术**”，经过一年来不懈钻研，基于React Developer Tools**研发插件**，实时绘制运行时三棵树--**Fiber双树**、**Native View树**、**React方法调用树**，在上帝视角和时间旅行的引领下，冲破波诡云谲的Fiber算法迷航，日照大海现双龙。
 
 本文主要针对ReactNative（以下简称 RN）的React.js源码进行分析，先说清楚开发者接触到的API，然后再深挖对应底层实现逻辑，最后找找微操的空间。如果有对RN不太熟悉的朋友，建议看一下[《进击ReactNative-疾如风》](https://shengshuqiang.github.io/2019/01/07/%E8%BF%9B%E5%87%BBReactNative-%E7%96%BE%E5%A6%82%E9%A3%8E.html)热热身，该文从“原理+实践，现学现做”的角度手写石器时代RN，粗线条描述跨平台套路，迂回包抄，相对比较轻松！本文则正面刚React源码，略显烧脑。
 
@@ -121,7 +121,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 9. 如何关联Native自定义组件？
 9. Fiber双树是啥？凭什么这么牛？
 
-<img style="width: 30%; height: 30%; border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://pic.pimg.tw/kimdaco/a4fd5caeb15fa7a598011356a0f7909b.jpg"/>
+<img style="width: 30%; height: 30%; border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="http://pic.pimg.tw/kimdaco/a4fd5caeb15fa7a598011356a0f7909b.jpg" />
 
 
 # 追过程
@@ -136,7 +136,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 硬核带货时间，安利一下我的[博客主页](https://shengshuqiang.github.io/)和[微信朋友圈](https://shengshuqiang.github.io/about.html)，我会阶段性将看到的ReactNative优秀文章汇总起来。发盆友圈，我是认真的，停是不可能停下来的，天天上班天天发。欢迎相互切磋，共同进步。
 
-<img style="width: 30%; height: 30%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg"/>
+<img style="width: 30%; height: 30%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg" />
 
 **Fiber架构里程碑**
 
@@ -148,7 +148,7 @@ interface ComponentLifecycle<P, S, SS> extends NewLifecycle<P, S, SS>, Deprecate
 
 **硬核资料：**业界大牛Lin Clark在2017 React大会的演讲[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/av40427580/)。这个内容太棒啦，墙裂建议大家看一看（没有字幕，英文流利的同学可以挑战一下，或者像我一样发挥暴躁的想象力假装听懂了）。网上大部分Fiber算法分析都引用了她的[卡通图](https://shengshuqiang.github.io/assets/LinClark-A_Cartoon_Intro_to_Fiber-React_Conf_2017.zip)。
 
-<a href="https://www.bilibili.com/video/av40427580/"><img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/LinClark-2017-React.png"/></a>
+<a href="https://www.bilibili.com/video/av40427580/"><img style="width: 50%; height: 50%; border-radius: 10px; box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/LinClark-2017-React.png" /></a>
 
 **术语**
 
@@ -322,7 +322,7 @@ UIManager.setChildren	[9,[7]]
 UIManager.setChildren	[1,[9]]
 ```
 
-<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.png"/>
+<img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/Component-Instance-Element-FiberNode.png" />
 
 ## 运行（Playground）
 
@@ -331,7 +331,7 @@ UIManager.setChildren	[1,[9]]
 1. 安装软件：Webstorm（前端开发环境）、AndroidStudio（Android开发环境，送Android模拟器）。
 2. 安装依赖：安装Xcode（iOS开发环境，送iPhone模拟器）就顺带解决了。
 2. 使用 React Native 命令行工具来创建一个名为"AwesomeProject"的新项目：`react-native init AwesomeProject`。
-3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)（页面一个红色按钮，初始显示点击数0，点击切换为“汽车”图标）测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif"/>
+3. 欧了，[简单Demo](https://github.com/shengshuqiang/AdvanceOnReactNative/blob/master/AwesomeProject/App.js)（页面一个红色按钮，初始显示点击数0，点击切换为“汽车”图标）测试一下。该Demo主要用于观察初始渲染和用户点击渲染。<br><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px;padding: 3px" src="https://shengshuqiang.github.io/assets/简单demo.gif" />
 5. 更多配置详见[React Native 中文网-搭建开发环境](https://reactnative.cn/docs/getting-started.html)。
 
 ## 源码
@@ -372,13 +372,13 @@ UIManager.setChildren	[1,[9]]
 
 说了这么多，我也记不住。抽象一下，这不就是在茫茫大海航行的技术么，就叫“**航海术**”吧。
 
-<img style="width: 50%; height: 50%; border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg"/>
+<img style="width: 50%; height: 50%; border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573395220&di=4341e4831d06b5ebf7419b1a421589af&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F69%2F16%2F5be630744b7fb_610.jpg" />
 
 对付简单的算法，这招基本够用，否则就真的钱难挣了。<br>但是，Fiber算法，忒难了。第一个回合硬着头皮看下来，只知道一堆乱七八糟的调用，混杂着各种光怪陆离的Fiber属性，而且用到了复杂的树数据结构，还是双树。
 
 这些，小本子根本记不过来。来张我的笔记感受一下（不用细看，我也没打算讲这张图，大家看个意思），一波操作下来，差不多要2天闭关专注的投入，要是被打断了，都找不到北。
 
-<a href="https://shengshuqiang.github.io/assets/深入ReactNative.xmind"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/ReactNativeRenderer.render.png"/></a>
+<a href="https://shengshuqiang.github.io/assets/深入ReactNative.xmind"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/ReactNativeRenderer.render.png" /></a>
 
 按这个套路，**连**日志**加**调试**带**瞎猜，发现装不下去了，我太难了。一度跌入绝望之谷，挣扎着把源码看了三遍（毕竟指望这一波发财），仍然没什么收获，等着顿悟吧。
 
@@ -388,7 +388,7 @@ UIManager.setChildren	[1,[9]]
 
 脑子再活一点的我就想：“可不可以写个脚本把Fiber双树画出来”，随后的问题就是“能不能写个插件实时绘制运行时Fiber双树”，进一步“绘制实时方法调用树（看着有点像抽象语法树），有问题吗？”能有啥问题，没问题，那就干。
 
-<a href="https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png"/></a>
+<a href="https://shengshuqiang.github.io/assets/DrawFiber/Drawfiber.1.1.html"><img style="border-radius: 10px;box-shadow: darkgrey 0px 0px 10px 5px" src="https://shengshuqiang.github.io/assets/绘制Fiber树Demo.png" /></a>
 
 说到底，“**海航术**”通过日志和调试阅读源码的方向是没有问题的，有问题的是仅通过分析上万条日志信息，过程枯燥乏味，很难通过想象串联这么大量级的信息。如果借助工具提高生产力，可视化图像具象日志信息，那就能攻守易势。特别对于这种抽象的树形结构，没有什么比画图更通俗易懂了。
 
