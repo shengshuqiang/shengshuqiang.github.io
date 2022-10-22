@@ -2,7 +2,7 @@
 {%- include snippets/get-sources.html -%}
 {%- assign _sources = __return -%}
 <script>
-  window.Lazyload.js('{{ _sources.jquery }}', function() {
+  window.Lazyload.js('{{ _sources.jquery }}', function () {
     var $window = $(window);
     var $pageStage = $('.js-page-stage');
     var $pageMain = $('.js-main');
@@ -37,30 +37,30 @@
         var scrollTop = $window.scrollTop();
         if (scrollTop >= asideTop && scrollTop <= scrollBottom) {
           (!force && lastScrollTop >= asideTop && lastScrollTop <= scrollBottom) ||
-          $articleAside.addClass('fixed').css({
-            left: asideLeft + 'px',
-            top: 0
-          });
+            $articleAside.addClass('fixed').css({
+              left: asideLeft + 'px',
+              top: 0
+            });
         } else if (scrollTop < asideTop) {
           (!force && lastScrollTop < asideTop) ||
-          $articleAside.removeClass('fixed').css({
-            left: 0,
-            top: 0
-          });
+            $articleAside.removeClass('fixed').css({
+              left: 0,
+              top: 0
+            });
         } else {
           (!force && lastScrollTop > scrollBottom) ||
-          $articleAside.removeClass('fixed').css({
-            left: 0,
-            top: asideBottomTop + 'px'
-          });
+            $articleAside.removeClass('fixed').css({
+              left: 0,
+              top: asideBottomTop + 'px'
+            });
         }
         lastScrollTop = scrollTop;
       }
       asideSticky() && (init(), setAside());
-      $window.on('scroll', function() {
+      $window.on('scroll', function () {
         asideSticky() && setAside();
       });
-      $window.on('resize', window.throttle(function() {
+      $window.on('resize', window.throttle(function () {
         setTocClass();
         asideSticky() && (init(), setAside(true));
       }, 100));
@@ -70,7 +70,7 @@
       var $tocUl = $('<ul></ul>'), $tocLi, $headings = $articleContent.find('{{ _toc_selectors }}'), headingsTop = [],
         scrolling, activeLast, activeCur, rendered = false;
       function init() {
-        $headings.each(function() {
+        $headings.each(function () {
           headingsTop.push(Math.floor($(this).offset().top));
         });
       }
@@ -94,56 +94,57 @@
       }
       function render() {
         $toc.append($tocUl);
-        $headings.each(function() {
+        $headings.each(function () {
           var $this = $(this);
           $tocUl.append($('<li></li>').addClass('toc-' + $this.prop("tagName").toLowerCase())
             .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
         });
         $tocLi = $tocUl.children('li');
-        $tocUl.on('click', 'a', function(e) {
+        $tocUl.on('click', 'a', function (e) {
           e.preventDefault();
           var $this = $(this);
           scrolling = true;
           setActiveHeading($this.parent());
-          window.scrollTopAnchor($this.attr('href'), function() {
+          window.scrollTopAnchor($this.attr('href'), function () {
             scrolling = false;
           });
         });
         rendered = true;
       }
-      asideSticky() && (render(), $window.on('load', function() {
-        setTimeout(function() {
+      asideSticky() && (render(), $window.on('load', function () {
+        setTimeout(function () {
           init();
           setActiveHeading(null, scrolling);
         }, 1000);
       }));
-      $window.on('resize', window.throttle(function() {
+      $window.on('resize', window.throttle(function () {
         if (asideSticky()) {
           rendered || render();
           init();
           setActiveHeading(null, scrolling);
         }
       }));
-      $window.on('scroll', function() {
+      $window.on('scroll', function () {
         asideSticky() && setActiveHeading(null, scrolling);
       });
     }
     setTocClass();
     toc();
-    setTimeout(function() {
+    setTimeout(function () {
       setAsideTOC();
     }, 1000);
   });
 
   {%- if page.key and site.leancloud.app_id and site.leancloud.app_key and site.leancloud.app_class and jekyll.environment != "development" -%}
-  window.Lazyload.js(['{{ _sources.jquery }}', '{{ _sources.leancloud_js_sdk }}'], function() {
+  window.Lazyload.js(['{{ _sources.jquery }}', '{{ _sources.leancloud_js_sdk }}'], function () {
     AV.init({
       appId: '{{ site.leancloud.app_id }}',
-      appKey: '{{ site.leancloud.app_key }}'
+      appKey: '{{ site.leancloud.app_key }}',
+      serverURL: 'https://shengshuqiang.github.io',
     });
     var query = new AV.Query('{{ site.leancloud.app_class }}');
     query.equalTo('key', '{{ page.key }}');
-    query.first().then(function(result) {
+    query.first().then(function (result) {
       if (result) {
         addOne(result)
       } else {
@@ -152,9 +153,9 @@
         blog.set('title', '{{ page.title }}');
         blog.set('key', '{{ page.key }}');
         blog.set('views', 0);
-        blog.save().then(function(page) {
+        blog.save().then(function (page) {
           addOne(page)
-        }, function(error) {
+        }, function (error) {
           if (error) {
             throw error;
           }
@@ -165,19 +166,19 @@
         page.increment('views', 1);
         page.save(null, {
           fetchWhenSave: true
-        }).then(function(page) {
+        }).then(function (page) {
           $("#post-key-{{ page.key }}").text(page.attributes.views);
-        }, function(error) {
+        }, function (error) {
           if (error) {
             throw error;
           }
         });
       }
-    }, function(error) {
+    }, function (error) {
       if (error) {
         throw error;
       }
     });
   });
-  {%- endif -%}
+  {% - endif -%}
 </script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>keyframes动画</title>
+    <style>
+        @keyframes discolor {
+            0% {
+                transform: translateX(0px);
+            }
+
+            25% {
+                transform: translateX(-100px);
+            }
+
+            50% {
+                transform: translateX(-200px);
+            }
+
+            75% {
+                transform: translateX(-300px);
+            }
+
+            100% {
+                transform: translateX(-400px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; animation: discolor 5s linear infinite;">
+        <div
+            style="width:100px; height:100px; font-size: 32px; line-height: 100px; text-align: center; background:#FF614C;">
+            1</div>
+        <div
+            style="width:100px; height:100px; font-size: 32px; line-height: 100px; text-align: center; background:#BFDC36;">
+            2</div>
+        <div
+            style="width:100px; height:100px; font-size: 32px; line-height: 100px; text-align: center; background:#6E80E6;">
+            3</div>
+    </div>
+</body>
+
+</html>

@@ -9,61 +9,96 @@
     <div
         style="display: flex; align-items: center; height: 50px; font-size: 30px; padding-top: 100px; padding-left: 100px;">
         <input type="checkbox" style="width: 50px; height: 50px;" id="horizontal" checked="true" onchange="refresh()">
-        横向
+        横向排列
         <input type="checkbox" style="width: 50px; height: 50px; margin-left: 50px;" id="overflow-hidden" checked="true"
             onchange="refresh()">
         超出隐藏
-        <div id="count" style="color: #3395d9; width: 200px; margin-left: 50px; text-align: center;"></div>
+        <!-- <div id="count" style="color: #3395d9; width: 200px; margin-left: 50px; text-align: center;"></div> -->
         <button id="plusButton"
-            style="display: inline-block; width: 100px; height: 50px; margin-left: 50px; background-color: #FCB526; color: #3395d9; font-size: 35px;border-radius: 25px;"
-            onclick="plus()">+1</button>
+            style="display: inline-block; width: 300px; height: 80px; margin-left: 50px; background-color: #FCB526; color: #3395d9; font-size: 35px;border-radius: 25px;"
+            onclick="plus()">展位+1</button>
     </div>
     <div id="demoDisplay">
         <div id="demoContainer"></div>
     </div>
 
     <script>
+        // 展位背景色数组，通过取模循环获取
         const palette = ['#863D91', '#F29900', '#F2DE5C', '#F7E9D0', '#B893B6'];
+        // 轮播动画名称
         const ANIM_NAME = 'carousel-anim';
+        // 公共动画参数，确保滚动同步
+        const scrollTime = 0.5;
+        // 展位停留展示时间
+        const displayTime = 2;
+        // 展位高或宽
+        const step = 150;
+        // 展位垂直或水平间隔
+        const blankStep = 30;
 
+        // 展位个数计数
         let count = 0;
+        // 初始化触发plus函数使得展位个数1
         plus();
+
+        // 展位个数+1函数
+        // isHorizontal，是否横向排列，通过单选框选择
+        // isOverflowHidden，是否超出隐藏，通过单选框选择
         function plus(isHorizontal, isOverflowHidden) {
             count++;
-            document.getElementById("count").textContent = `展位数: ${count}`;
-            appendItem(isHorizontal);
+            document.getElementById("plusButton").textContent = `展位数(${count}) ➕1`;
+
+            // 增加创建一个展位element并追加到展位容器
+            appendItem2Container(isHorizontal);
+            // 刷新展位style属性
             refresh();
         }
+
+        // 刷新属性，用于“展位+1”，“横向排列”或“超出隐藏”单选框点击
         function refresh() {
+            // 获取当前“横向排列”和“超出隐藏”属性
             const isHorizontal = document.getElementById("horizontal").checked;
             const isOverflowHidden = document.getElementById("overflow-hidden").checked;
-            const cssInfo = appendKeyFrames(count, isHorizontal, isOverflowHidden);
 
-            let style = `display: flex; width: 160px; height: 160px; margin-left: 420px; margin-top: 120px; padding: 10px; border: 5px dotted black; border-radius: 25px; flex-direction: ${isHorizontal ? 'row' : 'column'};`;
-            if (isOverflowHidden) {
-                style += "overflow: hidden;";
+            let cssInfo = null;
+            // 只有展位个数大于1个才需要轮播
+            if (count > 1) {
+                // 构造动画样式，并且返回CSS字符和动画时间间隔
+                cssInfo = buildKeyFramesAndReturnCSSInfo(isHorizontal, count, step, blankStep, scrollTime, displayTime);
+                if (cssInfo) {
+                    // 将生成的CSS字符追加到DOM树
+                    appendAnimStyle2DOM(cssInfo.cssStr);
+                }
             }
-            document.getElementById("demoDisplay").style = style;
 
+            // 设置展位显示区域样式，固定大小为一个展位，并设置超出是否隐藏
+            document.getElementById("demoDisplay").style = `display: flex; width: 160px; height: 160px; margin-left: 950px; 
+            margin-top: 200px; padding: 10px; border: 5px dotted black; border-radius: 25px; 
+            flex-direction: ${isHorizontal ? 'row' : 'column'}; 
+            ${isOverflowHidden ? 'overflow: hidden;' : 'overflow: visible;'}`;
+
+            // 遍历设置展位样式
             const itemTitleElementList = demoContainer.getElementsByClassName("item");
             for (let index = 0; index < itemTitleElementList.length; index++) {
-                const itemStyle = "width: 150px; height: 150px; background-color: " + getPaletteColor(index % count) + "; text-align: center; line-height: 150px; font-size: 35px; border-radius: 25px; margin-bottom: 30px; margin-right: 30px;" + (isHorizontal ? "flex-shrink: 0;" : "");
-                itemTitleElementList[index].style = itemStyle;
+                const element = itemTitleElementList[index];
+                element.style = `width: 150px; height: 150px; background-color: ${getPaletteColor(index % count)};
+                text-align: center; line-height: 150px; font-size: 35px; border-radius: 25px; margin-bottom: 30px;
+                margin-right: 30px; flex-shrink: 0;}`;
+                element.textContent = (index % count + 1) + '/' + count;
             }
 
-            let demoContainerStyle = `display: flex; flex-shrink: 0; border-radius: 25px; padding: 5px; flex-direction: ${isHorizontal ? 'row' : 'column'};`;
-            if (cssInfo) {
-                appendStyle(cssInfo.cssStr);
-                demoContainerStyle += "animation:" + ANIM_NAME + " " + cssInfo.animDuration + "s linear infinite;";
-            }
-            if (!isOverflowHidden) {
-                demoContainerStyle += "border:1px solid gray;";
-            }
-            document.getElementById("demoContainer").style = demoContainerStyle;
+            // 设置展位容器样式，并添加轮播动画属性
+            document.getElementById("demoContainer").style = `display: flex; flex-shrink: 0; border-radius: 25px; padding: 5px; 
+            flex-direction: ${isHorizontal ? 'row' : 'column'}; ${isOverflowHidden ? '' : 'border:1px solid gray;'}
+            ${cssInfo ? `animation:${ANIM_NAME} ${cssInfo.animDuration}s linear infinite;` : ''}`;
         }
+
+        // 获取内置展位背景色
         function getPaletteColor(index) {
             return palette[index % palette.length];
         }
+
+        // 创建展位element节点
         function createItemElement(isHorizontal, bgColor) {
             const itemDiv = document.createElement("div");
             itemDiv.className = 'item';
@@ -71,61 +106,77 @@
             itemDiv.appendChild(itemTxt);
             return itemDiv;
         }
-        function appendItem(isHorizontal) {
-            const demoContainer = document.getElementById("demoContainer");
-            if (count === 1) {
-                demoContainer.appendChild(createItemElement(isHorizontal));
-            } else if (count === 2) {
-                demoContainer.appendChild(createItemElement(isHorizontal));
-                demoContainer.appendChild(createItemElement(isHorizontal));
-            } else {
-                demoContainer.insertBefore(createItemElement(isHorizontal), demoContainer.lastChild);
-            }
-            const itemTitleElementList = demoContainer.getElementsByClassName("item")
-            for (let index = 0; index < itemTitleElementList.length; index++) {
-                const element = itemTitleElementList[index];
-                element.textContent = (index % count + 1) + '/' + count;
-            }
-        }
-        function appendKeyFrames(count, isHorizontal, isOverflowHidden) {
-            if (count < 2) {
-                return;
-            }
-            // 公共动画参数，确保滚动同步
-            const scrollTime = 0.5;
-            // 停留展示时间
-            const displayTime = 2;
-            // item高或宽
-            const step = 150;
-            // item垂直或水平间隔
-            const blankStep = 30;
 
-            // 构造动画样式，并且返回CSS字符和动画时间间隔
-            return buildKeyFramesAndReturnCSSInfo(isHorizontal, count, step, blankStep, scrollTime, displayTime);
+        // 追加展位节点到展位容器，为了实现循环滚动，在展位数为2时尾部追加新展位1，展位数大于2时在尾部（追加的新展位1）前插入节点
+        function appendItem2Container(isHorizontal) {
+            const demoContainer = document.getElementById("demoContainer");
+            const newItem = createItemElement(isHorizontal)
+            if (count === 1) {
+                demoContainer.appendChild(newItem);
+            } else if (count === 2) {
+                demoContainer.appendChild(newItem);
+                // 新增展位1放在尾部
+                const newItem2 = createItemElement(isHorizontal)
+                demoContainer.appendChild(newItem2);
+            } else {
+                // 在尾部（追加的新展位1）前插入节点
+                demoContainer.insertBefore(newItem, demoContainer.lastChild);
+            }
         }
+
+        // 构建帧动画style信息，返回CSS信息，含动画时长和样式字符串
         function buildKeyFramesAndReturnCSSInfo(isHorizontal, length, step, blankStep, scrollTime, displayTime) {
             const translate = isHorizontal ? 'translateX' : 'translateY';
-            const sumTime = displayTime * length + scrollTime * length;
+            // 总时间
+            const totalTime = displayTime * length + scrollTime * length;
+            // 累计百分比
             let sumPercentage = 0;
-            let sumTop = 0;
+            // 累计偏移
+            let sumOffset = 0;
+            // 帧动画样式，展位数为3时CSS字符示例：
+            /*
+                @keyframes discolor3 {
+                    0% { transform: translateX(0px); }
+
+                    8.25% { transform: translateX(-100px); }
+                    16.5% { transform: translateX(-100px); }
+
+                    24.75% { transform: translateX(-200px); }
+                    33% { transform: translateX(-200px); }
+
+                    41.25% { transform: translateX(-300px); }
+                    49.5% { transform: translateX(-300px); }
+
+                    58.75% { transform: translateX(-400px); }
+                    67% { transform: translateX(-400px); }
+
+                    75.25% { transform: translateX(-500px); }
+                    83.5% { transform: translateX(-500px); }
+
+                    91.75% { transform: translateX(-600px); }
+                    100% { transform: translateX(-600px); }
+                }
+            */
             let cssStr = `@keyframes ${ANIM_NAME}{0%{transform:${translate}(0px);}`;
             for (let index = 0; index < length; index++) {
-                // 禁止展示动画区段
-                sumPercentage += displayTime / sumTime;
-                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumTop.toFixed(2)}px);}`;
+                // 静止展示动画区段
+                sumPercentage += displayTime / totalTime;
+                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumOffset.toFixed(2)}px);}`;
                 // 滚动动画区段
-                sumPercentage += scrollTime / sumTime;
-                sumTop += step + blankStep;
-                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumTop.toFixed(2)}px);}`;
+                sumPercentage += scrollTime / totalTime;
+                sumOffset += step + blankStep;
+                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumOffset.toFixed(2)}px);}`;
             }
             cssStr += '}';
 
             return {
-                animDuration: sumTime,
+                animDuration: totalTime,
                 cssStr,
             };
         };
-        function appendStyle(cssStr) {
+
+        // CSS字符串生成style标签追加到DOM树
+        function appendAnimStyle2DOM(cssStr) {
             // 将CSS样式信息写入dom head节点
             const head = document.head || document.getElementsByTagName('head')[0];
             const style = document.createElement('style');
