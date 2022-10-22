@@ -1,0 +1,144 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>动态CSS轮播动画</title>
+</head>
+
+<body>
+    <div
+        style="display: flex; align-items: center; height: 50px; font-size: 30px; padding-top: 100px; padding-left: 100px;">
+        <input type="checkbox" style="width: 50px; height: 50px;" id="horizontal" checked="true" onchange="refresh()">
+        横向
+        <input type="checkbox" style="width: 50px; height: 50px; margin-left: 50px;" id="overflow-hidden" checked="true"
+            onchange="refresh()">
+        超出隐藏
+        <div id="count" style="color: #3395d9; width: 200px; margin-left: 50px; text-align: center;"></div>
+        <button id="plusButton"
+            style="display: inline-block; width: 100px; height: 50px; margin-left: 50px; background-color: #FCB526; color: #3395d9; font-size: 35px;border-radius: 25px;"
+            onclick="plus()">+1</button>
+    </div>
+    <div id="demoDisplay">
+        <div id="demoContainer"></div>
+    </div>
+
+    <script>
+        const palette = ['#863D91', '#F29900', '#F2DE5C', '#F7E9D0', '#B893B6'];
+        const ANIM_NAME = 'carousel-anim';
+
+        let count = 0;
+        plus();
+        function plus(isHorizontal, isOverflowHidden) {
+            count++;
+            document.getElementById("count").textContent = `展位数: ${count}`;
+            appendItem(isHorizontal);
+            refresh();
+        }
+        function refresh() {
+            const isHorizontal = document.getElementById("horizontal").checked;
+            const isOverflowHidden = document.getElementById("overflow-hidden").checked;
+            const cssInfo = appendKeyFrames(count, isHorizontal, isOverflowHidden);
+
+            let style = `display: flex; width: 160px; height: 160px; margin-left: 420px; margin-top: 120px; padding: 10px; border: 5px dotted black; border-radius: 25px; flex-direction: ${isHorizontal ? 'row' : 'column'};`;
+            if (isOverflowHidden) {
+                style += "overflow: hidden;";
+            }
+            document.getElementById("demoDisplay").style = style;
+
+            const itemTitleElementList = demoContainer.getElementsByClassName("item");
+            for (let index = 0; index < itemTitleElementList.length; index++) {
+                const itemStyle = "width: 150px; height: 150px; background-color: " + getPaletteColor(index % count) + "; text-align: center; line-height: 150px; font-size: 35px; border-radius: 25px; margin-bottom: 30px; margin-right: 30px;" + (isHorizontal ? "flex-shrink: 0;" : "");
+                itemTitleElementList[index].style = itemStyle;
+            }
+
+            let demoContainerStyle = `display: flex; flex-shrink: 0; border-radius: 25px; padding: 5px; flex-direction: ${isHorizontal ? 'row' : 'column'};`;
+            if (cssInfo) {
+                appendStyle(cssInfo.cssStr);
+                demoContainerStyle += "animation:" + ANIM_NAME + " " + cssInfo.animDuration + "s linear infinite;";
+            }
+            if (!isOverflowHidden) {
+                demoContainerStyle += "border:1px solid gray;";
+            }
+            document.getElementById("demoContainer").style = demoContainerStyle;
+        }
+        function getPaletteColor(index) {
+            return palette[index % palette.length];
+        }
+        function createItemElement(isHorizontal, bgColor) {
+            const itemDiv = document.createElement("div");
+            itemDiv.className = 'item';
+            const itemTxt = document.createTextNode('title');
+            itemDiv.appendChild(itemTxt);
+            return itemDiv;
+        }
+        function appendItem(isHorizontal) {
+            const demoContainer = document.getElementById("demoContainer");
+            if (count === 1) {
+                demoContainer.appendChild(createItemElement(isHorizontal));
+            } else if (count === 2) {
+                demoContainer.appendChild(createItemElement(isHorizontal));
+                demoContainer.appendChild(createItemElement(isHorizontal));
+            } else {
+                demoContainer.insertBefore(createItemElement(isHorizontal), demoContainer.lastChild);
+            }
+            const itemTitleElementList = demoContainer.getElementsByClassName("item")
+            for (let index = 0; index < itemTitleElementList.length; index++) {
+                const element = itemTitleElementList[index];
+                element.textContent = (index % count + 1) + '/' + count;
+            }
+        }
+        function appendKeyFrames(count, isHorizontal, isOverflowHidden) {
+            if (count < 2) {
+                return;
+            }
+            // 公共动画参数，确保滚动同步
+            const scrollTime = 0.5;
+            // 停留展示时间
+            const displayTime = 2;
+            // item高或宽
+            const step = 150;
+            // item垂直或水平间隔
+            const blankStep = 30;
+
+            // 构造动画样式，并且返回CSS字符和动画时间间隔
+            return buildKeyFramesAndReturnCSSInfo(isHorizontal, count, step, blankStep, scrollTime, displayTime);
+        }
+        function buildKeyFramesAndReturnCSSInfo(isHorizontal, length, step, blankStep, scrollTime, displayTime) {
+            const translate = isHorizontal ? 'translateX' : 'translateY';
+            const sumTime = displayTime * length + scrollTime * length;
+            let sumPercentage = 0;
+            let sumTop = 0;
+            let cssStr = `@keyframes ${ANIM_NAME}{0%{transform:${translate}(0px);}`;
+            for (let index = 0; index < length; index++) {
+                // 禁止展示动画区段
+                sumPercentage += displayTime / sumTime;
+                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumTop.toFixed(2)}px);}`;
+                // 滚动动画区段
+                sumPercentage += scrollTime / sumTime;
+                sumTop += step + blankStep;
+                cssStr += `${(sumPercentage * 100).toFixed(0)}%{transform:${translate}(-${sumTop.toFixed(2)}px);}`;
+            }
+            cssStr += '}';
+
+            return {
+                animDuration: sumTime,
+                cssStr,
+            };
+        };
+        function appendStyle(cssStr) {
+            // 将CSS样式信息写入dom head节点
+            const head = document.head || document.getElementsByTagName('head')[0];
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            if (style.styleSheet) {
+                style.styleSheet.cssText = cssStr;
+            } else {
+                style.appendChild(document.createTextNode(cssStr));
+            }
+            head.appendChild(style);
+        }
+    </script>
+
+</body>
+
+</html>
