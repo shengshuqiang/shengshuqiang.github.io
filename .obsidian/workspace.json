@@ -1,0 +1,150 @@
+{
+  "main": {
+    "id": "157973fdbf428ddc",
+    "type": "split",
+    "children": [
+      {
+        "id": "90bc08aa3b68c1d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1117615203bf3142",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2022-10-22-动态生成CSS轮播动画.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cf50b2277e224ddb",
+    "type": "split",
+    "children": [
+      {
+        "id": "536dac602ef38020",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bb2b274636a537b7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "758b86deb9e08692",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b7f71ff1c3e5152b",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 523.5
+  },
+  "right": {
+    "id": "06fdafa7f5247f7f",
+    "type": "split",
+    "children": [
+      {
+        "id": "08262f32ee1eb9b3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a3d0c84c465c91a3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "_posts/2022-10-22-动态生成CSS轮播动画.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "40e370e2a6812c11",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "_posts/2022-10-22-动态生成CSS轮播动画.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8074c895287bfae2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "adb25f8d536393e5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "_posts/2022-10-22-动态生成CSS轮播动画.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "1117615203bf3142",
+  "lastOpenFiles": [
+    "_posts/2019-10-21-进击ReactNative-徐如林-React源码解析.md",
+    "_posts/2020-11-22-Android事件分发机制抽象--钓钩模型.md",
+    "_posts/2021-01-17-View 测量算法我知道.md",
+    "_posts/2022-10-26-你需要掌握的 flexbox 优雅布局.md",
+    "Pasted image 20221105082429.png",
+    "assets/css-layout/title-bar.png",
+    "web-icon-follow-like-android-code.png",
+    "web-icon-follow-like-android-code 1.png"
+  ]
+}
