@@ -57,7 +57,7 @@
 
     var level = get_level(headers[0]),
       this_level,
-      html = settings.title + " <" + settings.listType + " class=\"" + settings.classes.list + " style=\"list-style-type: none;\">";
+      html = settings.title + " <" + settings.listType + " class=\"" + settings.classes.list + "\" style=\"list-style-type: none;\">";
     headers.on('click', function () {
       if (!settings.noBackToTopLinks) {
         window.location.hash = this.id;
