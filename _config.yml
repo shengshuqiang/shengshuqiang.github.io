@@ -61,8 +61,8 @@ disqus:
 ## Comment system (gitalk) ##
 # please refer to https://github.com/gitalk/gitalk for more info.
 gitalk:
-   clientID: 8f97e24b1eaf470accac #Github Application Client ID
-   clientSecret: 2230e65280216054cdb5de479ea47146b39f6ee2 #Github Application Client Secret
+   clientID: ef08b550df4bb537eeaf #Github Application Client ID
+   clientSecret: e5a50f55290bdfcc7539efbdd644244ab34d1c71 #Github Application Client Secret
    repository: shengshuqiang.github.io #Github repo
    owner: shengshuqiang #Github repo owner
    admin: shengshuqiang #Github repo owner and collaborators, only these guys can initialize github issues, IT IS A LIST.
