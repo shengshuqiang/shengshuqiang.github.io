@@ -19,5 +19,5 @@ key: page-about
 
 <br>我们期待你的加入。
 <br>简历发送至 shengssu@mail.ustc.edu.cn。
-<br><p align=center><img src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg" width="30%"  /></p>
+<p align=center><img src="https://shengshuqiang.github.io/assets/shengshuqiang-weixin.jpg" width="30%"  /></p>
 
