@@ -158,7 +158,7 @@ bundle exec jekyll serve -H 0.0.0.0
 在 ./\_config.yml 文件 `leancloud` 的 `app_id`、`app_key`、`app_class` 项分别填上你在 [LeanCloud](https://leancloud.cn) 为网站建立的应用的对应参数。
 
 > 注意：使用阅读量统计必须在文章的头信息中设置 key 值（可用字符集：`字母`、`数字` 及 `- _ : .`）。
-> 阅读量显示0问题解决方案：查看 https://docs.leancloud.cn/en/sdk/storage/guide/js/。
+> 阅读量显示0问题解决方案：先看 https://xnxg7j5t.lc-cn-n1-shared.com/1.1/classes/shengshuqiang_blog_pv?where=%7B%22key%22%3A%2220221026%22%7D&limit=1 请求是否发送，没有则看 https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.1/dist/av-live-query-min.js 是否成功，更多查看 https://docs.leancloud.cn/en/sdk/storage/guide/js/。
 
 
 ### Google Analytics
