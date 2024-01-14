@@ -43,7 +43,7 @@ timezone: Asia/Beijing #see https://en.wikipedia.org/wiki/List_of_tz_database_ti
 ## Author & social ##
 author:
   name: 盛书强
-  email: 674329414@qq.com
+  email: shengssu@mail.ustc.edu.cn
   # facebook:  #your Facebook username
   # twitter:  #your Twitter username
   github: shengshuqiang
@@ -64,7 +64,7 @@ disqus:
 # please refer to https://github.com/gitalk/gitalk for more info.
 gitalk:
    clientID: 8f97e24b1eaf470accac #Github Application Client ID
-   clientSecret: c4f93393336be654eb62bb4c1f1694b9b1dc9664 #Github Application Client Secret
+   clientSecret: 2230e65280216054cdb5de479ea47146b39f6ee2 #Github Application Client Secret
    repository: shengshuqiang.github.io #Github repo
    owner: shengshuqiang #Github repo owner
    admin: shengshuqiang #Github repo owner and collaborators, only these guys can initialize github issues, IT IS A LIST.
