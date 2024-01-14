@@ -22,8 +22,6 @@ nav_lists:
   - titles:
       en: About
       zh: 关于
-      zh-Hans: 关于
-      zh-Hant: 關於
     url: /about.html
 
 # paths:
@@ -75,8 +73,9 @@ gitalk:
 
 ## Reading quantity (LeanCloud) ##
 leancloud:
-   app_id: XNxg7j5txa1vlQa9QsV5WeRM-gzGzoHsz #LeanCloud App id
-   app_key: vjctDaJE963GwdUv2goXfpCb #LeanCloud App key
+   app_id: XNxg7j5txa1vlQa9QsV5WeRM-gzGzoHsz #LeanCloud AppID
+   app_key: vjctDaJE963GwdUv2goXfpCb #LeanCloud AppKey
+   master_key: eiexvbT3XiGKsvMW0JlVglhE #LeanCloud MasterKey
    app_class: shengshuqiang_blog_pv #LeanCloud App class
 
 # mathjax: true
