@@ -158,7 +158,7 @@ bundle exec jekyll serve -H 0.0.0.0
 在 ./\_config.yml 文件 `leancloud` 的 `app_id`、`app_key`、`app_class` 项分别填上你在 [LeanCloud](https://leancloud.cn) 为网站建立的应用的对应参数。
 
 > 注意：使用阅读量统计必须在文章的头信息中设置 key 值（可用字符集：`字母`、`数字` 及 `- _ : .`）。
-> 阅读量显示0问题解决方案：初步原因是 https://api.github.com/user 返回 401 Unauthorized，实际原因是 _config.yml 中 clientSecret 过期了，在 https://github.com/settings/applications/699180 中 Client secrets 目录项点击 Generate a new client secret 再复制出来即可（创建时才可以看到）。
+> 阅读量显示0问题解决方案：查看 https://docs.leancloud.cn/en/sdk/storage/guide/js/。
 
 
 ### Google Analytics
