@@ -10,7 +10,7 @@ key: page-about
 
 我是**盛书强**，
 <br>2011届安徽大学软件学士，2014届中国科学与技术大学计算机硕士。
-<br>现就职于[美团点评网](https://campus.meituan.com/about-us/desc)，任小象超市营销前端负责人。
+<br>现就职于[美团点评网](https://campus.meituan.com/about-us/desc)，任[小象超市](https://maicai.meituan.com)营销前端负责人。
 
 ## 联系我
 
