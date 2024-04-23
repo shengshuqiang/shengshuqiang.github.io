@@ -81,7 +81,8 @@
             const itemTitleElementList = demoContainer.getElementsByClassName("item");
             for (let index = 0; index < itemTitleElementList.length; index++) {
                 const element = itemTitleElementList[index];
-                element.style = `width: 150px; height: 150px; background-color: ${getPaletteColor(index % count)};
+                // 自测时发现，动画在ios端运行，每次动画结束下一次动画开始时会闪烁，经过查阅资料并在永健的帮助下，通过给最底层容器（单一弹幕）加 -webkit-backface-visibility: hidden; 和 -webkit-transform: translateZ(0); 解决问题
+                element.style = `-webkit-backface-visibility: hidden; -webkit-transform: translateZ(0); width: 150px; height: 150px; background-color: ${getPaletteColor(index % count)};
                 text-align: center; line-height: 150px; font-size: 35px; border-radius: 25px; margin-bottom: 30px;
                 margin-right: 30px; flex-shrink: 0;}`;
                 element.textContent = (index % count + 1) + '/' + count;
